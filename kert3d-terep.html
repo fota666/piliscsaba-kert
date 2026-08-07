@@ -100,7 +100,7 @@
   <div class="btns">
     <button id="shadow-toggle" data-on>Árnyék</button>
     <button id="berendezes-toggle" data-on>Berendezés</button>
-    <button id="pano-toggle">Panoráma</button>
+    <button id="pano-toggle" data-on>Panoráma</button>
   </div>
 </div>
 
@@ -310,50 +310,52 @@ function panoramaTex() {
   grd.addColorStop(0, '#8CA372'); grd.addColorStop(1, '#5F7350');
   g.fillStyle = grd; g.fillRect(0, HOR, W, H - HOR);
 
-  for (let i = 0; i < 26; i++) {                                  // felhők
-    const cx = rnd() * W, cy = rnd() * HOR * 0.62, w = 180 + rnd() * 420, h = 26 + rnd() * 40;
-    g.fillStyle = 'rgba(255,255,255,' + (0.5 + rnd() * 0.4).toFixed(2) + ')';
-    for (let k = 0; k < 5; k++) {
-      g.beginPath();
-      g.ellipse(cx + (k - 2) * w * 0.22, cy + Math.sin(k) * h * 0.3, w * (0.3 + rnd() * 0.2), h, 0, 0, Math.PI * 2);
-      g.fill();
-    }
-  }
+  // Zónák a látómezőben (a kép közepe = +X = lejtőirány, DK):
+  //   BAL = hegy / magasabb domb · ELÖL = kisebb dombok · JOBB = fák, dombok, 2-3 ház
+  const BAL = 0.25, ELOL = 0.5, JOBB = 0.75;
+  const zw = (u, c, w) => { let d = Math.abs(u - c); d = Math.min(d, 1 - d); return Math.exp(-(d * d) / (2 * w * w)); };
 
-  function ridge(baseY, amp, color, f1, f2, ph) {                 // domblánc
+  function ridge(baseY, ampFn, color, f1, f2, ph) {               // domblánc, zónánként más magassággal
     g.beginPath(); g.moveTo(0, H);
-    for (let x = 0; x <= W; x += 8) {
-      const a = (x / W) * Math.PI * 2;
-      const y = baseY - amp * (Math.sin(a * f1 + ph) * 0.6 + Math.sin(a * f2 + ph * 1.7) * 0.3 + Math.sin(a * 11 + ph) * 0.1);
-      x === 0 ? g.lineTo(0, y) : g.lineTo(x, y);
+    for (let x = 0; x <= W; x += 4) {
+      const u = x / W, a = u * Math.PI * 2;
+      const n = Math.sin(a * f1 + ph) * 0.6 + Math.sin(a * f2 + ph * 1.7) * 0.3 + Math.sin(a * 13 + ph) * 0.1;
+      g.lineTo(x, baseY - ampFn(u) * (0.55 + 0.45 * n));
     }
     g.lineTo(W, H); g.closePath(); g.fillStyle = color; g.fill();
   }
-  ridge(HOR - 4,  46, '#BDCBD2', 3, 5,  0.4);   // messzi, kékes pára
-  ridge(HOR + 10, 38, '#AEBFB0', 4, 7,  1.9);
-  ridge(HOR + 30, 30, '#A2B593', 5, 9,  3.1);   // közelebbi, még mindig halvány
 
-  for (let i = 0; i < 260; i++) {                                 // falu a völgyben
-    const x = W * 0.5 + (rnd() - 0.5) * W * 0.62;
-    const y = HOR + 18 + rnd() * 52, w = 9 + rnd() * 16, h = 5 + rnd() * 8;
-    g.fillStyle = ['#EDE9E0', '#E4DED3', '#DAD4C8'][(rnd() * 3) | 0];
-    g.fillRect(x, y, w, h);
-    g.fillStyle = ['#C08876', '#B07F6C', '#C7907E'][(rnd() * 3) | 0];
-    g.fillRect(x - 1, y - 3, w + 2, 3.5);
+  ridge(HOR + 6, (u) => 26 + 175 * zw(u, BAL, 0.115) + 34 * zw(u, JOBB, 0.16),
+        '#BAC9D2', 3, 5, 0.4);                                    // hegy balra (messzi, kékes)
+  ridge(HOR + 22, (u) => 24 + 62 * zw(u, BAL, 0.17) + 40 * zw(u, JOBB, 0.19),
+        '#AEBFB2', 4, 7, 1.9);                                    // középső dombsor
+  ridge(HOR + 40, (u) => 18 + 20 * zw(u, ELOL, 0.16) + 26 * zw(u, JOBB, 0.22),
+        '#A4B695', 5, 9, 3.1);                                    // elöl alacsony dombok
+
+  for (let i = 0; i < 3; i++) {                                   // 2-3 ház jobbra
+    const u = JOBB + (i - 1) * 0.055 + (rnd() - 0.5) * 0.02;
+    const x = u * W, y = HOR + 62 + rnd() * 26, w = 42 + rnd() * 26, h = 22 + rnd() * 10;
+    g.fillStyle = '#EAE4D8'; g.fillRect(x, y, w, h);
+    g.fillStyle = '#BC8A76';                                      // cseréptető
+    g.beginPath(); g.moveTo(x - 5, y); g.lineTo(x + w + 5, y); g.lineTo(x + w / 2, y - 15); g.closePath(); g.fill();
   }
-  for (let i = 0; i < 420; i++) {                                 // fasor a horizonton
-    const x = rnd() * W, y = HOR + 40 + rnd() * 70, r = 7 + rnd() * 16;
+
+  for (let i = 0; i < 520; i++) {                                 // fasor — jobbra sűrűbb
+    const u = rnd();
+    if (rnd() > 0.30 + 0.70 * zw(u, JOBB, 0.22)) continue;
+    const x = u * W, y = HOR + 46 + rnd() * 78, r = 7 + rnd() * 17;
     g.fillStyle = ['#93A785', '#A0B291', '#899E7C'][(rnd() * 3) | 0];
-    g.beginPath(); g.ellipse(x, y, r, r * 0.8, 0, 0, Math.PI * 2); g.fill();
+    g.beginPath(); g.ellipse(x, y, r, r * 0.82, 0, 0, Math.PI * 2); g.fill();
   }
 
-  // légperspektíva: párás fátyol a horizont körül — ettől hátraugrik a táj,
-  // és a telek élesen elválik tőle
-  const haze = g.createLinearGradient(0, HOR - 90, 0, HOR + 210);
-  haze.addColorStop(0,    'rgba(226,240,247,0.55)');
-  haze.addColorStop(0.28, 'rgba(226,240,247,0.62)');
-  haze.addColorStop(1,    'rgba(226,240,247,0.10)');
-  g.fillStyle = haze; g.fillRect(0, HOR - 90, W, 300);
+  // légperspektíva: lágyan elúszó pára — felül 0 átlátszatlansággal, hogy az ég
+  // egyszínű maradjon és sehol ne legyen éles vonal
+  const haze = g.createLinearGradient(0, HOR - 210, 0, HOR + 230);
+  haze.addColorStop(0,    'rgba(226,240,247,0)');
+  haze.addColorStop(0.42, 'rgba(226,240,247,0.50)');
+  haze.addColorStop(0.55, 'rgba(226,240,247,0.60)');
+  haze.addColorStop(1,    'rgba(226,240,247,0.08)');
+  g.fillStyle = haze; g.fillRect(0, HOR - 210, W, 440);
 
   const t = new THREE.CanvasTexture(c);
   t.colorSpace = THREE.SRGBColorSpace;
@@ -368,6 +370,7 @@ function setPano(on) {
   if (scene.backgroundRotation) scene.backgroundRotation.set(0, Math.PI, 0);  // kép közepe → +X (DK)
   needsShadow = true; render();
 }
+setPano(true);                       // alapból bekapcsolva
 
 /* ---------- növények: a SketchUp-síkok helyett szobor-fák ---------- */
 const SPECIES_FIX = {
