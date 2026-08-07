@@ -372,71 +372,19 @@ function setPano(on) {
 }
 setPano(true);                       // alapból bekapcsolva
 
-/* ---------- növények: a SketchUp-síkok helyett szobor-fák ---------- */
-const SPECIES_FIX = {
-  'diszcseresznye': 'diszcseresznye', 'som-jolico': 'som-jolico', 'ezustfenyo': 'ezustfenyo',
-  'perzsafa-bokor': 'perzsafa-bokor', 'tatar-juhar': 'tatar-juhar',
-  'oszlopos-diszalma': 'oszlopos-diszalma', 'voros-juhar': 'voros-juhar'
-};
-// A régi (SketchUp-eredetű) fajtakulcsok → a kutatott, dedikált kert3d-trees.js kulcsok
-// (ugyanaz mint a kert3d-fajtak showcase). A többi fajta változatlan kulcsot használ.
-const KEY_MAP = {
-  'voros-juhar':       'crimson-snow',          // Vörös juhar 'Crimson King'
-  'diszalma-royalty':  'diszalma-royalty-fa',   // Díszalma 'Royalty'
-  'oszlopos-diszalma': 'oszlopos-diszalma-fa',  // Oszlopos díszalma 'Van Eseltine'
-  'perzsafa-bokor':    'perzsafa-bokorfa',      // Perzsafa (bokor)
-  'som-jolico':        'husos-som',             // Som 'Jolico'
-  'birs':              'birsalma'               // Birs 'Bereczki'
-};
+/* ---------- növények: a fajtát és a pozíciót a SketchUp-modellből vesszük át
+   (manifest.plants), a geometria a mi kert3d-trees.js modelljeink ---------- */
 const LABEL = {
-  'voros-juhar': "Vörös juhar 'Crimson King'", 'tatar-juhar': 'Tatár juhar',
-  'oszlopos-diszalma': "Oszlopos díszalma 'Van Eseltine'", 'diszcseresznye': "Díszcseresznye 'Amanogawa'",
-  'perzsafa-bokor': 'Perzsafa (bokor)', 'ezustfenyo': 'Ezüstfenyő',
-  'som-jolico': "Som 'Jolico'"
+  'crimson-snow': "Vörös juhar 'Crimson King'", 'ezustfenyo': 'Ezüstfenyő',
+  'diszcseresznye': "Díszcseresznye 'Amanogawa'", 'diszalma-royalty-fa': "Díszalma 'Royalty'",
+  'oszlopos-diszalma-fa': "Oszlopos díszalma 'Van Eseltine'", 'birsalma': "Birs 'Bereczki'",
+  'husos-som': "Som 'Jolico'", 'szilva': 'Szilva', 'korte': 'Körte',
+  'perzsafa-bokorfa': 'Perzsafa (bokor)', 'mezalmacska': "Mézalmácska 'Smokey'",
+  'tatar-juhar': 'Tatár juhar', 'naspolya': "Naspolya 'Szentesi rózsa'", 'josta': 'Jósta',
+  'berkenye': "Berkenye 'Granatnaja'", 'fuge': "Füge 'Ronde de Bordeaux'",
+  'egres': "Egres 'Hinnonmäki Yellow'", 'ribizli': 'Ribizli'
 };
-
-// azonos ponton több cutout-sík lehet → pozíció szerint egy marad
-const seen = new Set();
-const PLANTS = manifest.plants.filter(p => {
-  const k = Math.round(p.x * 2) + '|' + Math.round(p.y * 2);
-  if (seen.has(k)) return false;
-  seen.add(k);
-  return SPECIES_FIX[p.species];
-});
-
-// A SketchUp-cutoutok anyagneve nem egyértelmű (egy generíkus sík több fajtához),
-// ezért a fajtát a dokumentált telepenév-táblából, pozíció alapján oldjuk fel.
-const KNOWN = [
-  { x: 0.6,  y: 16.7, species: 'perzsafa-bokor',    label: 'Perzsafa (bokor)' },
-  { x: 25.3, y: 4.2,  species: 'ezustfenyo',        label: 'Ezüstfenyő' },
-  { x: 30.3, y: 4.2,  species: 'ezustfenyo',        label: 'Ezüstfenyő' },
-  { x: 34.6, y: 10.0, species: 'szilva',            label: 'Szilva' },
-  { x: 34.8, y: 2.4,  species: 'korte',             label: 'Körte' },
-  { x: 54.8, y: 1.6,  species: 'voros-juhar',       label: "Vörös juhar 'Crimson King'" },
-  { x: 45.6, y: 7.8,  species: 'tatar-juhar',       label: 'Tatár juhar' },
-  { x: 26.3, y: 9.7,  species: 'diszalma-royalty',  label: "Díszalma 'Royalty'" },
-  { x: 46.3, y: 13.8, species: 'oszlopos-diszalma', label: "Oszlopos díszalma 'Van Eseltine'" },
-  { x: 21.0, y: 13.0, species: 'diszcseresznye',    label: "Díszcseresznye 'Amanogawa'" },
-  { x: 28.6, y: 18.1, species: 'birs',              label: "Birs 'Bereczki'" },
-  { x: 49.8, y: 18.1, species: 'som-jolico',        label: "Som 'Jolico'" }
-];
-// A generíkus cutout-síkok (breadfruit / baringtonia / acacia) több fajtát is jelölhetnek,
-// ezeket pozíció alapján oldjuk fel. A névre egyértelmű anyagok változatlanul maradnak.
-const AMBIGUOUS = new Set(['diszcseresznye', 'perzsafa-bokor', 'som-jolico']);
-function resolveSpecies(p) {
-  let best = null, bestD = Infinity;
-  for (const k of KNOWN) {
-    const d = Math.hypot(k.x - p.x, k.y - p.y);
-    if (d < bestD) { bestD = d; best = k; }
-  }
-  if (!AMBIGUOUS.has(p.species)) {
-    const label = (best && bestD <= 1.0 && best.species === p.species)
-      ? best.label : (LABEL[p.species] || p.species);
-    return { species: p.species, label };
-  }
-  if (best && bestD <= 2.0) return { species: best.species, label: best.label };
-  return { species: p.species, label: LABEL[p.species] || p.species };
-}
+const PLANTS = manifest.plants.filter(p => SPECIES[p.species]);
 
 const plantGroup = new THREE.Group();
 plantGroup.name = 'novenyek';
@@ -449,18 +397,17 @@ function buildPlants(growth) {
   while (plantGroup.children.length) plantGroup.remove(plantGroup.children[0]);
   pickables.length = 0;
   PLANTS.forEach((p, i) => {
-    const res = resolveSpecies(p);
-    const key = KEY_MAP[res.species] || res.species;   // a kutatott, dedikált fajtakulcs
-    const spec = SPECIES[key] || SPECIES[res.species] || SPECIES[p.species];
+    const key = p.species;                 // a manifest már a végleges fajtakulcsot tartalmazza
+    const spec = SPECIES[key];
     const g0 = MEGLEVO.has(key) ? 1 : growth;
     const k = 0.25 + 0.75 * g0;
-    const h = spec.h * k;   // a mi kutatott (fak.md) méretünk a kifejlett fához — nem a SketchUp-terv nyers mérete
+    const h = spec.h * k;   // a mi kutatott (fak.md) méretünk a kifejlett fához — nem a SketchUp nyers mérete
     const d = spec.d * k;
     const raw = makeSpecies(key, { growth: g0, seed: i * 3.7 + 1 });
     raw.rotation.y = (i * 137.5 * Math.PI) / 180;
     const g = flatten(raw, key);
     g.position.set(p.x, p.base, -p.y);
-    g.userData = { ...p, species: key, label: res.label, h: +h.toFixed(1), d: +d.toFixed(1) };
+    g.userData = { ...p, species: key, label: LABEL[key] || key, h: +h.toFixed(1), d: +d.toFixed(1) };
     plantGroup.add(g);
 
     const proxy = new THREE.Mesh(

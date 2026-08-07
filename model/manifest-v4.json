@@ -15,148 +15,132 @@
  },
  "plants": [
   {
-   "species": "diszcseresznye",
-   "x": 0.57,
-   "y": 16.7,
-   "base": 1.84,
-   "h": 6.17,
-   "d": 5.38
+   "species": "perzsafa-bokorfa",
+   "x": 1.21,
+   "y": 16.46,
+   "base": 1.78,
+   "h": 4.98,
+   "d": 6.18
   },
   {
-   "species": "som-jolico",
-   "x": 21.56,
-   "y": 13.42,
-   "base": -2.46,
-   "h": 4.04,
-   "d": 3.18
-  },
-  {
-   "species": "ezustfenyo",
-   "x": 25.24,
-   "y": 4.22,
-   "base": -2.14,
-   "h": 12.2,
-   "d": 7.01
+   "species": "mezalmacska",
+   "x": 1.87,
+   "y": 6.73,
+   "base": 0.01,
+   "h": 4.3,
+   "d": 4.13
   },
   {
    "species": "diszcseresznye",
-   "x": 26.3,
-   "y": 9.69,
-   "base": -1.99,
-   "h": 5.46,
-   "d": 4.76
-  },
-  {
-   "species": "diszcseresznye",
-   "x": 28.56,
-   "y": 18.14,
-   "base": -1.11,
-   "h": 6.17,
-   "d": 5.38
-  },
-  {
-   "species": "ezustfenyo",
-   "x": 30.26,
-   "y": 4.22,
-   "base": -2.45,
-   "h": 12.2,
-   "d": 7.01
-  },
-  {
-   "species": "perzsafa-bokor",
-   "x": 34.57,
-   "y": 10.02,
-   "base": -2.59,
-   "h": 5.63,
-   "d": 5.6
-  },
-  {
-   "species": "diszcseresznye",
-   "x": 34.76,
-   "y": 2.35,
-   "base": -2.3,
-   "h": 2.73,
-   "d": 2.38
-  },
-  {
-   "species": "euonymus",
-   "x": 44.94,
-   "y": 13.89,
-   "base": -4.01,
-   "h": 1.19,
-   "d": 1.32
-  },
-  {
-   "species": "tatar-juhar",
-   "x": 45.61,
-   "y": 7.76,
-   "base": -3.6,
-   "h": 8.62,
-   "d": 8.57
-  },
-  {
-   "species": "perzsafa-bokor",
-   "x": 45.61,
-   "y": 7.76,
-   "base": -3.6,
-   "h": 8.62,
-   "d": 8.57
-  },
-  {
-   "species": "euonymus",
-   "x": 46.18,
-   "y": 13.36,
-   "base": -4.14,
-   "h": 1.19,
-   "d": 1.32
-  },
-  {
-   "species": "oszlopos-diszalma",
-   "x": 46.29,
-   "y": 13.83,
-   "base": -4.66,
-   "h": 7.95,
-   "d": 4.23
-  },
-  {
-   "species": "perzsafa-bokor",
-   "x": 46.29,
-   "y": 13.83,
-   "base": -4.66,
-   "h": 7.95,
-   "d": 4.23
-  },
-  {
-   "species": "euonymus",
-   "x": 48.38,
-   "y": 14.04,
-   "base": -4.32,
-   "h": 1.19,
-   "d": 1.32
-  },
-  {
-   "species": "euonymus",
-   "x": 47.48,
+   "x": 21.46,
    "y": 13.45,
-   "base": -4.24,
-   "h": 1.19,
-   "d": 1.32
+   "base": -1.67,
+   "h": 6.77,
+   "d": 1.98
+  },
+  {
+   "species": "ezustfenyo",
+   "x": 25.7,
+   "y": 4.06,
+   "base": -2.24,
+   "h": 11.45,
+   "d": 5.17
+  },
+  {
+   "species": "diszalma-royalty-fa",
+   "x": 26.56,
+   "y": 9.78,
+   "base": -1.94,
+   "h": 6.68,
+   "d": 5.24
+  },
+  {
+   "species": "birsalma",
+   "x": 29.22,
+   "y": 18.08,
+   "base": -1.21,
+   "h": 4.68,
+   "d": 4.54
+  },
+  {
+   "species": "ezustfenyo",
+   "x": 30.49,
+   "y": 3.25,
+   "base": -2.5,
+   "h": 11.45,
+   "d": 5.17
+  },
+  {
+   "species": "szilva",
+   "x": 34.86,
+   "y": 8.91,
+   "base": -2.25,
+   "h": 5.96,
+   "d": 5.08
+  },
+  {
+   "species": "korte",
+   "x": 34.93,
+   "y": 2.41,
+   "base": -2.27,
+   "h": 2.63,
+   "d": 2.05
   },
   {
    "species": "diszcseresznye",
-   "x": 49.78,
-   "y": 18.14,
-   "base": -3.78,
-   "h": 6.17,
-   "d": 5.38
+   "x": 41.48,
+   "y": 0.76,
+   "base": -3.49,
+   "h": 6.77,
+   "d": 1.98
   },
   {
-   "species": "voros-juhar",
-   "x": 54.8,
-   "y": 1.56,
-   "base": -5.28,
-   "h": 9.25,
-   "d": 9.2
+   "species": "oszlopos-diszalma-fa",
+   "x": 46.31,
+   "y": 13.39,
+   "base": -3.51,
+   "h": 5.04,
+   "d": 2.68
+  },
+  {
+   "species": "ribizli",
+   "x": 47.46,
+   "y": 0.85,
+   "base": -3.62,
+   "h": 1.89,
+   "d": 1.81
+  },
+  {
+   "species": "naspolya",
+   "x": 47.64,
+   "y": 8.27,
+   "base": -3.65,
+   "h": 7.27,
+   "d": 8.44
+  },
+  {
+   "species": "naspolya",
+   "x": 49.66,
+   "y": 1.68,
+   "base": -3.67,
+   "h": 4.33,
+   "d": 5.03
+  },
+  {
+   "species": "husos-som",
+   "x": 49.96,
+   "y": 18.03,
+   "base": -3.77,
+   "h": 5.41,
+   "d": 4.74
+  },
+  {
+   "species": "crimson-snow",
+   "x": 54.94,
+   "y": 2.54,
+   "base": -5.11,
+   "h": 10.31,
+   "d": 6.57
   }
  ],
  "classes": {
