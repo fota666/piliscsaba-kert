@@ -1,0 +1,374 @@
+{
+ "unit": "m",
+ "axis": "dae Z-up (x,y,z) → three (x, z, -y)",
+ "bbox": {
+  "min": [
+   0,
+   0,
+   -5.77
+  ],
+  "max": [
+   59.472,
+   18.6,
+   8.41
+  ]
+ },
+ "plants": [
+  {
+   "species": "diszcseresznye",
+   "x": 0.57,
+   "y": 16.7,
+   "base": 1.84,
+   "h": 6.17,
+   "d": 5.38
+  },
+  {
+   "species": "som-jolico",
+   "x": 21.56,
+   "y": 13.42,
+   "base": -2.46,
+   "h": 4.04,
+   "d": 3.18
+  },
+  {
+   "species": "ezustfenyo",
+   "x": 25.24,
+   "y": 4.22,
+   "base": -2.14,
+   "h": 12.2,
+   "d": 7.01
+  },
+  {
+   "species": "diszcseresznye",
+   "x": 26.3,
+   "y": 9.69,
+   "base": -1.99,
+   "h": 5.46,
+   "d": 4.76
+  },
+  {
+   "species": "diszcseresznye",
+   "x": 28.56,
+   "y": 18.14,
+   "base": -1.11,
+   "h": 6.17,
+   "d": 5.38
+  },
+  {
+   "species": "ezustfenyo",
+   "x": 30.26,
+   "y": 4.22,
+   "base": -2.45,
+   "h": 12.2,
+   "d": 7.01
+  },
+  {
+   "species": "perzsafa-bokor",
+   "x": 34.57,
+   "y": 10.02,
+   "base": -2.59,
+   "h": 5.63,
+   "d": 5.6
+  },
+  {
+   "species": "diszcseresznye",
+   "x": 34.76,
+   "y": 2.35,
+   "base": -2.3,
+   "h": 2.73,
+   "d": 2.38
+  },
+  {
+   "species": "euonymus",
+   "x": 44.94,
+   "y": 13.89,
+   "base": -4.01,
+   "h": 1.19,
+   "d": 1.32
+  },
+  {
+   "species": "tatar-juhar",
+   "x": 45.61,
+   "y": 7.76,
+   "base": -3.6,
+   "h": 8.62,
+   "d": 8.57
+  },
+  {
+   "species": "perzsafa-bokor",
+   "x": 45.61,
+   "y": 7.76,
+   "base": -3.6,
+   "h": 8.62,
+   "d": 8.57
+  },
+  {
+   "species": "euonymus",
+   "x": 46.18,
+   "y": 13.36,
+   "base": -4.14,
+   "h": 1.19,
+   "d": 1.32
+  },
+  {
+   "species": "oszlopos-diszalma",
+   "x": 46.29,
+   "y": 13.83,
+   "base": -4.66,
+   "h": 7.95,
+   "d": 4.23
+  },
+  {
+   "species": "perzsafa-bokor",
+   "x": 46.29,
+   "y": 13.83,
+   "base": -4.66,
+   "h": 7.95,
+   "d": 4.23
+  },
+  {
+   "species": "euonymus",
+   "x": 48.38,
+   "y": 14.04,
+   "base": -4.32,
+   "h": 1.19,
+   "d": 1.32
+  },
+  {
+   "species": "euonymus",
+   "x": 47.48,
+   "y": 13.45,
+   "base": -4.24,
+   "h": 1.19,
+   "d": 1.32
+  },
+  {
+   "species": "diszcseresznye",
+   "x": 49.78,
+   "y": 18.14,
+   "base": -3.78,
+   "h": 6.17,
+   "d": 5.38
+  },
+  {
+   "species": "voros-juhar",
+   "x": 54.8,
+   "y": 1.56,
+   "base": -5.28,
+   "h": 9.25,
+   "d": 9.2
+  }
+ ],
+ "classes": {
+  "terep__groundcover-sand-smooth": {
+   "file": "model/v4-terep__groundcover-sand-smooth.bin",
+   "tris": 32,
+   "color": "#B69465"
+  },
+  "terep__vegetation-grass": {
+   "file": "model/v4-terep__vegetation-grass.bin",
+   "tris": 87,
+   "color": "#899955"
+  },
+  "terep__concrete-block-8x8-gray-1": {
+   "file": "model/v4-terep__concrete-block-8x8-gray-1.bin",
+   "tris": 21,
+   "color": "#9A9B97"
+  },
+  "terep__asphalt-stamped-brick": {
+   "file": "model/v4-terep__asphalt-stamped-brick.bin",
+   "tris": 90,
+   "color": "#747577"
+  },
+  "terep__color-m05": {
+   "file": "model/v4-terep__color-m05.bin",
+   "tris": 60,
+   "color": "#727272"
+  },
+  "terep__concrete-aggregate-smoke": {
+   "file": "model/v4-terep__concrete-aggregate-smoke.bin",
+   "tris": 27,
+   "color": "#9A9694"
+  },
+  "terep__alap": {
+   "file": "model/v4-terep__alap.bin",
+   "tris": 48,
+   "color": "#B9B6AE"
+  },
+  "terep__color-m04": {
+   "file": "model/v4-terep__color-m04.bin",
+   "tris": 4,
+   "color": "#8E8E8E"
+  },
+  "haz__color-m00": {
+   "file": "model/v4-haz__color-m00.bin",
+   "tris": 170,
+   "color": "#FFFFFF"
+  },
+  "beton__blacktop-old-01": {
+   "file": "model/v4-beton__blacktop-old-01.bin",
+   "tris": 122,
+   "color": "#84888B"
+  },
+  "beton__concrete-aggregate-smoke": {
+   "file": "model/v4-beton__concrete-aggregate-smoke.bin",
+   "tris": 69,
+   "color": "#9A9694"
+  },
+  "beton__groundcover-sand-smooth": {
+   "file": "model/v4-beton__groundcover-sand-smooth.bin",
+   "tris": 5,
+   "color": "#B69465"
+  },
+  "beton__concrete-block-8x8-gray-1": {
+   "file": "model/v4-beton__concrete-block-8x8-gray-1.bin",
+   "tris": 2,
+   "color": "#9A9B97"
+  },
+  "beton__color-m05": {
+   "file": "model/v4-beton__color-m05.bin",
+   "tris": 15,
+   "color": "#727272"
+  },
+  "lepcso__color-m05": {
+   "file": "model/v4-lepcso__color-m05.bin",
+   "tris": 69,
+   "color": "#727272"
+  },
+  "szolokapu__color-m07": {
+   "file": "model/v4-szolokapu__color-m07.bin",
+   "tris": 4332,
+   "color": "#3A3A3A"
+  },
+  "szolokapu__color-m09": {
+   "file": "model/v4-szolokapu__color-m09.bin",
+   "tris": 418,
+   "color": "#000000"
+  },
+  "konyha__alap": {
+   "file": "model/v4-konyha__alap.bin",
+   "tris": 218,
+   "color": "#B9B6AE"
+  },
+  "konyha__stone-masonry-multi": {
+   "file": "model/v4-konyha__stone-masonry-multi.bin",
+   "tris": 2,
+   "color": "#B6AFA4"
+  },
+  "konyha__wood-cherry-original": {
+   "file": "model/v4-konyha__wood-cherry-original.bin",
+   "tris": 326,
+   "color": "#98562A"
+  },
+  "konyha__wood-plywood-knots-1": {
+   "file": "model/v4-konyha__wood-plywood-knots-1.bin",
+   "tris": 9514,
+   "color": "#897A29"
+  },
+  "konyha__wood-lumber-buttjoined": {
+   "file": "model/v4-konyha__wood-lumber-buttjoined.bin",
+   "tris": 1938,
+   "color": "#A49870"
+  },
+  "konyha__concrete-aggregate-smoke": {
+   "file": "model/v4-konyha__concrete-aggregate-smoke.bin",
+   "tris": 63,
+   "color": "#9A9694"
+  },
+  "konyha__coolgray3": {
+   "file": "model/v4-konyha__coolgray3.bin",
+   "tris": 8474,
+   "color": "#453F41"
+  },
+  "konyha__asphalt-new": {
+   "file": "model/v4-konyha__asphalt-new.bin",
+   "tris": 50,
+   "color": "#433C3E"
+  },
+  "konyha__color-008": {
+   "file": "model/v4-konyha__color-008.bin",
+   "tris": 1046,
+   "color": "#1E1E1E"
+  },
+  "konyha__4": {
+   "file": "model/v4-konyha__4.bin",
+   "tris": 995,
+   "color": "#FF0000"
+  },
+  "konyha__metal-aluminum-anodized": {
+   "file": "model/v4-konyha__metal-aluminum-anodized.bin",
+   "tris": 634,
+   "color": "#CAD1DB"
+  },
+  "konyha__boholmen-125-50-18": {
+   "file": "model/v4-konyha__boholmen-125-50-18.bin",
+   "tris": 5833,
+   "color": "#EDEDED"
+  },
+  "konyha__fyndig-45-39-16": {
+   "file": "model/v4-konyha__fyndig-45-39-16.bin",
+   "tris": 332,
+   "color": "#D1D1D1"
+  },
+  "kocsibeallo__wood-grain-light": {
+   "file": "model/v4-kocsibeallo__wood-grain-light.bin",
+   "tris": 1535,
+   "color": "#A77328"
+  },
+  "kocsibeallo__alap": {
+   "file": "model/v4-kocsibeallo__alap.bin",
+   "tris": 1086,
+   "color": "#B9B6AE"
+  },
+  "kocsibeallo__ty-gray1": {
+   "file": "model/v4-kocsibeallo__ty-gray1.bin",
+   "tris": 28,
+   "color": "#ACACAC"
+  },
+  "kocsibeallo__asphalt-stamped-brick": {
+   "file": "model/v4-kocsibeallo__asphalt-stamped-brick.bin",
+   "tris": 30,
+   "color": "#747577"
+  },
+  "kocsibeallo__wood-plywood-knots": {
+   "file": "model/v4-kocsibeallo__wood-plywood-knots.bin",
+   "tris": 72,
+   "color": "#897A29"
+  },
+  "kocsibeallo__roofing-metal-standing-seam-red": {
+   "file": "model/v4-kocsibeallo__roofing-metal-standing-seam-red.bin",
+   "tris": 4,
+   "color": "#494C46"
+  },
+  "komposzt__contreplaque-bois": {
+   "file": "model/v4-komposzt__contreplaque-bois.bin",
+   "tris": 1134,
+   "color": "#AE793E"
+  },
+  "komposzt__bardage-horizontal-01": {
+   "file": "model/v4-komposzt__bardage-horizontal-01.bin",
+   "tris": 6024,
+   "color": "#C9B088"
+  },
+  "komposzt__bardage-vertical-01": {
+   "file": "model/v4-komposzt__bardage-vertical-01.bin",
+   "tris": 4,
+   "color": "#C9B189"
+  },
+  "komposzt__metal-corrogated-shiny-1": {
+   "file": "model/v4-komposzt__metal-corrogated-shiny-1.bin",
+   "tris": 140,
+   "color": "#C1C1C1"
+  },
+  "komposzt__contreplaque-bois-vertical": {
+   "file": "model/v4-komposzt__contreplaque-bois-vertical.bin",
+   "tris": 658,
+   "color": "#AD793E"
+  },
+  "komposzt__groundcover-wood-mix": {
+   "file": "model/v4-komposzt__groundcover-wood-mix.bin",
+   "tris": 1558,
+   "color": "#857973"
+  }
+ }
+}

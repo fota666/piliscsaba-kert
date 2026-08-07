@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<title>Piliscsaba · kert — terepasztal</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌳</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.184.0/build/three.module.js",
+    "three/addons/controls/OrbitControls.js": "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js",
+    "three/addons/loaders/GLTFLoader.js": "https://unpkg.com/three@0.184.0/examples/jsm/loaders/GLTFLoader.js"
+  },
+  "integrity": {
+    "https://unpkg.com/three@0.184.0/build/three.module.js": "sha384-8FCZ1eVO6it4+pbec2aDtnTrwjWXZLJRC+MAGCIPDgsYnUrl/E0A2YlF8ioMKI/J",
+    "https://unpkg.com/three@0.184.0/build/three.core.js": "sha384-dw2ooPewaEIrAgl6oFDBmmBWCE9oW9LxRGcfwZ0hLvEprzo202wXl7vCYHRlSnOT",
+    "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js": "sha384-4rziNxOBZKQ69i+w+f89KJ55TCYquwchVbByQwmaOeIOXdOU2PLDn3kOfXHwIJC9",
+    "https://unpkg.com/three@0.184.0/examples/jsm/loaders/GLTFLoader.js": "sha384-3CnKaFWE2emo2DOUQi/yFm4SMemUgSZ9IAJe/V2pyJTw9KXWYSmR0MiX/7RoPyiJ"
+  }
+}
+</script>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #D6BC97;
+    font-family: 'DM Sans', system-ui, sans-serif; color: #4A3C2C; }
+  #app { position: fixed; inset: 0; }
+  canvas { display: block; }
+
+  .hud { position: fixed; z-index: 5; }
+  .title { left: 28px; top: 24px; display: flex; flex-direction: column; gap: 3px; }
+  .title span { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.6; }
+  .title b { font-size: 20px; font-weight: 700; letter-spacing: -0.015em; }
+
+  #loading { left: 50%; top: 50%; transform: translate(-50%, -50%);
+    font-size: 13px; letter-spacing: 0.06em; opacity: 0.7; }
+
+  .bar { left: 50%; bottom: 26px; transform: translateX(-50%);
+    display: flex; flex-wrap: wrap; justify-content: center;
+    align-items: center; gap: 16px 24px; max-width: calc(100vw - 40px);
+    background: rgba(255,252,247,0.84); backdrop-filter: blur(10px);
+    border: 1px solid rgba(120,96,66,0.16); border-radius: 14px; padding: 14px 22px; }
+  .field { display: flex; flex-direction: column; gap: 7px; flex: 1 1 180px; min-width: 140px; max-width: 240px; }
+  .field label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    opacity: 0.55; display: flex; justify-content: space-between; gap: 18px; }
+  .field label i { font-style: normal; font-weight: 700; opacity: 1; font-variant-numeric: tabular-nums; }
+  input[type=range] { -webkit-appearance: none; appearance: none; height: 4px; border-radius: 2px;
+    background: #C4AB87; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 15px; height: 15px;
+    border-radius: 50%; background: #6E8659; border: 2px solid #FFFCF7; cursor: pointer; }
+  .sep { width: 1px; align-self: stretch; min-height: 34px; background: rgba(120,96,66,0.16); }
+  .btns { display: flex; gap: 5px; flex: 0 0 auto; }
+  .btns button { border: 0; background: rgba(120,96,66,0.1); color: #4A3C2C;
+    font: 500 12px/1 'DM Sans', system-ui, sans-serif; padding: 9px 12px; border-radius: 8px; cursor: pointer; }
+  .btns button[data-on] { background: #6E8659; color: #FFFCF7; font-weight: 700; }
+
+  #tip { position: fixed; z-index: 6; pointer-events: none; opacity: 0;
+    transform: translate(-50%, -125%); transition: opacity 110ms ease;
+    background: rgba(255,252,247,0.96); border: 1px solid rgba(120,96,66,0.2);
+    border-radius: 10px; padding: 9px 12px; white-space: nowrap; }
+  #tip b { display: block; font-size: 13px; font-weight: 700; color: #3B3122; }
+  #tip span { font-size: 11px; color: #6B5B45; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<div class="hud title">
+  <span>Telek_1.2 · SketchUp-modellből</span>
+  <b>Piliscsaba · kert</b>
+</div>
+
+<div class="hud" id="loading">Modell betöltése…</div>
+
+<div class="hud bar" id="bar" style="display: none">
+  <div class="field">
+    <label>Hónap <i id="v-month">Július</i></label>
+    <input id="month" type="range" min="1" max="12" step="1" value="7">
+  </div>
+  <div class="field">
+    <label>Óra <i id="v-hour">13:00</i></label>
+    <input id="hour" type="range" min="4" max="21" step="0.25" value="13">
+  </div>
+  <div class="field">
+    <label>Kor <i id="v-growth">kifejlett</i></label>
+    <input id="growth" type="range" min="0" max="100" step="1" value="100">
+  </div>
+  <div class="sep"></div>
+  <div class="btns">
+    <button data-view="terasz" data-on>Terasz</button>
+    <button data-view="madar">Madártávlat</button>
+    <button data-view="felul">Felülnézet</button>
+  </div>
+  <div class="sep"></div>
+  <div class="btns">
+    <button data-view="also">Alsó terasz</button>
+    <button data-view="nappali">Nappali</button>
+    <button data-view="felso">Felső terasz</button>
+  </div>
+  <div class="sep"></div>
+  <div class="btns">
+    <button id="shadow-toggle" data-on>Árnyék</button>
+    <button id="berendezes-toggle" data-on>Berendezés</button>
+    <button id="pano-toggle">Panoráma</button>
+  </div>
+</div>
+
+<div id="tip"><b></b><span></span></div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { makeSpecies, SPECIES, preloadSpeciesModels } from './kert3d-trees.js';
+
+const LAT = 47.64 * Math.PI / 180;
+const LOT_AZIMUTH = 130.8 * Math.PI / 180;
+
+/* ---------- renderer ---------- */
+const app = document.getElementById('app');
+const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.autoUpdate = false;
+app.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#D6BC97');
+
+const camera = new THREE.PerspectiveCamera(60, 1, 0.5, 600);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = false;
+controls.maxPolarAngle = Math.PI * 0.85;
+
+let needsShadow = true, queued = false, rendering = false;
+function render() {
+  if (queued || rendering) return;
+  queued = true;
+  requestAnimationFrame(() => {
+    rendering = true; queued = false;
+    if (needsShadow) { renderer.shadowMap.needsUpdate = true; needsShadow = false; }
+    renderer.render(scene, camera);
+    rendering = false;
+  });
+}
+
+/* ---------- fény ---------- */
+const sun = new THREE.DirectionalLight('#FFF3DF', 2.5);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+Object.assign(sun.shadow.camera, { left: -42, right: 42, top: 42, bottom: -42, near: 1, far: 190 });
+sun.shadow.bias = -0.0007;
+sun.shadow.normalBias = 0.04;
+scene.add(sun, sun.target);
+scene.add(new THREE.HemisphereLight('#DCE9F5', '#C2A57B', 1.2));
+const fill = new THREE.DirectionalLight('#CFE0F0', 0.3);
+fill.position.set(-50, 34, 40);
+scene.add(fill);
+
+/* ---------- anyagpaletta — a te textúráid, a mi stílusunkban ---------- */
+const MAT = {
+  gyep:       new THREE.MeshLambertMaterial({ name: 'gyep', color: '#A9BE83' }),
+  jarda:      new THREE.MeshLambertMaterial({ name: 'térkő', color: '#B0A99D' }),
+  lugasfal:   new THREE.MeshLambertMaterial({ name: 'termeskő', color: '#A2917A' }),
+  lepcso:     new THREE.MeshLambertMaterial({ name: 'beton', color: '#C9C6BE' }),
+  fa:         new THREE.MeshLambertMaterial({ name: 'faszerkezet', color: '#C4A882' }),
+  teto:       new THREE.MeshLambertMaterial({ name: 'teto', color: '#B9AFA2' }),
+  fem:        new THREE.MeshLambertMaterial({ name: 'lugas-fem-fekete', color: '#1B1A18' }),
+  berendezes: new THREE.MeshLambertMaterial({ name: 'berendezes', color: '#DCD6CB' }),
+  tomeg:      new THREE.MeshLambertMaterial({ name: 'epulettomeg', color: '#F7F5F1' }),
+  konyha:     new THREE.MeshLambertMaterial({ name: 'kerti-konyha', color: '#C9B79C' }),
+  beton:      new THREE.MeshLambertMaterial({ name: 'beton-ház-körül', color: '#B9B6AE' }),
+  kocsibeallo:new THREE.MeshLambertMaterial({ name: 'kocsibeallo', color: '#A9855F' }),
+  komposzt:   new THREE.MeshLambertMaterial({ name: 'komposzt', color: '#6B4A32' }),
+  terko:      new THREE.MeshLambertMaterial({ name: 'térkő', color: '#B0A99D' }),
+  tamfal:     new THREE.MeshLambertMaterial({ name: 'tamfal', color: '#A2917A' }),
+  haz:        new THREE.MeshLambertMaterial({ name: 'haz', color: '#F7F5F1' })
+};
+
+/* ---------- eljárásos kő/beton textúra (canvasból, önálló) ---------- */
+function _cv(s){ const c = document.createElement('canvas'); c.width = c.height = s; return c; }
+function _fin(c){ const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy()); return t; }
+function stoneTex(){
+  const s = 512, c = _cv(s), g = c.getContext('2d');
+  g.fillStyle = '#3f3a32'; g.fillRect(0, 0, s, s);                 // sötét fuga (hézag)
+  const cols = ['#9a9284','#8a8276','#b0a897','#7c7468','#6b6459','#a89a80','#918d7b','#7f8a86','#8c6f52'];
+  const cell = 92;
+  for (let gy = -1; gy * cell < s + cell; gy++) {
+    for (let gx = -1; gx * cell < s + cell; gx++) {
+      const cxp = gx*cell + cell*0.5 + (Math.random()-0.5)*cell*0.55;
+      const cyp = gy*cell + cell*0.5 + (Math.random()-0.5)*cell*0.55;
+      const n = 6 + (Math.random()*3|0), rad = cell*(0.52 + Math.random()*0.26);
+      g.beginPath();
+      for (let k = 0; k < n; k++) {
+        const a = (k/n)*Math.PI*2 + (Math.random()-0.5)*0.5, r = rad*(0.72 + Math.random()*0.45);
+        const x = cxp + Math.cos(a)*r, y = cyp + Math.sin(a)*r*0.86;
+        k ? g.lineTo(x, y) : g.moveTo(x, y);
+      }
+      g.closePath(); g.fillStyle = cols[(Math.random()*cols.length)|0]; g.fill();
+      g.save(); g.clip();                                          // relief a kövön belül
+      const rg = g.createRadialGradient(cxp-rad*0.3, cyp-rad*0.38, rad*0.1, cxp, cyp, rad*1.15);
+      rg.addColorStop(0, 'rgba(255,255,255,0.16)'); rg.addColorStop(0.6, 'rgba(0,0,0,0)'); rg.addColorStop(1, 'rgba(0,0,0,0.34)');
+      g.fillStyle = rg; g.fillRect(cxp-rad*1.6, cyp-rad*1.6, rad*3.2, rad*3.2);
+      g.restore();
+    }
+  }
+  return _fin(c);
+}
+function concreteTex(){
+  const s = 512, c = _cv(s), g = c.getContext('2d');
+  g.fillStyle = '#cbc8c0'; g.fillRect(0, 0, s, s);
+  for (let i = 0; i < 48; i++) { const x = Math.random()*s, y = Math.random()*s, r = 18 + Math.random()*80, light = Math.random() < 0.5;
+    const rg = g.createRadialGradient(x, y, 0, x, y, r);
+    rg.addColorStop(0, light ? 'rgba(226,224,216,0.12)' : 'rgba(150,146,137,0.12)'); rg.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = rg; g.fillRect(x-r, y-r, 2*r, 2*r); }
+  const id = g.getImageData(0, 0, s, s), d = id.data;
+  for (let i = 0; i < d.length; i += 4) { const n = (Math.random()*24-12)|0; d[i]+=n; d[i+1]+=n; d[i+2]+=n; }
+  g.putImageData(id, 0, 0);
+  return _fin(c);
+}
+const STONE = stoneTex(), CONCRETE = concreteTex();
+MAT.lugasfal.map = STONE;    MAT.lugasfal.color.set('#ffffff'); MAT.lugasfal.needsUpdate = true;
+MAT.lepcso.map   = CONCRETE; MAT.lepcso.color.set('#ffffff');   MAT.lepcso.needsUpdate = true;
+MAT.jarda.map    = CONCRETE; MAT.jarda.color.set('#ffffff');    MAT.jarda.needsUpdate = true;
+const TILE = { lugasfal: 1.1, lepcso: 1.6, jarda: 1.6 };   // méter / textúra-csempe
+
+/* ---------- modell betöltése ---------- */
+const world = new THREE.Group();
+world.name = 'telek';
+scene.add(world);
+
+const BUILD = Date.now();
+const manifest = await (await fetch('model/manifest-v4.json')).json();
+const { min, max } = manifest.bbox;
+const CX = (min[0] + max[0]) / 2, CY = (min[1] + max[1]) / 2;
+
+// mesh-építő nyers pozíciótömbből; uvMode: null | 'wall'(x,y) | 'ground'(x,z)
+function mkMesh(posArr, mat, uvMode, name) {
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(posArr, 3));
+  geo.computeVertexNormals();
+  if (uvMode) { const t = 1.1, uv = new Float32Array((posArr.length / 3) * 2);
+    for (let i = 0, j = 0; i < posArr.length; i += 3, j += 2) {
+      uv[j] = posArr[i] / t; uv[j + 1] = (uvMode === 'wall' ? posArr[i + 1] : posArr[i + 2]) / t;
+    }
+    geo.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
+  }
+  geo.computeBoundingSphere();
+  const m = new THREE.Mesh(geo, mat); m.name = name || 'mesh';
+  m.castShadow = m.receiveShadow = true; world.add(m); return m;
+}
+
+// DAE Z-up (x, y, z) → three (x, z, −y)
+async function loadClass(cls) {
+  const info = manifest.classes[cls];
+  if (!info) return null;
+  const buf = await (await fetch(info.file)).arrayBuffer();
+  const src = new Float32Array(buf);
+  const pos = new Float32Array(src.length);
+  for (let i = 0; i < src.length; i += 3) {
+    pos[i]     = src[i];
+    pos[i + 1] = src[i + 2];
+    pos[i + 2] = -src[i + 1];
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geo.computeVertexNormals();
+  if (TILE[cls]) {                                   // sík vetítésű UV a kő/beton textúrához
+    const t = TILE[cls], uv = new Float32Array((pos.length / 3) * 2);
+    for (let i = 0, j = 0; i < pos.length; i += 3, j += 2) {
+      if (cls === 'lugasfal') { uv[j] = pos[i] / t; uv[j + 1] = pos[i + 1] / t; }   // fal: x, y(fel)
+      else { uv[j] = pos[i] / t; uv[j + 1] = pos[i + 2] / t; }                       // vízszintes: x, z
+    }
+    geo.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
+  }
+  geo.computeBoundingSphere();
+  // DoubleSide: a SketchUp-lapok normálisai vegyesek, egyoldalas rajzolásnál eltűnnének
+  const mat = info.color
+    ? new THREE.MeshLambertMaterial({ name: cls, color: info.color, side: THREE.DoubleSide })
+    : (MAT[cls] || MAT.tomeg);
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.name = cls;
+  mesh.renderOrder = 0;
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  world.add(mesh);
+  return mesh;
+}
+
+const meshes = {};
+for (const cls of Object.keys(manifest.classes)) {
+  meshes[cls] = await loadClass(cls);
+}
+
+// A terméskő-támfal és a terep-oldalak most már valódi geometriaként jönnek a
+// TELEK_2.0 modellből (terep__* osztályok) — nincs szükség pótlásra és makett-táblára.
+
+/* ---------- panoráma: equirect (lat-long) környezeti háttér, mint Blenderben a World HDRI.
+   A kép közepe a lejtőirányba (+X = DK, Petőfi utca felé) néz — így a lugas balra,
+   a fenyők jobbra esnek, és látszik, mit takarnak ki a fák. ---------- */
+function panoramaTex() {
+  const W = 4096, H = 2048, HOR = H * 0.5;
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const g = c.getContext('2d');
+  let s = 1; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;   // determinisztikus
+
+  g.fillStyle = '#79B7E3'; g.fillRect(0, 0, W, HOR);        // egyszínű kék ég, végig a tetejéig
+
+  const grd = g.createLinearGradient(0, HOR, 0, H);
+  grd.addColorStop(0, '#8CA372'); grd.addColorStop(1, '#5F7350');
+  g.fillStyle = grd; g.fillRect(0, HOR, W, H - HOR);
+
+  for (let i = 0; i < 26; i++) {                                  // felhők
+    const cx = rnd() * W, cy = rnd() * HOR * 0.62, w = 180 + rnd() * 420, h = 26 + rnd() * 40;
+    g.fillStyle = 'rgba(255,255,255,' + (0.5 + rnd() * 0.4).toFixed(2) + ')';
+    for (let k = 0; k < 5; k++) {
+      g.beginPath();
+      g.ellipse(cx + (k - 2) * w * 0.22, cy + Math.sin(k) * h * 0.3, w * (0.3 + rnd() * 0.2), h, 0, 0, Math.PI * 2);
+      g.fill();
+    }
+  }
+
+  function ridge(baseY, amp, color, f1, f2, ph) {                 // domblánc
+    g.beginPath(); g.moveTo(0, H);
+    for (let x = 0; x <= W; x += 8) {
+      const a = (x / W) * Math.PI * 2;
+      const y = baseY - amp * (Math.sin(a * f1 + ph) * 0.6 + Math.sin(a * f2 + ph * 1.7) * 0.3 + Math.sin(a * 11 + ph) * 0.1);
+      x === 0 ? g.lineTo(0, y) : g.lineTo(x, y);
+    }
+    g.lineTo(W, H); g.closePath(); g.fillStyle = color; g.fill();
+  }
+  ridge(HOR - 4,  46, '#BDCBD2', 3, 5,  0.4);   // messzi, kékes pára
+  ridge(HOR + 10, 38, '#AEBFB0', 4, 7,  1.9);
+  ridge(HOR + 30, 30, '#A2B593', 5, 9,  3.1);   // közelebbi, még mindig halvány
+
+  for (let i = 0; i < 260; i++) {                                 // falu a völgyben
+    const x = W * 0.5 + (rnd() - 0.5) * W * 0.62;
+    const y = HOR + 18 + rnd() * 52, w = 9 + rnd() * 16, h = 5 + rnd() * 8;
+    g.fillStyle = ['#EDE9E0', '#E4DED3', '#DAD4C8'][(rnd() * 3) | 0];
+    g.fillRect(x, y, w, h);
+    g.fillStyle = ['#C08876', '#B07F6C', '#C7907E'][(rnd() * 3) | 0];
+    g.fillRect(x - 1, y - 3, w + 2, 3.5);
+  }
+  for (let i = 0; i < 420; i++) {                                 // fasor a horizonton
+    const x = rnd() * W, y = HOR + 40 + rnd() * 70, r = 7 + rnd() * 16;
+    g.fillStyle = ['#93A785', '#A0B291', '#899E7C'][(rnd() * 3) | 0];
+    g.beginPath(); g.ellipse(x, y, r, r * 0.8, 0, 0, Math.PI * 2); g.fill();
+  }
+
+  // légperspektíva: párás fátyol a horizont körül — ettől hátraugrik a táj,
+  // és a telek élesen elválik tőle
+  const haze = g.createLinearGradient(0, HOR - 90, 0, HOR + 210);
+  haze.addColorStop(0,    'rgba(226,240,247,0.55)');
+  haze.addColorStop(0.28, 'rgba(226,240,247,0.62)');
+  haze.addColorStop(1,    'rgba(226,240,247,0.10)');
+  g.fillStyle = haze; g.fillRect(0, HOR - 90, W, 300);
+
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.mapping = THREE.EquirectangularReflectionMapping;
+  return t;
+}
+
+const PANO = panoramaTex();
+const BG_DIORAMA = scene.background;
+function setPano(on) {
+  scene.background = on ? PANO : BG_DIORAMA;
+  if (scene.backgroundRotation) scene.backgroundRotation.set(0, Math.PI, 0);  // kép közepe → +X (DK)
+  needsShadow = true; render();
+}
+
+/* ---------- növények: a SketchUp-síkok helyett szobor-fák ---------- */
+const SPECIES_FIX = {
+  'diszcseresznye': 'diszcseresznye', 'som-jolico': 'som-jolico', 'ezustfenyo': 'ezustfenyo',
+  'perzsafa-bokor': 'perzsafa-bokor', 'tatar-juhar': 'tatar-juhar',
+  'oszlopos-diszalma': 'oszlopos-diszalma', 'voros-juhar': 'voros-juhar'
+};
+// A régi (SketchUp-eredetű) fajtakulcsok → a kutatott, dedikált kert3d-trees.js kulcsok
+// (ugyanaz mint a kert3d-fajtak showcase). A többi fajta változatlan kulcsot használ.
+const KEY_MAP = {
+  'voros-juhar':       'crimson-snow',          // Vörös juhar 'Crimson King'
+  'diszalma-royalty':  'diszalma-royalty-fa',   // Díszalma 'Royalty'
+  'oszlopos-diszalma': 'oszlopos-diszalma-fa',  // Oszlopos díszalma 'Van Eseltine'
+  'perzsafa-bokor':    'perzsafa-bokorfa',      // Perzsafa (bokor)
+  'som-jolico':        'husos-som',             // Som 'Jolico'
+  'birs':              'birsalma'               // Birs 'Bereczki'
+};
+const LABEL = {
+  'voros-juhar': "Vörös juhar 'Crimson King'", 'tatar-juhar': 'Tatár juhar',
+  'oszlopos-diszalma': "Oszlopos díszalma 'Van Eseltine'", 'diszcseresznye': "Díszcseresznye 'Amanogawa'",
+  'perzsafa-bokor': 'Perzsafa (bokor)', 'ezustfenyo': 'Ezüstfenyő',
+  'som-jolico': "Som 'Jolico'"
+};
+
+// azonos ponton több cutout-sík lehet → pozíció szerint egy marad
+const seen = new Set();
+const PLANTS = manifest.plants.filter(p => {
+  const k = Math.round(p.x * 2) + '|' + Math.round(p.y * 2);
+  if (seen.has(k)) return false;
+  seen.add(k);
+  return SPECIES_FIX[p.species];
+});
+
+// A SketchUp-cutoutok anyagneve nem egyértelmű (egy generíkus sík több fajtához),
+// ezért a fajtát a dokumentált telepenév-táblából, pozíció alapján oldjuk fel.
+const KNOWN = [
+  { x: 0.6,  y: 16.7, species: 'perzsafa-bokor',    label: 'Perzsafa (bokor)' },
+  { x: 25.3, y: 4.2,  species: 'ezustfenyo',        label: 'Ezüstfenyő' },
+  { x: 30.3, y: 4.2,  species: 'ezustfenyo',        label: 'Ezüstfenyő' },
+  { x: 34.6, y: 10.0, species: 'szilva',            label: 'Szilva' },
+  { x: 34.8, y: 2.4,  species: 'korte',             label: 'Körte' },
+  { x: 54.8, y: 1.6,  species: 'voros-juhar',       label: "Vörös juhar 'Crimson King'" },
+  { x: 45.6, y: 7.8,  species: 'tatar-juhar',       label: 'Tatár juhar' },
+  { x: 26.3, y: 9.7,  species: 'diszalma-royalty',  label: "Díszalma 'Royalty'" },
+  { x: 46.3, y: 13.8, species: 'oszlopos-diszalma', label: "Oszlopos díszalma 'Van Eseltine'" },
+  { x: 21.0, y: 13.0, species: 'diszcseresznye',    label: "Díszcseresznye 'Amanogawa'" },
+  { x: 28.6, y: 18.1, species: 'birs',              label: "Birs 'Bereczki'" },
+  { x: 49.8, y: 18.1, species: 'som-jolico',        label: "Som 'Jolico'" }
+];
+// A generíkus cutout-síkok (breadfruit / baringtonia / acacia) több fajtát is jelölhetnek,
+// ezeket pozíció alapján oldjuk fel. A névre egyértelmű anyagok változatlanul maradnak.
+const AMBIGUOUS = new Set(['diszcseresznye', 'perzsafa-bokor', 'som-jolico']);
+function resolveSpecies(p) {
+  let best = null, bestD = Infinity;
+  for (const k of KNOWN) {
+    const d = Math.hypot(k.x - p.x, k.y - p.y);
+    if (d < bestD) { bestD = d; best = k; }
+  }
+  if (!AMBIGUOUS.has(p.species)) {
+    const label = (best && bestD <= 1.0 && best.species === p.species)
+      ? best.label : (LABEL[p.species] || p.species);
+    return { species: p.species, label };
+  }
+  if (best && bestD <= 2.0) return { species: best.species, label: best.label };
+  return { species: p.species, label: LABEL[p.species] || p.species };
+}
+
+const plantGroup = new THREE.Group();
+plantGroup.name = 'novenyek';
+world.add(plantGroup);
+const pickables = [];
+
+const MEGLEVO = new Set(['korte', 'szilva', 'ezustfenyo']);   // már megvan, kifejlett — a kor-csúszka nem érinti
+
+function buildPlants(growth) {
+  while (plantGroup.children.length) plantGroup.remove(plantGroup.children[0]);
+  pickables.length = 0;
+  PLANTS.forEach((p, i) => {
+    const res = resolveSpecies(p);
+    const key = KEY_MAP[res.species] || res.species;   // a kutatott, dedikált fajtakulcs
+    const spec = SPECIES[key] || SPECIES[res.species] || SPECIES[p.species];
+    const g0 = MEGLEVO.has(key) ? 1 : growth;
+    const k = 0.25 + 0.75 * g0;
+    const h = spec.h * k;   // a mi kutatott (fak.md) méretünk a kifejlett fához — nem a SketchUp-terv nyers mérete
+    const d = spec.d * k;
+    const raw = makeSpecies(key, { growth: g0, seed: i * 3.7 + 1 });
+    raw.rotation.y = (i * 137.5 * Math.PI) / 180;
+    const g = flatten(raw, key);
+    g.position.set(p.x, p.base, -p.y);
+    g.userData = { ...p, species: key, label: res.label, h: +h.toFixed(1), d: +d.toFixed(1) };
+    plantGroup.add(g);
+
+    const proxy = new THREE.Mesh(
+      new THREE.SphereGeometry(Math.max(d, h * 0.5) * 0.5, 7, 5),
+      new THREE.MeshBasicMaterial({ visible: false })
+    );
+    proxy.position.set(p.x, p.base + h * 0.55, -p.y);
+    proxy.userData = g.userData;
+    plantGroup.add(proxy);
+    pickables.push(proxy);
+  });
+  needsShadow = true;
+  render();
+}
+
+function flatten(group, name) {
+  group.updateMatrixWorld(true);
+  const byMat = new Map();
+  group.traverse((o) => {
+    if (!o.isMesh) return;
+    const key = o.material.uuid;
+    if (!byMat.has(key)) byMat.set(key, { mat: o.material, geos: [] });
+    const g = o.geometry.index ? o.geometry.toNonIndexed() : o.geometry.clone();
+    g.applyMatrix4(o.matrixWorld);
+    byMat.get(key).geos.push(g);
+  });
+  const out = new THREE.Group();
+  out.name = name;
+  byMat.forEach(({ mat, geos }) => {
+    let total = 0;
+    geos.forEach(g => total += g.attributes.position.count);
+    const pos = new Float32Array(total * 3), nor = new Float32Array(total * 3);
+    let off = 0;
+    geos.forEach(g => {
+      pos.set(g.attributes.position.array, off * 3);
+      if (g.attributes.normal) nor.set(g.attributes.normal.array, off * 3);
+      off += g.attributes.position.count;
+      g.dispose();
+    });
+    const merged = new THREE.BufferGeometry();
+    merged.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    merged.setAttribute('normal', new THREE.BufferAttribute(nor, 3));
+    merged.computeBoundingSphere();
+    const m = new THREE.Mesh(merged, mat);
+    m.name = name + '-' + mat.name;
+    m.castShadow = true; m.receiveShadow = true;
+    out.add(m);
+  });
+  return out;
+}
+await preloadSpeciesModels();   // GLB-alapú fajták (ezüstfenyő) betöltése az első fa-építés előtt
+buildPlants(1);
+
+/* ---------- napállás ---------- */
+function applySun(month, hour) {
+  const doy = Math.round((month - 0.5) * 30.44);
+  const decl = (23.44 * Math.PI / 180) * Math.sin((2 * Math.PI * (284 + doy)) / 365);
+  const H = ((hour - 13) * 15 * Math.PI) / 180;
+  const alt = Math.asin(Math.sin(LAT) * Math.sin(decl) + Math.cos(LAT) * Math.cos(decl) * Math.cos(H));
+  let az = Math.atan2(Math.sin(H), Math.cos(H) * Math.sin(LAT) - Math.tan(decl) * Math.cos(LAT)) + Math.PI;
+  const a = Math.max(alt, 0.04), rel = az - LOT_AZIMUTH, R = 95;
+  const hxz = Math.cos(a) * R;
+  sun.position.set(CX + Math.cos(rel) * hxz, Math.sin(a) * R + 2, -CY + Math.sin(rel) * hxz);
+  sun.target.position.set(CX, min[2] + 2, -CY);
+  sun.target.updateMatrixWorld();
+  const dusk = THREE.MathUtils.clamp(alt / 0.5, 0, 1);
+  sun.intensity = 0.3 + 2.3 * dusk;
+  sun.color.setHSL(0.09 - 0.03 * dusk, 0.55 - 0.35 * dusk, 0.55 + 0.35 * dusk);
+  needsShadow = true;
+}
+
+/* ---------- nézetek ---------- */
+function fv(eye, look) {                          // fix nézőpont: álló kamera + körbenézés
+  const e = new THREE.Vector3(...eye), l = new THREE.Vector3(...look);
+  const t = e.clone().add(l.clone().sub(e).normalize().multiplyScalar(0.25));
+  return { pos: eye, target: [t.x, t.y, t.z], fixed: true };
+}
+const VIEWS = {
+  terasz: { pos: [-16, 10, 16], target: [24, -1, -9] },
+  madar:  { pos: [-6, 48, 40], target: [30, -2, -9] },
+  felul:  { pos: [29.7, 86, -9.2], target: [29.7, -2, -9.3] },
+  also:    fv([17.2, 2.4, -3.8], [46, -3, -4]),
+  nappali: fv([16.8, 2.9, -9.5], [46, -1, -10]),
+  felso:   fv([16.2, 4.8, -6.5], [48, -3, -8])
+};
+function applyMode(fixed) {
+  controls.enableZoom = !fixed; controls.enablePan = !fixed;
+  controls.minDistance = fixed ? 0.25 : 0;
+  controls.maxDistance = fixed ? 0.25 : 600;
+  controls.update();
+}
+let camAnim = null;
+function goView(name) {
+  const v = VIEWS[name];
+  applyMode(false);                              // anim alatt szabad; a végén rögzítjük
+  camAnim = { t: 0, from: camera.position.clone(), to: new THREE.Vector3(...v.pos),
+    fromT: controls.target.clone(), toT: new THREE.Vector3(...v.target), fixed: !!v.fixed };
+  document.querySelectorAll('.btns button[data-view]').forEach(b =>
+    b.toggleAttribute('data-on', b.dataset.view === name));
+}
+function tick() {
+  if (!camAnim) return;
+  camAnim.t = Math.min(1, camAnim.t + 0.08);
+  const e = 1 - Math.pow(1 - camAnim.t, 3);
+  camera.position.lerpVectors(camAnim.from, camAnim.to, e);
+  controls.target.lerpVectors(camAnim.fromT, camAnim.toT, e);
+  const done = camAnim.t >= 1, fx = camAnim.fixed;
+  if (done) camAnim = null;
+  rendering = true;
+  controls.update();
+  renderer.render(scene, camera);
+  rendering = false;
+  if (done) applyMode(fx);
+  else requestAnimationFrame(tick);
+}
+camera.position.set(...VIEWS.terasz.pos);
+controls.target.set(...VIEWS.terasz.target);
+controls.update();
+controls.addEventListener('change', render);
+document.querySelectorAll('.btns button[data-view]').forEach(b =>
+  b.addEventListener('click', () => { goView(b.dataset.view); tick(); }));
+
+document.getElementById('shadow-toggle').addEventListener('click', (e) => {
+  const on = !renderer.shadowMap.enabled;
+  renderer.shadowMap.enabled = on;
+  e.currentTarget.toggleAttribute('data-on', on);
+  scene.traverse(o => { if (o.isMesh) o.material.needsUpdate = true; });
+  needsShadow = true;
+  render();
+});
+// berendezés = konyha + kocsibeálló + komposzt (minden material-alosztályukkal)
+const BUTOR = Object.keys(meshes).filter((c) => /^(konyha|kocsibeallo|komposzt)__/.test(c));
+document.getElementById('pano-toggle').addEventListener('click', (e) => {
+  const on = !e.currentTarget.hasAttribute('data-on');
+  e.currentTarget.toggleAttribute('data-on', on);
+  setPano(on);
+});
+document.getElementById('berendezes-toggle').addEventListener('click', (e) => {
+  const on = !(meshes[BUTOR[0]] && meshes[BUTOR[0]].visible);
+  BUTOR.forEach((c) => { if (meshes[c]) meshes[c].visible = on; });
+  e.currentTarget.toggleAttribute('data-on', on);
+  needsShadow = true;
+  render();
+});
+
+/* ---------- csúszkák ---------- */
+const MONTHS = ['Január','Február','Március','Április','Május','Június','Július','Augusztus','Szeptember','Október','November','December'];
+const el = { month: document.getElementById('month'), hour: document.getElementById('hour'), growth: document.getElementById('growth') };
+const out = { month: document.getElementById('v-month'), hour: document.getElementById('v-hour'), growth: document.getElementById('v-growth') };
+function refresh() {
+  const m = +el.month.value, h = +el.hour.value;
+  out.month.textContent = MONTHS[m - 1];
+  out.hour.textContent = String(Math.floor(h)).padStart(2, '0') + ':' + String(Math.round((h % 1) * 60)).padStart(2, '0');
+  applySun(m, h);
+  render();
+}
+el.month.addEventListener('input', refresh);
+el.hour.addEventListener('input', refresh);
+el.growth.addEventListener('input', () => {
+  const g = +el.growth.value / 100;
+  out.growth.textContent = g >= 0.99 ? 'kifejlett' : Math.round(2 + g * 23) + ' év';
+  buildPlants(Math.max(g, 0.08));
+});
+refresh();
+
+/* ---------- hover ---------- */
+const tip = document.getElementById('tip');
+const ray = new THREE.Raycaster();
+const ptr = new THREE.Vector2();
+let hoverQueued = false, lastPointer = null;
+addEventListener('pointermove', (e) => {
+  lastPointer = { x: e.clientX, y: e.clientY };
+  if (hoverQueued) return;
+  hoverQueued = true;
+  requestAnimationFrame(() => {
+    hoverQueued = false;
+    const pt = lastPointer;
+    ptr.x = (pt.x / innerWidth) * 2 - 1;
+    ptr.y = -(pt.y / innerHeight) * 2 + 1;
+    ray.setFromCamera(ptr, camera);
+    const hit = ray.intersectObjects(pickables, false)[0];
+    if (!hit) { tip.style.opacity = 0; return; }
+    const d = hit.object.userData;
+    tip.querySelector('b').textContent = d.label;
+    tip.querySelector('span').textContent = `${d.h} m × ⌀ ${d.d} m · X ${d.x} / Y ${d.y}`;
+    tip.style.left = pt.x + 'px';
+    tip.style.top = pt.y + 'px';
+    tip.style.opacity = 1;
+  });
+});
+
+/* ---------- indulás ---------- */
+function resize() {
+  const w = innerWidth, h = innerHeight;
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h);
+  render();
+}
+addEventListener('resize', resize);
+resize();
+
+document.getElementById('loading').style.display = 'none';
+document.getElementById('bar').style.display = 'flex';
+render();
+
+window.__scene = { scene, camera, world, plantGroup, sun, renderer, manifest, PLANTS };
+</script>
+</body>
+</html>
