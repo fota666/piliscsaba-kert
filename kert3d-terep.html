@@ -451,7 +451,10 @@ function applySeason(month) {
   plantGroup.children.forEach((g) => {
     if (g.type !== 'Group') return;
     const sp = g.userData.species, f = PHENO[sp] || {};
-    const leaf = leafState(sp, month);
+    // akinek saját évszak-modellje van, annak a lombszínét/lombhullását a modell hordozza —
+    // csak a virág/termés időzítését tesszük rá (a nyári alapmodellbe be van sütve a virág)
+    const sajatEvszak = !!(SPECIES[sp] && SPECIES[sp].seasons);
+    const leaf = sajatEvszak ? { van: true, szin: null } : leafState(sp, month);
     const virag = f.virag && inWindow(month, f.virag[0], f.virag[1]);
     const termes = f.termes && inWindow(month, f.termes[0], f.termes[1]);
     g.traverse((o) => {

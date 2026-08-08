@@ -138,13 +138,16 @@ export function makeTree(type, { h, d, seed = 1, name } = {}) {
 /** Fajta → forma ajánlás a piliscsabai listához. */
 export const SPECIES = {
   'ezustfenyo':        { type: 'model', model: './model/ezustfenyo.glb', h: 12, d: 5, color: '#95ABAC' },
-  'szilva':            { type: 'model', model: './model/szilva.glb', h: 6,   d: 5   },
-  'korte':             { type: 'model', model: './model/korte.glb',  h: 2.6, d: 2.1 },
+  'szilva':            { type: 'model', model: './model/szilva.glb', h: 6, d: 5, seasons: { tavasz: './model/seasons/szilva-tavasz.glb', nyar: './model/szilva.glb',
+                                        osz: './model/seasons/szilva-osz.glb', tel: './model/seasons/szilva-tel.glb' } },
+  'korte':             { type: 'model', model: './model/korte.glb', h: 2.6, d: 2.1, seasons: { tavasz: './model/seasons/korte-tavasz.glb', nyar: './model/korte.glb',
+                                        osz: './model/seasons/korte-osz.glb', tel: './model/seasons/korte-tel.glb' } },
   'voros-juhar':       { type: 'tomor',       h: 13,  d: 9   },
   'tatar-juhar':       { type: 'tomor',       h: 6,   d: 6   },
   'diszalma-royalty':  { type: 'tomor',       h: 5,   d: 4.5 },
   'oszlopos-diszalma': { type: 'gyurus',      h: 5,   d: 2.6 },
-  'diszcseresznye':    { type: 'model', model: './model/amanogawa.glb', h: 5, d: 1.5 },  // 'Amanogawa' (oszlopos)
+  'diszcseresznye':    { type: 'model', model: './model/amanogawa.glb', h: 5, d: 1.5, seasons: { tavasz: './model/seasons/amanogawa-tavasz.glb', nyar: './model/amanogawa.glb',
+                                        osz: './model/seasons/amanogawa-osz.glb', tel: './model/seasons/amanogawa-tel.glb' } },  // 'Amanogawa' (oszlopos)
   'perzsafa-bokor':    { type: 'cserje',      h: 5,   d: 6   },
   'birs':              { type: 'tomor',       h: 4,   d: 3.5 },
   'som-jolico':        { type: 'tomor',       h: 5,   d: 4   },
@@ -153,7 +156,8 @@ export const SPECIES = {
   /* — fajtatervek: valódi exportált GLB-sablonok (fak.md, piliscsabai lista). A szín a modell
      saját, kutatott materialneveiben van besütve (lomb-bordo, lomb-fuge stb.) — itt nincs felülírás. */
   'crimson-snow':          { type: 'model', model: './model/crimson-snow.glb',          h: 13,  d: 9   },  // Vörös juhar 'Crimson King'
-  'diszalma-royalty-fa':   { type: 'model', model: './model/diszalma-royalty-fa.glb',    h: 4,   d: 4   },  // Díszalma 'Royalty'
+  'diszalma-royalty-fa':   { type: 'model', model: './model/diszalma-royalty-fa.glb', h: 4, d: 4, seasons: { tavasz: './model/seasons/diszalma-royalty-fa-tavasz.glb', nyar: './model/diszalma-royalty-fa.glb',
+                                        osz: './model/seasons/diszalma-royalty-fa-osz.glb', tel: './model/seasons/diszalma-royalty-fa-tel.glb' } },  // Díszalma 'Royalty'
   'berkenye':              { type: 'model', model: './model/berkenye.glb',               h: 3.5, d: 3   },  // Berkenye 'Granatnaja'
   'fuge':                  { type: 'model', model: './model/fuge.glb',                   h: 3.5, d: 4.5 },  // Füge 'Ronde de Bordeaux'
   'perzsafa-bokorfa':      { type: 'model', model: './model/perzsafa-bokorfa.glb',       h: 5,   d: 6   },  // Perzsafa (bokor)
@@ -161,7 +165,8 @@ export const SPECIES = {
   'oszlopos-diszalma-fa':  { type: 'model', model: './model/oszlopos-diszalma-fa.glb',    h: 5,   d: 2.6 },  // Oszlopos díszalma 'Van Eseltine'
   'husos-som':             { type: 'model', model: './model/husos-som.glb',              h: 5,   d: 4   },  // Som 'Jolico'
   'birsalma':              { type: 'model', model: './model/birsalma.glb',               h: 4,   d: 3.5 },  // Birs 'Bereczki'
-  'mezalmacska':           { type: 'model', model: './model/mezalmacska.glb',            h: 3.5, d: 3   },  // Mézalmácska 'Smokey'
+  'mezalmacska':           { type: 'model', model: './model/mezalmacska.glb', h: 3.5, d: 3, seasons: { tavasz: './model/seasons/mezalmacska-tavasz.glb', nyar: './model/mezalmacska.glb',
+                                        osz: './model/seasons/mezalmacska-osz.glb', tel: './model/seasons/mezalmacska-tel.glb' } },  // Mézalmácska 'Smokey'
   'josta':                 { type: 'model', model: './model/josta.glb',                  h: 1.8, d: 1.8 },  // Jósta
   'egres':                 { type: 'model', model: './model/egres.glb',                  h: 1.2, d: 1.2 },  // Egres 'Hinnonmäki Yellow'
   'ribizli':               { type: 'model', model: './model/ribizli.glb',                h: 1.4, d: 1.4 },  // Ribizli
