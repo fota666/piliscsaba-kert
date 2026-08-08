@@ -153,7 +153,7 @@ export const SPECIES = {
   'husos-som':             { type: 'model', model: './model/husos-som.glb',           h: 5,   d: 4,   sez: 'husos-som' },             // Som 'Jolico'
   'birsalma':              { type: 'model', model: './model/birsalma.glb',            h: 4,   d: 3.5, sez: 'birsalma' },              // Birs 'Bereczki'
   'mezalmacska':           { type: 'model', model: './model/mezalmacska.glb',         h: 3.5, d: 3,   sez: 'mezalmacska' },           // Mézalmácska 'Smokey'
-  'acer-buergerianum':     { type: 'model', model: './model/seasons/acer-buergerianum.glb', h: 9, d: 7, sez: 'acer-buergerianum' },   // Háromerű juhar
+  'acer-buergerianum':     { type: 'model', model: './model/seasons/acer-buergerianum.glb', h: 8, d: 7, sez: 'acer-buergerianum' },   // Háromerű juhar
 
   /* — évszakos szett nélkül (a fenológiai tábla színezi őket) — */
   'berkenye':              { type: 'model', model: './model/berkenye.glb',            h: 3.5, d: 3   },  // Berkenye 'Granatnaja'
