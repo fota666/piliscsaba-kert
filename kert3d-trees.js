@@ -165,6 +165,12 @@ export const SPECIES = {
   'josta':                 { type: 'model', model: './model/josta.glb',                  h: 1.8, d: 1.8 },  // Jósta
   'egres':                 { type: 'model', model: './model/egres.glb',                  h: 1.2, d: 1.2 },  // Egres 'Hinnonmäki Yellow'
   'ribizli':               { type: 'model', model: './model/ribizli.glb',                h: 1.4, d: 1.4 },  // Ribizli
+  // Háromerű juhar — négy külön modellel: tavasz / nyár / ősz / tél (csupasz ágváz)
+  'acer-buergerianum':     { type: 'model', model: './model/seasons/acer-buergerianum.glb', h: 9, d: 7,
+                             seasons: { tavasz: './model/seasons/acer-buergerianum-tavasz.glb',
+                                        nyar:   './model/seasons/acer-buergerianum.glb',
+                                        osz:    './model/seasons/acer-buergerianum-osz.glb',
+                                        tel:    './model/seasons/acer-buergerianum-tel.glb' } },
   'madarbirs':             { type: 'model', model: './model/madarbirs-kaszkad.glb',      h: 1.8, d: 2.8, dz: 1.6 },  // Madárbirs sövény (kaszkád)
   'szolo-kocka':           { type: 'model', model: './model/szolo-kocka.glb',            h: 3.4, d: 5.4, dz: 5.1 }   // Szőlő-kocka a konyha fölé
 };
@@ -191,25 +197,35 @@ function loadModel(url) {
 /** Előtölti az összes 'model' típusú SPECIES GLB-sablonját, és megméri a nyers (skálázás
  *  előtti) méretét. Hívd meg egyszer, await-tel, a makeSpecies() első használata előtt. */
 export async function preloadSpeciesModels() {
-  await Promise.all(
-    Object.values(SPECIES)
-      .filter((s) => s.type === 'model' && !s._template)
-      .map((s) => loadModel(s.model).then((tpl) => {
-        s._template = tpl;
-        s._box = new THREE.Box3().setFromObject(tpl);
-        s._natural = s._box.getSize(new THREE.Vector3());
-      }))
-  );
+  const jobs = [];
+  for (const s of Object.values(SPECIES)) {
+    if (s.type !== 'model' || s._template) continue;
+    jobs.push(loadModel(s.model).then((tpl) => {
+      s._template = tpl;
+      s._box = new THREE.Box3().setFromObject(tpl);      // a NYÁRI változat a méret-referencia
+      s._natural = s._box.getSize(new THREE.Vector3());
+    }));
+    // évszakos változatok: ugyanazzal a skálával jelennek meg, mint a nyári referencia,
+    // különben a csupasz téli ágváz (keskeny) fel lenne fújva a koronaátmérőre
+    if (s.seasons) {
+      s._seasonTpl = {};
+      for (const [nev, url] of Object.entries(s.seasons)) {
+        jobs.push(loadModel(url).then((tpl) => { s._seasonTpl[nev] = tpl; }));
+      }
+    }
+  }
+  await Promise.all(jobs);
 }
 
 /** A GLB-sablon a mi kutatott (SPECIES h/d, fak.md) méretünkre igazodik: a magasság (Y) a
  *  célmagasságra, a szélesség (X és Z KÜLÖN-KÜLÖN) a cél-átmérőre — így a korona-lábnyom
  *  mindig négyzetes (X = Z = d), sosem nyúlik ki aránytalanul egy irányba. */
-function fromModel(key, s, h, d) {
+function fromModel(key, s, h, d, evszak) {
   if (!s._template) throw new Error('kert3d-trees: "' + key + '" modellje nincs előtöltve — hívd meg: await preloadSpeciesModels()');
-  const g = s._template.clone(true);
+  const tpl = (evszak && s._seasonTpl && s._seasonTpl[evszak]) || s._template;
+  const g = tpl.clone(true);
   g.name = key;
-  const n = s._natural;
+  const n = s._natural;              // mindig a nyári referencia — a csupasz téli ágváz így nem fúvódik fel
   const sy = h / n.y;
   // dz = külön mélység (sövényelem, szőlő-kocka); nélküle a lábnyom négyzetes
   g.scale.set(d / n.x, sy, (s.dz ?? d) / n.z);
@@ -228,12 +244,12 @@ function fromModel(key, s, h, d) {
 }
 
 /** Egy fajta példánya. h/d METERBEN (kihagyva a SPECIES tábla alapmérete). growth = 0..1 (ültetés → kifejlett). */
-export function makeSpecies(key, { growth = 1, seed = 1, h, d } = {}) {
+export function makeSpecies(key, { growth = 1, seed = 1, h, d, evszak } = {}) {
   const s = SPECIES[key];
   if (!s) throw new Error('kert3d-trees: ismeretlen fajta: ' + key);
   const k = 0.25 + 0.75 * growth;
   const targetH = (h ?? s.h) * k, targetD = (d ?? s.d) * k;
-  if (s.type === 'model') return fromModel(key, s, targetH, targetD);
+  if (s.type === 'model') return fromModel(key, s, targetH, targetD, evszak);
   const g = makeTree(s.type, { h: targetH, d: targetD, seed, name: key });
   if (s.color) {
     const fm = speciesFoliageMats(key, s.color);

@@ -382,10 +382,96 @@ const LABEL = {
   'perzsafa-bokorfa': 'Perzsafa (bokor)', 'mezalmacska': "Mézalmácska 'Smokey'",
   'tatar-juhar': 'Tatár juhar', 'naspolya': "Naspolya 'Szentesi rózsa'", 'josta': 'Jósta',
   'berkenye': "Berkenye 'Granatnaja'", 'fuge': "Füge 'Ronde de Bordeaux'",
-  'egres': "Egres 'Hinnonmäki Yellow'", 'ribizli': 'Ribizli',
+  'egres': "Egres 'Hinnonmäki Yellow'", 'ribizli': 'Ribizli', 'acer-buergerianum': 'Háromerű juhar',
   'madarbirs': 'Madárbirs sövény', 'szolo-kocka': 'Szőlő-kocka'
 };
 const PLANTS = manifest.plants.filter(p => SPECIES[p.species]);
+
+/* ---------- FENOLÓGIA: mit csinál a növény melyik hónapban ----------
+   lomb   : [rügyfakadás, őszi színeződés kezdete, lombhullás vége]  (hónap, tizedes)
+   nyar   : nyári lombszín · osz: őszi lombszín
+   virag  : [kezdet, vég, szín]  — csak akkor látszik, ha a modellben van 'virag' anyag
+   termes : [kezdet, vég]        — csak akkor látszik, ha a modellben van 'termes' anyag
+   orokzold: nincs lombhullás                                                          */
+const PHENO = {
+  'ezustfenyo':           { orokzold: true },
+  'szilva':               { lomb: [4.4, 9.8, 11.2], nyar: '#6E8A56', osz: '#C8A63C', virag: [3.6, 4.3, '#F7F3EC'], termes: [7.5, 9.2] },
+  'korte':                { lomb: [4.5, 9.9, 11.3], nyar: '#77925C', osz: '#C46A3A', virag: [4.0, 4.6, '#F5F2EA'], termes: [8.0, 10.0] },
+  'crimson-snow':         { lomb: [4.3, 9.9, 11.2], nyar: '#7C4C56', osz: '#7A3F32', virag: [4.0, 4.5, '#7A3B4A'] },
+  'diszalma-royalty-fa':  { lomb: [4.0, 9.8, 11.2], nyar: '#6E3644', osz: '#7A3A46', virag: [4.5, 5.2, '#8E2D50'] },
+  'oszlopos-diszalma-fa': { lomb: [4.0, 9.9, 11.3], nyar: '#93AE7B', osz: '#D2B24A', virag: [4.5, 5.3, '#E8A9BE'] },
+  'diszcseresznye':       { lomb: [4.5, 9.7, 11.0], nyar: '#7E9A63', osz: '#D08A3E', virag: [4.0, 5.0, '#F0C8D4'] },
+  'birsalma':             { lomb: [4.2, 10.0, 11.3], nyar: '#93A98B', osz: '#C9B24E', virag: [5.0, 5.6, '#F3DCDC'], termes: [9.0, 10.8] },
+  'husos-som':            { lomb: [3.8, 9.6, 11.0], nyar: '#ADC28D', osz: '#9C4A46', virag: [2.5, 3.6, '#E8C63A'], termes: [7.5, 8.8] },
+  'naspolya':             { lomb: [4.2, 10.0, 11.4], nyar: '#74905E', osz: '#B5762F', virag: [5.2, 6.0, '#F6F1E6'], termes: [9.8, 11.5] },
+  'perzsafa-bokorfa':     { lomb: [3.7, 9.5, 11.2], nyar: '#8CA36B', osz: '#D2622E', virag: [2.3, 3.4, '#A33A3A'] },
+  'mezalmacska':          { lomb: [3.9, 9.6, 11.0], nyar: '#8CA36B', osz: '#D4552F', virag: [4.0, 4.6, '#F4F1E8'], termes: [6.2, 7.3] },
+  'berkenye':             { lomb: [4.1, 9.7, 11.2], nyar: '#74905E', osz: '#C25A33', virag: [5.0, 5.6, '#F2EFE4'], termes: [9.0, 11.0] },
+  'fuge':                 { lomb: [5.0, 10.2, 11.0], nyar: '#A2BC72', osz: '#C7B247', termes: [8.0, 9.6] },
+  'josta':                { lomb: [3.9, 9.8, 11.2], nyar: '#74905E', osz: '#C0A840', termes: [6.5, 7.6] },
+  'ribizli':              { lomb: [3.9, 9.8, 11.2], nyar: '#93AE7B', osz: '#C6A93E', termes: [6.2, 7.4] },
+  'egres':                { lomb: [3.9, 9.8, 11.2], nyar: '#ADC28D', osz: '#C2A94A', termes: [6.3, 7.5] },
+  'madarbirs':            { lomb: [4.0, 10.2, 12.6], nyar: '#5E7A4C', osz: '#9E4638', virag: [5.3, 6.2, '#EED9DC'], termes: [9.0, 14.5] },
+  'szolo-kocka':          { lomb: [4.8, 9.9, 11.0], nyar: '#5E7A4C', osz: '#C98A32', termes: [8.5, 10.2] },
+  'tatar-juhar':          { lomb: [4.0, 9.8, 11.2], nyar: '#93AE7B', osz: '#C9682F' }
+};
+
+/** Melyik évszak-modell tartozik a hónaphoz (a 4-modelles fajtákhoz, pl. háromerű juhar) */
+function evszakOf(m) {
+  if (m >= 3.5 && m < 5.5) return 'tavasz';
+  if (m >= 5.5 && m < 9.5) return 'nyar';
+  if (m >= 9.5 && m < 11.5) return 'osz';
+  return 'tel';
+}
+let EVSZAK = evszakOf(7);
+
+const _c1 = new THREE.Color(), _c2 = new THREE.Color();
+function inWindow(m, a, b) {                       // évfordulón átnyúló ablak is (pl. termés télen)
+  return b > 12 ? (m >= a || m <= b - 12) : (m >= a && m <= b);
+}
+/** A lomb állapota adott hónapban: {van, szin} */
+function leafState(sp, m) {
+  const f = PHENO[sp];
+  if (!f) return { van: true, szin: null };
+  if (f.orokzold) return { van: true, szin: null };
+  const [ki, oszTol, hullas] = f.lomb;
+  if (m < ki || m > hullas) return { van: false, szin: null };
+  if (m < ki + 0.6) {                               // friss, világosabb tavaszi lomb
+    _c1.set(f.nyar); _c2.copy(_c1).lerp(new THREE.Color('#FFFFFF'), 0.22);
+    return { van: true, szin: '#' + _c2.getHexString() };
+  }
+  if (m < oszTol) return { van: true, szin: f.nyar };
+  const t = Math.min(1, (m - oszTol) / Math.max(0.1, hullas - oszTol - 0.3));
+  _c1.set(f.nyar); _c2.set(f.osz);
+  return { van: true, szin: '#' + _c1.lerp(_c2, t).getHexString() };
+}
+
+/** Ráülteti az évszakot a már felépített növényekre (lomb szín/láthatóság, virág, termés). */
+function applySeason(month) {
+  plantGroup.children.forEach((g) => {
+    if (g.type !== 'Group') return;
+    const sp = g.userData.species, f = PHENO[sp] || {};
+    const leaf = leafState(sp, month);
+    const virag = f.virag && inWindow(month, f.virag[0], f.virag[1]);
+    const termes = f.termes && inWindow(month, f.termes[0], f.termes[1]);
+    g.traverse((o) => {
+      if (!o.isMesh || !o.material) return;
+      const mn = o.material.name || '';
+      if (/virag/i.test(mn)) { o.visible = !!virag; return; }
+      if (/termes/i.test(mn)) { o.visible = !!termes; return; }
+      if (/lomb|korona|cserje|gyuru|emelet|kup/i.test(mn)) {
+        o.visible = leaf.van;
+        if (leaf.szin) {
+          if (!o.material.userData.alapszin) o.material.userData.alapszin = o.material.color.getHex();
+          const sotet = /arnyek/i.test(mn);
+          _c1.set(leaf.szin); if (sotet) _c1.multiplyScalar(0.82);
+          o.material.color.copy(_c1);
+        }
+      }
+    });
+  });
+  needsShadow = true;
+}
 
 const plantGroup = new THREE.Group();
 plantGroup.name = 'novenyek';
@@ -405,7 +491,7 @@ function buildPlants(growth) {
     // példányonkénti méret a SketchUp-ból (p.h/p.d); ha nincs, a fajta kutatott mérete
     const h = (p.h ?? spec.h) * k;
     const d = (p.d ?? spec.d) * k;
-    const raw = makeSpecies(key, { growth: g0, seed: i * 3.7 + 1, h: p.h, d: p.d });
+    const raw = makeSpecies(key, { growth: g0, seed: i * 3.7 + 1, h: p.h, d: p.d, evszak: EVSZAK });
     // a SketchUp-beli valódi állás; ha nincs, aranyszög-szórás (hogy a fák ne legyenek egyformák)
     raw.rotation.y = (p.rot !== undefined) ? p.rot : (i * 137.5 * Math.PI) / 180;
     const g = flatten(raw, key);
@@ -463,6 +549,7 @@ function flatten(group, name) {
 }
 await preloadSpeciesModels();   // GLB-alapú fajták (ezüstfenyő) betöltése az első fa-építés előtt
 buildPlants(1);
+applySeason(+document.getElementById('month').value);
 
 /* ---------- napállás ---------- */
 function applySun(month, hour) {
@@ -565,6 +652,12 @@ function refresh() {
   out.month.textContent = MONTHS[m - 1];
   out.hour.textContent = String(Math.floor(h)).padStart(2, '0') + ':' + String(Math.round((h % 1) * 60)).padStart(2, '0');
   applySun(m, h);
+  const uj = evszakOf(m);
+  if (uj !== EVSZAK) {                    // évszakos modellt váltó fajták újraépítése
+    EVSZAK = uj;
+    buildPlants(Math.max(+el.growth.value / 100, 0.08));
+  }
+  applySeason(m);
   render();
 }
 el.month.addEventListener('input', refresh);
@@ -573,6 +666,7 @@ el.growth.addEventListener('input', () => {
   const g = +el.growth.value / 100;
   out.growth.textContent = g >= 0.99 ? 'kifejlett' : Math.round(2 + g * 23) + ' év';
   buildPlants(Math.max(g, 0.08));
+  applySeason(+el.month.value);          // újraépítés után az évszakot vissza kell tenni
 });
 refresh();
 
