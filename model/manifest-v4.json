@@ -207,7 +207,7 @@
  "classes": {
   "terep__groundcover-sand-smooth": {
    "file": "model/v4-terep__groundcover-sand-smooth.bin",
-   "tris": 32,
+   "tris": 39,
    "color": "#B69465"
   },
   "terep__vegetation-grass": {
@@ -227,18 +227,23 @@
   },
   "terep__color-m05": {
    "file": "model/v4-terep__color-m05.bin",
-   "tris": 60,
+   "tris": 51,
    "color": "#727272"
   },
   "terep__concrete-aggregate-smoke": {
    "file": "model/v4-terep__concrete-aggregate-smoke.bin",
-   "tris": 27,
+   "tris": 25,
    "color": "#9A9694"
+  },
+  "terep__carpet-plush-forest": {
+   "file": "model/v4-terep__carpet-plush-forest.bin",
+   "tris": 9,
+   "color": "#8A8760"
   },
   "terep__alap": {
    "file": "model/v4-terep__alap.bin",
-   "tris": 48,
-   "color": "#B9B6AE"
+   "tris": 41,
+   "color": "#A78A62"
   },
   "terep__color-m04": {
    "file": "model/v4-terep__color-m04.bin",
