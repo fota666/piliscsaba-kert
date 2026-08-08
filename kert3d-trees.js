@@ -138,8 +138,8 @@ export function makeTree(type, { h, d, seed = 1, name } = {}) {
 /** Fajta → forma ajánlás a piliscsabai listához. */
 export const SPECIES = {
   'ezustfenyo':        { type: 'model', model: './model/ezustfenyo.glb', h: 12, d: 5, color: '#95ABAC' },
-  'szilva':            { type: 'tomor',       h: 6,   d: 5   },
-  'korte':             { type: 'tomor',       h: 3.5, d: 3   },
+  'szilva':            { type: 'model', model: './model/szilva.glb', h: 6,   d: 5   },
+  'korte':             { type: 'model', model: './model/korte.glb',  h: 2.6, d: 2.1 },
   'voros-juhar':       { type: 'tomor',       h: 13,  d: 9   },
   'tatar-juhar':       { type: 'tomor',       h: 6,   d: 6   },
   'diszalma-royalty':  { type: 'tomor',       h: 5,   d: 4.5 },
@@ -164,7 +164,9 @@ export const SPECIES = {
   'mezalmacska':           { type: 'model', model: './model/mezalmacska.glb',            h: 3.5, d: 3   },  // Mézalmácska 'Smokey'
   'josta':                 { type: 'model', model: './model/josta.glb',                  h: 1.8, d: 1.8 },  // Jósta
   'egres':                 { type: 'model', model: './model/egres.glb',                  h: 1.2, d: 1.2 },  // Egres 'Hinnonmäki Yellow'
-  'ribizli':               { type: 'model', model: './model/ribizli.glb',                h: 1.4, d: 1.4 }   // Ribizli
+  'ribizli':               { type: 'model', model: './model/ribizli.glb',                h: 1.4, d: 1.4 },  // Ribizli
+  'madarbirs':             { type: 'model', model: './model/madarbirs-kaszkad.glb',      h: 1.8, d: 2.8 },  // Madárbirs sövény (kaszkád)
+  'szolo-kocka':           { type: 'model', model: './model/szolo-kocka.glb',            h: 3.4, d: 5.4 }   // Szőlő-kocka a konyha fölé
 };
 
 const _speciesMatCache = {};
