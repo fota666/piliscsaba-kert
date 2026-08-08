@@ -402,9 +402,10 @@ function buildPlants(growth) {
     const spec = SPECIES[key];
     const g0 = MEGLEVO.has(key) ? 1 : growth;
     const k = 0.25 + 0.75 * g0;
-    const h = spec.h * k;   // a mi kutatott (fak.md) méretünk a kifejlett fához — nem a SketchUp nyers mérete
-    const d = spec.d * k;
-    const raw = makeSpecies(key, { growth: g0, seed: i * 3.7 + 1 });
+    // példányonkénti méret a SketchUp-ból (p.h/p.d); ha nincs, a fajta kutatott mérete
+    const h = (p.h ?? spec.h) * k;
+    const d = (p.d ?? spec.d) * k;
+    const raw = makeSpecies(key, { growth: g0, seed: i * 3.7 + 1, h: p.h, d: p.d });
     // a SketchUp-beli valódi állás; ha nincs, aranyszög-szórás (hogy a fák ne legyenek egyformák)
     raw.rotation.y = (p.rot !== undefined) ? p.rot : (i * 137.5 * Math.PI) / 180;
     const g = flatten(raw, key);
