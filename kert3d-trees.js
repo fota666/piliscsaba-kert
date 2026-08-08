@@ -148,7 +148,7 @@ export const SPECIES = {
   'crimson-snow':          { type: 'model', model: './model/crimson-snow.glb',        h: 13,  d: 9,   sez: 'crimson-snow' },          // Vörös juhar 'Crimson King'
   'diszalma-royalty-fa':   { type: 'model', model: './model/diszalma-royalty-fa.glb', h: 4,   d: 4,   sez: 'diszalma-royalty-fa' },   // Díszalma 'Royalty'
   'perzsafa-bokorfa':      { type: 'model', model: './model/perzsafa-bokorfa.glb',    h: 5,   d: 6,   sez: 'perzsafa-bokorfa' },      // Perzsafa (bokor)
-  'naspolya':              { type: 'model', model: './model/naspolya.glb',            h: 4.5, d: 4,   sez: 'naspolya' },              // Naspolya 'Szentesi rózsa'
+  'naspolya':              { type: 'model', model: './model/naspolya.glb',            h: 4.5, d: 4,   sez: 'naspolya' },              // Naspolya 'Nottingham'
   'oszlopos-diszalma-fa':  { type: 'model', model: './model/oszlopos-diszalma-fa.glb', h: 5,  d: 2.6, sez: 'oszlopos-diszalma-fa' },  // Oszlopos díszalma 'Van Eseltine'
   'husos-som':             { type: 'model', model: './model/husos-som.glb',           h: 5,   d: 4,   sez: 'husos-som' },             // Som 'Jolico'
   'birsalma':              { type: 'model', model: './model/birsalma.glb',            h: 4,   d: 3.5, sez: 'birsalma' },              // Birs 'Bereczki'
@@ -160,7 +160,7 @@ export const SPECIES = {
 
   /* — évszakos szett nélkül (a fenológiai tábla színezi őket) — */
   'berkenye':              { type: 'model', model: './model/berkenye.glb',            h: 3.5, d: 3   },  // Berkenye 'Granatnaja'
-  'fuge':                  { type: 'model', model: './model/fuge.glb',                h: 3.5, d: 4.5 },  // Füge 'Ronde de Bordeaux'
+  'fuge':                  { type: 'model', model: './model/fuge.glb',                h: 2.8, d: 2.8 },  // Füge 'Violette de Bordeaux' — kompakt fajta
   'josta':                 { type: 'model', model: './model/josta.glb',               h: 1.8, d: 1.8 },  // Jósta
   'egres':                 { type: 'model', model: './model/egres.glb',               h: 1.2, d: 1.2 },  // Egres 'Hinnonmäki Yellow'
   'ribizli':               { type: 'model', model: './model/ribizli.glb',             h: 1.4, d: 1.4 },  // Ribizli
