@@ -405,7 +405,8 @@ function buildPlants(growth) {
     const h = spec.h * k;   // a mi kutatott (fak.md) méretünk a kifejlett fához — nem a SketchUp nyers mérete
     const d = spec.d * k;
     const raw = makeSpecies(key, { growth: g0, seed: i * 3.7 + 1 });
-    raw.rotation.y = (i * 137.5 * Math.PI) / 180;
+    // a SketchUp-beli valódi állás; ha nincs, aranyszög-szórás (hogy a fák ne legyenek egyformák)
+    raw.rotation.y = (p.rot !== undefined) ? p.rot : (i * 137.5 * Math.PI) / 180;
     const g = flatten(raw, key);
     g.position.set(p.x, p.base, -p.y);
     g.userData = { ...p, species: key, label: LABEL[key] || key, h: +h.toFixed(1), d: +d.toFixed(1) };

@@ -165,8 +165,8 @@ export const SPECIES = {
   'josta':                 { type: 'model', model: './model/josta.glb',                  h: 1.8, d: 1.8 },  // Jósta
   'egres':                 { type: 'model', model: './model/egres.glb',                  h: 1.2, d: 1.2 },  // Egres 'Hinnonmäki Yellow'
   'ribizli':               { type: 'model', model: './model/ribizli.glb',                h: 1.4, d: 1.4 },  // Ribizli
-  'madarbirs':             { type: 'model', model: './model/madarbirs-kaszkad.glb',      h: 1.8, d: 2.8 },  // Madárbirs sövény (kaszkád)
-  'szolo-kocka':           { type: 'model', model: './model/szolo-kocka.glb',            h: 3.4, d: 5.4 }   // Szőlő-kocka a konyha fölé
+  'madarbirs':             { type: 'model', model: './model/madarbirs-kaszkad.glb',      h: 1.8, d: 2.8, dz: 1.6 },  // Madárbirs sövény (kaszkád)
+  'szolo-kocka':           { type: 'model', model: './model/szolo-kocka.glb',            h: 3.4, d: 5.4, dz: 5.1 }   // Szőlő-kocka a konyha fölé
 };
 
 const _speciesMatCache = {};
@@ -196,7 +196,8 @@ export async function preloadSpeciesModels() {
       .filter((s) => s.type === 'model' && !s._template)
       .map((s) => loadModel(s.model).then((tpl) => {
         s._template = tpl;
-        s._natural = new THREE.Box3().setFromObject(tpl).getSize(new THREE.Vector3());
+        s._box = new THREE.Box3().setFromObject(tpl);
+        s._natural = s._box.getSize(new THREE.Vector3());
       }))
   );
 }
@@ -209,7 +210,12 @@ function fromModel(key, s, h, d) {
   const g = s._template.clone(true);
   g.name = key;
   const n = s._natural;
-  g.scale.set(d / n.x, h / n.y, d / n.z);
+  const sy = h / n.y;
+  // dz = külön mélység (sövényelem, szőlő-kocka); nélküle a lábnyom négyzetes
+  g.scale.set(d / n.x, sy, (s.dz ?? d) / n.z);
+  // a modell TÉNYLEGES alját tesszük a csoport origójába — van olyan modell
+  // (pl. kaszkád madárbirs), aminek a geometriája az origója alá lóg
+  g.position.y = -s._box.min.y * sy;
   if (s.color) {
     const fm = speciesFoliageMats(key, s.color);
     g.traverse((o) => { if (o.isMesh) {
