@@ -96,6 +96,24 @@
    "rot": 0.0
   },
   {
+   "species": "alma-luna",
+   "x": 38.0,
+   "y": 5.0,
+   "h": 4.2,
+   "d": 3.6,
+   "rot": 0,
+   "base": -2.34
+  },
+  {
+   "species": "alma-bonita",
+   "x": 40.5,
+   "y": 9.5,
+   "h": 4.0,
+   "d": 3.4,
+   "rot": 0,
+   "base": -3.3
+  },
+  {
    "species": "diszcseresznye",
    "x": 41.48,
    "y": 0.76,

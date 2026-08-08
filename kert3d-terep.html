@@ -383,7 +383,8 @@ const LABEL = {
   'tatar-juhar': 'Tatár juhar', 'naspolya': "Naspolya 'Szentesi rózsa'", 'josta': 'Jósta',
   'berkenye': "Berkenye 'Granatnaja'", 'fuge': "Füge 'Ronde de Bordeaux'",
   'egres': "Egres 'Hinnonmäki Yellow'", 'ribizli': 'Ribizli', 'acer-buergerianum': 'Háromerű juhar',
-  'madarbirs': 'Madárbirs sövény', 'szolo-kocka': 'Szőlő-kocka'
+  'madarbirs': 'Madárbirs sövény', 'szolo-kocka': 'Szőlő-kocka',
+  'alma-luna': "Alma 'Luna'", 'alma-bonita': "Alma 'Bonita'"
 };
 const PLANTS = manifest.plants.filter(p => SPECIES[p.species]);
 
@@ -406,6 +407,9 @@ const PHENO = {
   'naspolya':             { lomb: [4.2, 10.0, 11.4], nyar: '#74905E', osz: '#B5762F', virag: [5.2, 6.0, '#F6F1E6'], termes: [9.8, 11.5] },
   'perzsafa-bokorfa':     { lomb: [3.7, 9.5, 11.2], nyar: '#8CA36B', osz: '#D2622E', virag: [2.3, 3.4, '#A33A3A'] },
   'mezalmacska':          { lomb: [3.9, 9.6, 11.0], nyar: '#8CA36B', osz: '#D4552F', virag: [4.0, 4.6, '#F4F1E8'], termes: [6.2, 7.3] },
+  // Termő alma: későbbi virágzás a mézalmácskánál, a termés ősszel érik (Luna késői tárolós, Bonita korábbi)
+  'alma-luna':            { lomb: [4.0, 9.9, 11.2], nyar: '#7E9A63', osz: '#C9A93E', virag: [4.3, 5.1, '#F6EFEA'], termes: [9.2, 10.8] },
+  'alma-bonita':          { lomb: [4.0, 9.9, 11.2], nyar: '#7E9A63', osz: '#C9A93E', virag: [4.2, 5.0, '#F6EFEA'], termes: [8.6, 10.2] },
   'berkenye':             { lomb: [4.1, 9.7, 11.2], nyar: '#74905E', osz: '#C25A33', virag: [5.0, 5.6, '#F2EFE4'], termes: [9.0, 11.0] },
   'fuge':                 { lomb: [5.0, 10.2, 11.0], nyar: '#A2BC72', osz: '#C7B247', termes: [8.0, 9.6] },
   'josta':                { lomb: [3.9, 9.8, 11.2], nyar: '#74905E', osz: '#C0A840', termes: [6.5, 7.6] },

@@ -154,6 +154,9 @@ export const SPECIES = {
   'birsalma':              { type: 'model', model: './model/birsalma.glb',            h: 4,   d: 3.5, sez: 'birsalma' },              // Birs 'Bereczki'
   'mezalmacska':           { type: 'model', model: './model/mezalmacska.glb',         h: 3.5, d: 3,   sez: 'mezalmacska' },           // Mézalmácska 'Smokey'
   'acer-buergerianum':     { type: 'model', model: './model/seasons/acer-buergerianum.glb', h: 8, d: 7, sez: 'acer-buergerianum' },   // Háromerű juhar
+  // Termő almafák — saját GLB még nincs, a Malus-testvér mézalmácska szettjét viszik, nagyobb méretben.
+  'alma-luna':             { type: 'model', model: './model/mezalmacska.glb',         h: 4.2, d: 3.6, sez: 'mezalmacska' },           // Alma 'Luna' (rezisztens)
+  'alma-bonita':           { type: 'model', model: './model/mezalmacska.glb',         h: 4.0, d: 3.4, sez: 'mezalmacska' },           // Alma 'Bonita' (rezisztens)
 
   /* — évszakos szett nélkül (a fenológiai tábla színezi őket) — */
   'berkenye':              { type: 'model', model: './model/berkenye.glb',            h: 3.5, d: 3   },  // Berkenye 'Granatnaja'
