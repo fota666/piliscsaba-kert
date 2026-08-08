@@ -480,6 +480,64 @@ const pickables = [];
 
 const MEGLEVO = new Set(['korte', 'szilva', 'ezustfenyo']);   // már megvan, kifejlett — a kor-csúszka nem érinti
 
+/** Egy növény kész, összevont csoportja — a buildPlants és az évszak-átúsztatás is ezt használja. */
+function makePlantGroup(p, i, g0, evszak, h, d) {
+  const key = p.species;
+  const raw = makeSpecies(key, { growth: g0, seed: i * 3.7 + 1, h: p.h, d: p.d, evszak });
+  // a SketchUp-beli valódi állás; ha nincs, aranyszög-szórás (hogy a fák ne legyenek egyformák)
+  raw.rotation.y = (p.rot !== undefined) ? p.rot : (i * 137.5 * Math.PI) / 180;
+  const g = flatten(raw, key);
+  g.position.set(p.x, p.base, -p.y);
+  g.userData = { ...p, species: key, label: LABEL[key] || key,
+                 h: +h.toFixed(1), d: +d.toFixed(1), _pi: i };
+  return g;
+}
+
+/* ---------- évszakváltás lágy átúsztatással ----------
+   A régi és az új évszak-modell egy ideig együtt van a jelenetben, és átlátszósággal
+   úsznak egymásba — így nem vág át keményen. Csak a 4-modelles fajtákat érinti. */
+let fadeAktiv = false;
+function setOpacity(group, v) {
+  group.traverse((o) => {
+    if (!o.isMesh || !o.material) return;
+    o.material.transparent = v < 1;
+    o.material.opacity = v;
+    o.material.depthWrite = v >= 1;
+  });
+}
+function crossfadeSeason(ujEvszak, growth) {
+  const parok = [];
+  PLANTS.forEach((p, i) => {
+    const spec = SPECIES[p.species];
+    if (!spec || !spec.seasons) return;                      // csak évszak-modelles fajták
+    const regi = plantGroup.children.find((c) => c.type === 'Group' && c.userData._pi === i);
+    if (!regi) return;
+    const g0 = MEGLEVO.has(p.species) ? 1 : growth;
+    const k = 0.25 + 0.75 * g0;
+    const uj = makePlantGroup(p, i, g0, ujEvszak, (p.h ?? spec.h) * k, (p.d ?? spec.d) * k);
+    setOpacity(uj, 0);
+    plantGroup.add(uj);
+    parok.push([regi, uj]);
+  });
+  if (!parok.length) return;
+
+  fadeAktiv = true;
+  const dur = 650, t0 = performance.now();
+  // rejtett fülön a requestAnimationFrame nem fut — időzítős tartalékkal az átúsztatás
+  // akkor is végigmegy, nem ragad be félig áttűnt állapotban
+  const utemez = (fn) => (document.hidden ? setTimeout(fn, 16) : requestAnimationFrame(fn));
+  (function step() {
+    const t = Math.min(1, (performance.now() - t0) / dur);
+    const e = t * t * (3 - 2 * t);                            // lágy be/kifutás
+    parok.forEach(([r, u]) => { setOpacity(r, 1 - e); setOpacity(u, e); });
+    renderer.render(scene, camera);                            // az átúsztatás alatt folyamatos kép
+    if (t < 1) return utemez(step);
+    parok.forEach(([r, u]) => { plantGroup.remove(r); setOpacity(u, 1); });
+    fadeAktiv = false;
+    needsShadow = true; render();
+  })();
+}
+
 function buildPlants(growth) {
   while (plantGroup.children.length) plantGroup.remove(plantGroup.children[0]);
   pickables.length = 0;
@@ -491,12 +549,7 @@ function buildPlants(growth) {
     // példányonkénti méret a SketchUp-ból (p.h/p.d); ha nincs, a fajta kutatott mérete
     const h = (p.h ?? spec.h) * k;
     const d = (p.d ?? spec.d) * k;
-    const raw = makeSpecies(key, { growth: g0, seed: i * 3.7 + 1, h: p.h, d: p.d, evszak: EVSZAK });
-    // a SketchUp-beli valódi állás; ha nincs, aranyszög-szórás (hogy a fák ne legyenek egyformák)
-    raw.rotation.y = (p.rot !== undefined) ? p.rot : (i * 137.5 * Math.PI) / 180;
-    const g = flatten(raw, key);
-    g.position.set(p.x, p.base, -p.y);
-    g.userData = { ...p, species: key, label: LABEL[key] || key, h: +h.toFixed(1), d: +d.toFixed(1) };
+    const g = makePlantGroup(p, i, g0, EVSZAK, h, d);
     plantGroup.add(g);
 
     const proxy = new THREE.Mesh(
@@ -653,9 +706,9 @@ function refresh() {
   out.hour.textContent = String(Math.floor(h)).padStart(2, '0') + ':' + String(Math.round((h % 1) * 60)).padStart(2, '0');
   applySun(m, h);
   const uj = evszakOf(m);
-  if (uj !== EVSZAK) {                    // évszakos modellt váltó fajták újraépítése
+  if (uj !== EVSZAK && !fadeAktiv) {      // évszakos modellt váltó fajták lágy átúsztatása
     EVSZAK = uj;
-    buildPlants(Math.max(+el.growth.value / 100, 0.08));
+    crossfadeSeason(uj, Math.max(+el.growth.value / 100, 0.08));
   }
   applySeason(m);
   render();
