@@ -411,7 +411,7 @@ const PHENO = {
   'josta':                { lomb: [3.9, 9.8, 11.2], nyar: '#74905E', osz: '#C0A840', termes: [6.5, 7.6] },
   'ribizli':              { lomb: [3.9, 9.8, 11.2], nyar: '#93AE7B', osz: '#C6A93E', termes: [6.2, 7.4] },
   'egres':                { lomb: [3.9, 9.8, 11.2], nyar: '#ADC28D', osz: '#C2A94A', termes: [6.3, 7.5] },
-  'madarbirs':            { lomb: [4.0, 10.2, 12.6], nyar: '#5E7A4C', osz: '#9E4638', virag: [5.3, 6.2, '#EED9DC'], termes: [9.0, 14.5] },
+  'madarbirs':            { orokzold: true, virag: [5.3, 6.2, '#EED9DC'], termes: [9.0, 14.5] },   // ÖRÖKZÖLD
   'szolo-kocka':          { lomb: [4.8, 9.9, 11.0], nyar: '#5E7A4C', osz: '#C98A32', termes: [8.5, 10.2] },
   'tatar-juhar':          { lomb: [4.0, 9.8, 11.2], nyar: '#93AE7B', osz: '#C9682F' }
 };
@@ -499,7 +499,13 @@ function makePlantGroup(p, i, g0, evszak, h, d) {
 /* ---------- évszakváltás lágy átúsztatással ----------
    A régi és az új évszak-modell egy ideig együtt van a jelenetben, és átlátszósággal
    úsznak egymásba — így nem vág át keményen. Csak a 4-modelles fajtákat érinti. */
-let fadeAktiv = false;
+let fadeAktiv = false, fadeParok = null;
+/** Egy futó átúsztatás azonnali lezárása (gyors évszakváltásnál, hogy ne maradjon szemét). */
+function fadeLezar() {
+  if (!fadeParok) return;
+  fadeParok.forEach(([r, u]) => { plantGroup.remove(r); setOpacity(u, 1); });
+  fadeParok = null; fadeAktiv = false;
+}
 function setOpacity(group, v) {
   group.traverse((o) => {
     if (!o.isMesh || !o.material) return;
@@ -509,12 +515,16 @@ function setOpacity(group, v) {
   });
 }
 function crossfadeSeason(ujEvszak, growth) {
+  fadeLezar();                                               // előző átúsztatás lezárása
   const parok = [];
   PLANTS.forEach((p, i) => {
     const spec = SPECIES[p.species];
     if (!spec || !spec.seasons) return;                      // csak évszak-modelles fajták
-    const regi = plantGroup.children.find((c) => c.type === 'Group' && c.userData._pi === i);
-    if (!regi) return;
+    // minden ide tartozó régi példány (ha maradt volna korábbról, az is kikerül)
+    const regiek = plantGroup.children.filter((c) => c.type === 'Group' && c.userData._pi === i);
+    if (!regiek.length) return;
+    regiek.slice(0, -1).forEach((r) => plantGroup.remove(r));
+    const regi = regiek[regiek.length - 1];
     const g0 = MEGLEVO.has(p.species) ? 1 : growth;
     const k = 0.25 + 0.75 * g0;
     const uj = makePlantGroup(p, i, g0, ujEvszak, (p.h ?? spec.h) * k, (p.d ?? spec.d) * k);
@@ -524,7 +534,7 @@ function crossfadeSeason(ujEvszak, growth) {
   });
   if (!parok.length) return;
 
-  fadeAktiv = true;
+  fadeAktiv = true; fadeParok = parok;
   const dur = 650, t0 = performance.now();
   // rejtett fülön a requestAnimationFrame nem fut — időzítős tartalékkal az átúsztatás
   // akkor is végigmegy, nem ragad be félig áttűnt állapotban
@@ -534,9 +544,8 @@ function crossfadeSeason(ujEvszak, growth) {
     const e = t * t * (3 - 2 * t);                            // lágy be/kifutás
     parok.forEach(([r, u]) => { setOpacity(r, 1 - e); setOpacity(u, e); });
     renderer.render(scene, camera);                            // az átúsztatás alatt folyamatos kép
-    if (t < 1) return utemez(step);
-    parok.forEach(([r, u]) => { plantGroup.remove(r); setOpacity(u, 1); });
-    fadeAktiv = false;
+    if (t < 1 && fadeParok === parok) return utemez(step);
+    if (fadeParok === parok) fadeLezar();
     needsShadow = true; render();
   })();
 }
@@ -709,7 +718,7 @@ function refresh() {
   out.hour.textContent = String(Math.floor(h)).padStart(2, '0') + ':' + String(Math.round((h % 1) * 60)).padStart(2, '0');
   applySun(m, h);
   const uj = evszakOf(m);
-  if (uj !== EVSZAK && !fadeAktiv) {      // évszakos modellt váltó fajták lágy átúsztatása
+  if (uj !== EVSZAK) {                    // évszakos modellt váltó fajták lágy átúsztatása
     EVSZAK = uj;
     crossfadeSeason(uj, Math.max(+el.growth.value / 100, 0.08));
   }

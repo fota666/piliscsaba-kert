@@ -137,47 +137,32 @@ export function makeTree(type, { h, d, seed = 1, name } = {}) {
 
 /** Fajta → forma ajánlás a piliscsabai listához. */
 export const SPECIES = {
-  'ezustfenyo':        { type: 'model', model: './model/ezustfenyo.glb', h: 12, d: 5, color: '#95ABAC' },
-  'szilva':            { type: 'model', model: './model/szilva.glb', h: 6, d: 5, seasons: { tavasz: './model/seasons/szilva-tavasz.glb', nyar: './model/szilva.glb',
-                                        osz: './model/seasons/szilva-osz.glb', tel: './model/seasons/szilva-tel.glb' } },
-  'korte':             { type: 'model', model: './model/korte.glb', h: 2.6, d: 2.1, seasons: { tavasz: './model/seasons/korte-tavasz.glb', nyar: './model/korte.glb',
-                                        osz: './model/seasons/korte-osz.glb', tel: './model/seasons/korte-tel.glb' } },
-  'voros-juhar':       { type: 'tomor',       h: 13,  d: 9   },
-  'tatar-juhar':       { type: 'tomor',       h: 6,   d: 6   },
-  'diszalma-royalty':  { type: 'tomor',       h: 5,   d: 4.5 },
-  'oszlopos-diszalma': { type: 'gyurus',      h: 5,   d: 2.6 },
-  'diszcseresznye':    { type: 'model', model: './model/amanogawa.glb', h: 5, d: 1.5, seasons: { tavasz: './model/seasons/amanogawa-tavasz.glb', nyar: './model/amanogawa.glb',
-                                        osz: './model/seasons/amanogawa-osz.glb', tel: './model/seasons/amanogawa-tel.glb' } },  // 'Amanogawa' (oszlopos)
-  'perzsafa-bokor':    { type: 'cserje',      h: 5,   d: 6   },
-  'birs':              { type: 'tomor',       h: 4,   d: 3.5 },
-  'som-jolico':        { type: 'tomor',       h: 5,   d: 4   },
-  'euonymus':          { type: 'cserje',      h: 1.2, d: 1.2 },
+  // "sez" = van négy évszakos modellje (model/seasons/<sez>-tavasz|osz|tel.glb; a nyár a fő modell)
+  'ezustfenyo':        { type: 'model', model: './model/ezustfenyo.glb', h: 12, d: 5, color: '#95ABAC' },   // örökzöld
+  'szilva':            { type: 'model', model: './model/szilva.glb',  h: 6,   d: 5,   sez: 'szilva' },
+  'korte':             { type: 'model', model: './model/korte.glb',   h: 2.6, d: 2.1, sez: 'korte' },
+  'diszcseresznye':    { type: 'model', model: './model/amanogawa.glb', h: 5, d: 1.5, sez: 'amanogawa' },   // 'Amanogawa' (oszlopos)
 
   /* — fajtatervek: valódi exportált GLB-sablonok (fak.md, piliscsabai lista). A szín a modell
      saját, kutatott materialneveiben van besütve (lomb-bordo, lomb-fuge stb.) — itt nincs felülírás. */
-  'crimson-snow':          { type: 'model', model: './model/crimson-snow.glb',          h: 13,  d: 9   },  // Vörös juhar 'Crimson King'
-  'diszalma-royalty-fa':   { type: 'model', model: './model/diszalma-royalty-fa.glb', h: 4, d: 4, seasons: { tavasz: './model/seasons/diszalma-royalty-fa-tavasz.glb', nyar: './model/diszalma-royalty-fa.glb',
-                                        osz: './model/seasons/diszalma-royalty-fa-osz.glb', tel: './model/seasons/diszalma-royalty-fa-tel.glb' } },  // Díszalma 'Royalty'
-  'berkenye':              { type: 'model', model: './model/berkenye.glb',               h: 3.5, d: 3   },  // Berkenye 'Granatnaja'
-  'fuge':                  { type: 'model', model: './model/fuge.glb',                   h: 3.5, d: 4.5 },  // Füge 'Ronde de Bordeaux'
-  'perzsafa-bokorfa':      { type: 'model', model: './model/perzsafa-bokorfa.glb',       h: 5,   d: 6   },  // Perzsafa (bokor)
-  'naspolya':              { type: 'model', model: './model/naspolya.glb',               h: 4.5, d: 4   },  // Naspolya 'Szentesi rózsa'
-  'oszlopos-diszalma-fa':  { type: 'model', model: './model/oszlopos-diszalma-fa.glb',    h: 5,   d: 2.6 },  // Oszlopos díszalma 'Van Eseltine'
-  'husos-som':             { type: 'model', model: './model/husos-som.glb',              h: 5,   d: 4   },  // Som 'Jolico'
-  'birsalma':              { type: 'model', model: './model/birsalma.glb',               h: 4,   d: 3.5 },  // Birs 'Bereczki'
-  'mezalmacska':           { type: 'model', model: './model/mezalmacska.glb', h: 3.5, d: 3, seasons: { tavasz: './model/seasons/mezalmacska-tavasz.glb', nyar: './model/mezalmacska.glb',
-                                        osz: './model/seasons/mezalmacska-osz.glb', tel: './model/seasons/mezalmacska-tel.glb' } },  // Mézalmácska 'Smokey'
-  'josta':                 { type: 'model', model: './model/josta.glb',                  h: 1.8, d: 1.8 },  // Jósta
-  'egres':                 { type: 'model', model: './model/egres.glb',                  h: 1.2, d: 1.2 },  // Egres 'Hinnonmäki Yellow'
-  'ribizli':               { type: 'model', model: './model/ribizli.glb',                h: 1.4, d: 1.4 },  // Ribizli
-  // Háromerű juhar — négy külön modellel: tavasz / nyár / ősz / tél (csupasz ágváz)
-  'acer-buergerianum':     { type: 'model', model: './model/seasons/acer-buergerianum.glb', h: 9, d: 7,
-                             seasons: { tavasz: './model/seasons/acer-buergerianum-tavasz.glb',
-                                        nyar:   './model/seasons/acer-buergerianum.glb',
-                                        osz:    './model/seasons/acer-buergerianum-osz.glb',
-                                        tel:    './model/seasons/acer-buergerianum-tel.glb' } },
-  'madarbirs':             { type: 'model', model: './model/madarbirs-kaszkad.glb',      h: 1.8, d: 2.8, dz: 1.6 },  // Madárbirs sövény (kaszkád)
-  'szolo-kocka':           { type: 'model', model: './model/szolo-kocka.glb',            h: 3.4, d: 5.4, dz: 5.1 }   // Szőlő-kocka a konyha fölé
+  'crimson-snow':          { type: 'model', model: './model/crimson-snow.glb',        h: 13,  d: 9,   sez: 'crimson-snow' },          // Vörös juhar 'Crimson King'
+  'diszalma-royalty-fa':   { type: 'model', model: './model/diszalma-royalty-fa.glb', h: 4,   d: 4,   sez: 'diszalma-royalty-fa' },   // Díszalma 'Royalty'
+  'perzsafa-bokorfa':      { type: 'model', model: './model/perzsafa-bokorfa.glb',    h: 5,   d: 6,   sez: 'perzsafa-bokorfa' },      // Perzsafa (bokor)
+  'naspolya':              { type: 'model', model: './model/naspolya.glb',            h: 4.5, d: 4,   sez: 'naspolya' },              // Naspolya 'Szentesi rózsa'
+  'oszlopos-diszalma-fa':  { type: 'model', model: './model/oszlopos-diszalma-fa.glb', h: 5,  d: 2.6, sez: 'oszlopos-diszalma-fa' },  // Oszlopos díszalma 'Van Eseltine'
+  'husos-som':             { type: 'model', model: './model/husos-som.glb',           h: 5,   d: 4,   sez: 'husos-som' },             // Som 'Jolico'
+  'birsalma':              { type: 'model', model: './model/birsalma.glb',            h: 4,   d: 3.5, sez: 'birsalma' },              // Birs 'Bereczki'
+  'mezalmacska':           { type: 'model', model: './model/mezalmacska.glb',         h: 3.5, d: 3,   sez: 'mezalmacska' },           // Mézalmácska 'Smokey'
+  'acer-buergerianum':     { type: 'model', model: './model/seasons/acer-buergerianum.glb', h: 9, d: 7, sez: 'acer-buergerianum' },   // Háromerű juhar
+
+  /* — évszakos szett nélkül (a fenológiai tábla színezi őket) — */
+  'berkenye':              { type: 'model', model: './model/berkenye.glb',            h: 3.5, d: 3   },  // Berkenye 'Granatnaja'
+  'fuge':                  { type: 'model', model: './model/fuge.glb',                h: 3.5, d: 4.5 },  // Füge 'Ronde de Bordeaux'
+  'josta':                 { type: 'model', model: './model/josta.glb',               h: 1.8, d: 1.8 },  // Jósta
+  'egres':                 { type: 'model', model: './model/egres.glb',               h: 1.2, d: 1.2 },  // Egres 'Hinnonmäki Yellow'
+  'ribizli':               { type: 'model', model: './model/ribizli.glb',             h: 1.4, d: 1.4 },  // Ribizli
+  'madarbirs':             { type: 'model', model: './model/madarbirs-kaszkad.glb',   h: 1.8, d: 2.8, dz: 1.6 },  // Madárbirs sövény — ÖRÖKZÖLD
+  'szolo-kocka':           { type: 'model', model: './model/szolo-kocka.glb',         h: 3.4, d: 5.4, dz: 5.1 }   // Szőlő-kocka a konyha fölé
 };
 
 const _speciesMatCache = {};
@@ -210,8 +195,14 @@ export async function preloadSpeciesModels() {
       s._box = new THREE.Box3().setFromObject(tpl);      // a NYÁRI változat a méret-referencia
       s._natural = s._box.getSize(new THREE.Vector3());
     }));
-    // évszakos változatok: ugyanazzal a skálával jelennek meg, mint a nyári referencia,
-    // különben a csupasz téli ágváz (keskeny) fel lenne fújva a koronaátmérőre
+    // Évszakos változatok. Elég a "sez" mezőben megadni a fájl-alapnevet: a tavasz/ősz/tél
+    // útvonala konvencióból jön (model/seasons/<alapnev>-tavasz|osz|tel.glb), a nyár a fő modell.
+    // Ugyanazzal a skálával jelennek meg, mint a nyári referencia, különben a csupasz
+    // téli ágváz (keskeny) fel lenne fújva a koronaátmérőre.
+    if (s.sez) {
+      s.seasons = { tavasz: `./model/seasons/${s.sez}-tavasz.glb`, nyar: s.model,
+                    osz: `./model/seasons/${s.sez}-osz.glb`, tel: `./model/seasons/${s.sez}-tel.glb` };
+    }
     if (s.seasons) {
       s._seasonTpl = {};
       for (const [nev, url] of Object.entries(s.seasons)) {
