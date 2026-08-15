@@ -216,7 +216,7 @@
  "classes": {
   "terep__groundcover-sand-smooth": {
    "file": "model/v4-terep__groundcover-sand-smooth.bin",
-   "tris": 35,
+   "tris": 33,
    "color": "#B69465"
   },
   "terep__vegetation-grass": {
