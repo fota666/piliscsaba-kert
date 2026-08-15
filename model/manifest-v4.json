@@ -15,21 +15,30 @@
  },
  "plants": [
   {
+   "species": "fuge",
+   "x": 0.87,
+   "y": 11.32,
+   "base": 1.65,
+   "h": 3.19,
+   "d": 3.74,
+   "rot": 0.0
+  },
+  {
+   "species": "josta",
+   "x": 1.13,
+   "y": 4.26,
+   "base": 0.65,
+   "h": 1.89,
+   "d": 1.81,
+   "rot": 0.0
+  },
+  {
    "species": "perzsafa-bokorfa",
    "x": 1.21,
    "y": 16.46,
    "base": 1.78,
    "h": 4.98,
    "d": 6.18,
-   "rot": 0.0
-  },
-  {
-   "species": "mezalmacska",
-   "x": 1.87,
-   "y": 6.73,
-   "base": 0.01,
-   "h": 4.3,
-   "d": 4.13,
    "rot": 0.0
   },
   {
@@ -61,11 +70,11 @@
   },
   {
    "species": "birsalma",
-   "x": 29.22,
+   "x": 29.15,
    "y": 18.08,
    "base": -1.21,
-   "h": 4.68,
-   "d": 4.54,
+   "h": 4.96,
+   "d": 4.4,
    "rot": 0.0
   },
   {
@@ -87,12 +96,12 @@
    "rot": 0.0
   },
   {
-   "species": "korte",
-   "x": 34.93,
-   "y": 2.41,
-   "base": -2.27,
-   "h": 2.63,
-   "d": 2.05,
+   "species": "mezalmacska",
+   "x": 36.63,
+   "y": 2.25,
+   "base": -2.32,
+   "h": 5.83,
+   "d": 5.61,
    "rot": 0.0
   },
   {
@@ -151,9 +160,9 @@
   },
   {
    "species": "acer-buergerianum",
-   "x": 47.64,
-   "y": 8.27,
-   "base": -3.65,
+   "x": 49.06,
+   "y": 7.76,
+   "base": -3.64,
    "h": 8.0,
    "d": 7.0,
    "rot": 0.0
@@ -169,11 +178,11 @@
   },
   {
    "species": "husos-som",
-   "x": 49.96,
-   "y": 18.03,
+   "x": 49.72,
+   "y": 17.83,
    "base": -3.77,
-   "h": 5.41,
-   "d": 4.74,
+   "h": 4.86,
+   "d": 4.26,
    "rot": 0.0
   },
   {
@@ -268,24 +277,29 @@
    "tris": 4,
    "color": "#8E8E8E"
   },
+  "haz__alap": {
+   "file": "model/v4-haz__alap.bin",
+   "tris": 12,
+   "color": "#B9B6AE"
+  },
   "haz__color-m00": {
    "file": "model/v4-haz__color-m00.bin",
    "tris": 170,
    "color": "#FFFFFF"
   },
-  "beton__blacktop-old-01": {
-   "file": "model/v4-beton__blacktop-old-01.bin",
-   "tris": 122,
-   "color": "#84888B"
-  },
   "beton__concrete-aggregate-smoke": {
    "file": "model/v4-beton__concrete-aggregate-smoke.bin",
-   "tris": 69,
+   "tris": 237,
    "color": "#9A9694"
+  },
+  "beton__blacktop-old-01": {
+   "file": "model/v4-beton__blacktop-old-01.bin",
+   "tris": 134,
+   "color": "#84888B"
   },
   "beton__groundcover-sand-smooth": {
    "file": "model/v4-beton__groundcover-sand-smooth.bin",
-   "tris": 5,
+   "tris": 6,
    "color": "#B69465"
   },
   "beton__concrete-block-8x8-gray-1": {
