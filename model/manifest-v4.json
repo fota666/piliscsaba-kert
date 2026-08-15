@@ -124,9 +124,9 @@
   },
   {
    "species": "oszlopos-diszalma-fa",
-   "x": 46.31,
-   "y": 13.39,
-   "base": -3.51,
+   "x": 46.08,
+   "y": 13.53,
+   "base": -3.99,
    "h": 5.04,
    "d": 2.68,
    "rot": 0.0
@@ -221,7 +221,7 @@
   },
   "terep__vegetation-grass": {
    "file": "model/v4-terep__vegetation-grass.bin",
-   "tris": 87,
+   "tris": 92,
    "color": "#899955"
   },
   "terep__concrete-block-8x8-gray-1": {
@@ -251,7 +251,7 @@
   },
   "terep__alap": {
    "file": "model/v4-terep__alap.bin",
-   "tris": 41,
+   "tris": 40,
    "color": "#A78A62"
   },
   "terep__color-m04": {
