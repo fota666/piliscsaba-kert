@@ -158,8 +158,8 @@ export const SPECIES = {
   'mezalmacska':           { type: 'model', model: './model/mezalmacska.glb',         h: 3,   d: 2,   sez: 'mezalmacska' },           // Mézalmácska 'Martin'
   'acer-buergerianum':     { type: 'model', model: './model/seasons/acer-buergerianum.glb', h: 8, d: 7, sez: 'acer-buergerianum' },   // Háromerű juhar
   // Termő almafák — saját GLB még nincs, a Malus-testvér mézalmácska szettjét viszik, nagyobb méretben.
-  'alma-luna':             { type: 'model', model: './model/mezalmacska.glb',         h: 4.2, d: 3.6, sez: 'mezalmacska' },           // Alma 'Luna' (rezisztens)
-  'alma-bonita':           { type: 'model', model: './model/mezalmacska.glb',         h: 4.0, d: 3.4, sez: 'mezalmacska' },           // Alma 'Bonita' (rezisztens)
+  'alma-luna':             { type: 'model', model: './model/mezalmacska.glb',         h: 4.5, d: 4.5, torzs: 1.8, sez: 'mezalmacska' },           // Alma 'Luna' (rezisztens)
+  'alma-bonita':           { type: 'model', model: './model/mezalmacska.glb',         h: 4.5, d: 4.5, torzs: 1.8, sez: 'mezalmacska' },           // Alma 'Bonita' (rezisztens)
 
   /* — évszakos szett nélkül (a fenológiai tábla színezi őket) — */
   'berkenye':              { type: 'model', model: './model/berkenye.glb',            h: 3.5, d: 3   },  // Berkenye 'Granatnaja'
@@ -227,15 +227,35 @@ export async function preloadSpeciesModels() {
 function fromModel(key, s, h, d, evszak) {
   if (!s._template) throw new Error('kert3d-trees: "' + key + '" modellje nincs előtöltve — hívd meg: await preloadSpeciesModels()');
   const tpl = (evszak && s._seasonTpl && s._seasonTpl[evszak]) || s._template;
-  const g = tpl.clone(true);
+  let g = tpl.clone(true);
   g.name = key;
   const n = s._natural;              // mindig a nyári referencia — a csupasz téli ágváz így nem fúvódik fel
-  const sy = h / n.y;
+  // torzs = magastörzs (m): a modell a koronát adja (h − torzs magasan), alá egy csupasz törzs kerül
+  // A modellnek magának is van rövid törzse: a lomb a modellmagasság f-ed részénél indul.
+  // tz-t úgy választjuk, hogy a lomb pont a kért magasságon (torzs) kezdődjön.
+  if (s.torzs && s._lombF === undefined) {
+    const lb = new THREE.Box3();
+    s._template.updateMatrixWorld(true);
+    s._template.traverse((o) => { if (o.isMesh && /^lomb/.test(o.material.name)) lb.expandByObject(o); });
+    s._lombF = lb.isEmpty() ? 0 : (lb.min.y - s._box.min.y) / s._natural.y;
+  }
+  const T = s.torzs ? s.torzs * (h / s.h) : 0;
+  const tz = T ? Math.max(0, (T - s._lombF * h) / (1 - s._lombF)) : 0;
+  const sy = (h - tz) / n.y;
   // dz = külön mélység (sövényelem, szőlő-kocka); nélküle a lábnyom négyzetes
   g.scale.set(d / n.x, sy, (s.dz ?? d) / n.z);
   // a modell TÉNYLEGES alját tesszük a csoport origójába — van olyan modell
   // (pl. kaszkád madárbirs), aminek a geometriája az origója alá lóg
-  g.position.y = -s._box.min.y * sy;
+  g.position.y = -s._box.min.y * sy + tz;
+  if (tz) {
+    const out = new THREE.Group(); out.name = key;
+    const r = Math.max(0.06, d * 0.025);
+    const tr = new THREE.Mesh(new THREE.CylinderGeometry(r * 0.8, r, tz + 0.4, 10), MATERIALS.torzs);
+    tr.position.y = (tz + 0.4) / 2;            // 40 cm-rel a korona aljába nyúlik
+    tr.castShadow = tr.receiveShadow = true;
+    out.add(tr, g);
+    g = out;
+  }
   if (s.color) {
     const fm = speciesFoliageMats(key, s.color);
     g.traverse((o) => { if (o.isMesh) {
