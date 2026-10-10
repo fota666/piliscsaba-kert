@@ -292,12 +292,12 @@
   },
   "szolokapu__color-m07": {
    "file": "model/v4-szolokapu__color-m07.bin",
-   "tris": 4332,
+   "tris": 3192,
    "color": "#3A3A3A"
   },
   "szolokapu__color-m09": {
    "file": "model/v4-szolokapu__color-m09.bin",
-   "tris": 418,
+   "tris": 308,
    "color": "#000000"
   },
   "konyha__alap": {
