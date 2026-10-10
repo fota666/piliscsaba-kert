@@ -437,7 +437,7 @@
   },
   "magasagyas__magasagyas-zold": {
    "file": "model/v4-magasagyas__magasagyas-zold.bin",
-   "tris": 360,
+   "tris": 600,
    "color": "#6E9A45",
    "ablak": [
     4.2,
@@ -455,7 +455,7 @@
   },
   "viraglugas__b1-virag1": {
    "file": "model/v4-viraglugas__b1-virag1.bin",
-   "tris": 1890,
+   "tris": 1910,
    "color": "#F2C6CF",
    "ablak": [
     5.6,
@@ -464,7 +464,7 @@
   },
   "viraglugas__b1-virag2": {
    "file": "model/v4-viraglugas__b1-virag2.bin",
-   "tris": 1070,
+   "tris": 1050,
    "color": "#5B2A6E",
    "ablak": [
     6.5,
