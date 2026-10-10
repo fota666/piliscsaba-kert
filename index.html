@@ -814,8 +814,10 @@ function makeDog(szin) {
   const arnyek = new THREE.Mesh(new THREE.CircleGeometry(0.42, 16),
     new THREE.MeshBasicMaterial({ color: '#000', transparent: true, opacity: 0.22, depthWrite: false }));
   arnyek.rotation.x = -Math.PI / 2; arnyek.scale.set(1.2, 0.6, 1);
-  const kutya = new THREE.Group(); kutya.add(g); world.add(kutya);
-  return { obj: kutya, test: g, arnyek, labak, farok, fej, x: 0, y: 0, irany: 0, seb: 0, cel: null, var: 0, fazis: 0 };
+  // a forgópont a törzs közepén van (0,5 m), hogy a szaltó a teste körül forduljon, ne a lába körül
+  const forgo = new THREE.Group(); forgo.position.y = 0.5; g.position.y = -0.5; forgo.add(g);
+  const kutya = new THREE.Group(); kutya.add(forgo); world.add(kutya);
+  return { obj: kutya, forgo, test: g, arnyek, labak, farok, fej, szalto: null, x: 0, y: 0, irany: 0, seb: 0, cel: null, var: 0, fazis: 0 };
 }
 
 // Az egész telken futkároznak (a ház kivételével), minden járható felületen: terep, beton,
@@ -899,8 +901,13 @@ function kutyaLepes(dt) {
       l.rotation.z = k.levegoben ? (j < 2 ? 0.7 : -0.7)                // ugrásban: első láb előre, hátsó hátra
                                  : Math.sin(k.fazis + (j === 0 || j === 3 ? 0 : Math.PI)) * amp;
     });
-    k.test.rotation.z = k.levegoben ? Math.max(-0.35, Math.min(0.35, k.vz * 0.08)) : 0;
-    k.test.position.y = k.levegoben ? 0 : Math.abs(Math.sin(k.fazis)) * Math.min(0.06, k.seb * 0.012);
+    if (k.szalto) {                                                 // hátraszaltó: a repülés ideje alatt egy teljes fordulat
+      k.szalto.t += dt;
+      const u = Math.min(1, k.szalto.t / k.szalto.T);
+      k.forgo.rotation.z = Math.PI * 2 * (u * u * (3 - 2 * u));
+      if (!k.levegoben) { k.szalto = null; k.forgo.rotation.z = 0; }
+    } else k.forgo.rotation.z = k.levegoben ? Math.max(-0.35, Math.min(0.35, k.vz * 0.08)) : 0;
+    k.test.position.y = -0.5 + (k.levegoben ? 0 : Math.abs(Math.sin(k.fazis)) * Math.min(0.06, k.seb * 0.012));
     k.farok.rotation.x = Math.sin(performance.now() / 110 + i) * (k.seb < 0.2 ? 0.6 : 0.25);
     k.obj.position.set(k.x, k.z, -k.y);
     k.obj.rotation.y = k.irany;                                      // telek +y = world −z, így a forgás egyezik
@@ -908,6 +915,22 @@ function kutyaLepes(dt) {
     const fel = Math.max(0, k.z - h); k.arnyek.material.opacity = 0.22 / (1 + fel * 1.5);
   });
 }
+function szaltozz(k) {
+  if (k.szalto) return;
+  const vz = 6.2;                                                     // kb. 2 m magasra repül
+  k.vz = vz; k.levegoben = true; k.seb *= 0.35;
+  k.szalto = { t: 0, T: 2 * vz / G };
+}
+const _kRay = new THREE.Raycaster(), _kPtr = new THREE.Vector2();
+let _kLe = null;
+renderer.domElement.addEventListener('pointerdown', (e) => { _kLe = [e.clientX, e.clientY]; });
+renderer.domElement.addEventListener('pointerup', (e) => {
+  if (!_kLe || Math.hypot(e.clientX - _kLe[0], e.clientY - _kLe[1]) > 6) return;   // húzás (forgatás) nem kattintás
+  _kPtr.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+  _kRay.setFromCamera(_kPtr, camera);
+  const hit = _kRay.intersectObjects(kutyaPick, false)[0];
+  if (hit) szaltozz(kutyak[kutyaPick.indexOf(hit.object)]);
+});
 let kUtolso = performance.now();
 (function kutyaHurok(t) {
   const dt = Math.min(0.05, ((t ?? performance.now()) - kUtolso) / 1000); kUtolso = t ?? performance.now();
@@ -920,7 +943,7 @@ let kUtolso = performance.now();
 })();
 
 window.__scene = { scene, camera, world, plantGroup, sun, renderer, manifest, PLANTS,
-                   kutyak: { lista: kutyak, lepes: kutyaLepes, mod: () => kMod } };
+                   kutyak: { lista: kutyak, lepes: kutyaLepes, mod: () => kMod, szaltozz } };
 </script>
 </body>
 </html>
