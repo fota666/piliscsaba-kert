@@ -15,12 +15,12 @@
  },
  "plants": [
   {
-   "species": "fuge-ronde",
+   "species": "mezalmacska",
    "x": 0.74,
    "y": 11.21,
-   "h": 2.8,
-   "d": 3.0,
-   "rot": 2.4791,
+   "h": 3.0,
+   "d": 2.0,
+   "rot": 0,
    "base": 1.65
   },
   {
@@ -78,13 +78,13 @@
    "rot": 0.0
   },
   {
-   "species": "mezalmacska",
+   "species": "fuge-ronde",
    "x": 36.63,
    "y": 2.25,
-   "base": -2.32,
-   "h": 3.0,
-   "d": 2.0,
-   "rot": 0.0
+   "h": 2.8,
+   "d": 3.0,
+   "rot": 0,
+   "base": -2.3
   },
   {
    "species": "szolo-kocka",
