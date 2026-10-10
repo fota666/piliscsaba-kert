@@ -149,7 +149,7 @@ export const SPECIES = {
   /* — fajtatervek: valódi exportált GLB-sablonok (fak.md, piliscsabai lista). A szín a modell
      saját, kutatott materialneveiben van besütve (lomb-bordo, lomb-fuge stb.) — itt nincs felülírás. */
   'crimson-snow':          { type: 'model', model: './model/crimson-snow.glb',        h: 13,  d: 9,   sez: 'crimson-snow' },          // Vörös juhar 'Crimson King'
-  'diszalma-royalty-fa':   { type: 'model', model: './model/diszalma-royalty-fa.glb', h: 4,   d: 4,   sez: 'diszalma-royalty-fa' },   // Díszalma 'Royalty'
+  'diszalma-royalty-fa':   { type: 'model', model: './model/diszalma-royalty-fa.glb', h: 4.5, d: 4.5, sez: 'diszalma-royalty-fa' },   // Díszalma 'Royal Raindrops' (a Royalty modelljével)
   'perzsafa-bokorfa':      { type: 'model', model: './model/perzsafa-bokorfa.glb',    h: 5,   d: 6,   sez: 'perzsafa-bokorfa' },      // Perzsafa (bokor)
   'naspolya':              { type: 'model', model: './model/naspolya.glb',            h: 4.5, d: 4,   sez: 'naspolya' },              // Naspolya 'Nottingham'
   'oszlopos-diszalma-fa':  { type: 'model', model: './model/oszlopos-diszalma-fa.glb', h: 5,  d: 2.6, sez: 'oszlopos-diszalma-fa' },  // Oszlopos díszalma 'Van Eseltine'
