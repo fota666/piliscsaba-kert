@@ -789,7 +789,104 @@ document.getElementById('loading').style.display = 'none';
 document.getElementById('bar').style.display = 'flex';
 render();
 
-window.__scene = { scene, camera, world, plantGroup, sun, renderer, manifest, PLANTS };
+/* ---------- kutyák: egy barna és egy fekete. Sétálgatnak a gyepen, néha kergetik egymást. ---------- */
+function makeDog(szin) {
+  const g = new THREE.Group();
+  const m = new THREE.MeshLambertMaterial({ color: szin });
+  const s = new THREE.MeshLambertMaterial({ color: new THREE.Color(szin).multiplyScalar(0.55) });
+  const box = (w, h, d, x, y, z, mat = m) => { const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat); b.position.set(x, y, z); g.add(b); return b; };
+  box(0.72, 0.28, 0.27, 0, 0.52, 0);                       // törzs (a kutya +x felé néz)
+  box(0.3, 0.32, 0.29, 0.25, 0.55, 0);                     // mellkas
+  const fej = new THREE.Group(); fej.position.set(0.42, 0.72, 0); g.add(fej);
+  const fb = (w, h, d, x, y, z, mat = m) => { const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat); b.position.set(x, y, z); fej.add(b); };
+  fb(0.22, 0.2, 0.2, 0, 0, 0); fb(0.15, 0.1, 0.12, 0.15, -0.04, 0); fb(0.04, 0.04, 0.05, 0.23, -0.02, 0, s);   // fej, orr
+  fb(0.06, 0.14, 0.07, -0.04, 0.09, 0.08, s); fb(0.06, 0.14, 0.07, -0.04, 0.09, -0.08, s);                  // fülek
+  const farok = new THREE.Group(); farok.position.set(-0.36, 0.6, 0); g.add(farok);
+  const fk = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.28, 0.05), m); fk.position.y = 0.13; farok.add(fk);
+  farok.rotation.z = 0.7;
+  const labak = [];
+  for (const [x, z] of [[0.26, 0.09], [0.26, -0.09], [-0.27, 0.09], [-0.27, -0.09]]) {
+    const csp = new THREE.Group(); csp.position.set(x, 0.42, z); g.add(csp);
+    const l = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.42, 0.07), m); l.position.y = -0.21; csp.add(l);
+    labak.push(csp);
+  }
+  const arnyek = new THREE.Mesh(new THREE.CircleGeometry(0.42, 16),
+    new THREE.MeshBasicMaterial({ color: '#000', transparent: true, opacity: 0.22, depthWrite: false }));
+  arnyek.rotation.x = -Math.PI / 2; arnyek.scale.set(1.2, 0.6, 1);
+  const kutya = new THREE.Group(); kutya.add(g); world.add(kutya);
+  return { obj: kutya, test: g, arnyek, labak, farok, fej, x: 0, y: 0, irany: 0, seb: 0, cel: null, var: 0, fazis: 0 };
+}
+
+const KUTYA_TER = { x0: 22, x1: 48, y0: 1.5, y1: 12.5 };            // a gyep, ahol futkároznak (telek-koord.)
+const terepMeshek = Object.keys(meshes).filter((c) => /^(terep|beton)__/.test(c)).map((c) => meshes[c]).filter(Boolean);
+const _ray = new THREE.Raycaster(), _le = new THREE.Vector3(0, -1, 0), _fe = new THREE.Vector3();
+function talaj(x, y) {                                               // telek (x, y) → talajmagasság
+  _fe.set(x, 60, -y); _ray.set(_fe, _le);
+  const h = _ray.intersectObjects(terepMeshek, false)[0];
+  return h ? h.point.y : 0;
+}
+const kRnd = (a, b) => a + Math.random() * (b - a);
+const ujCel = () => ({ x: kRnd(KUTYA_TER.x0, KUTYA_TER.x1), y: kRnd(KUTYA_TER.y0, KUTYA_TER.y1) });
+const kutyak = [makeDog('#7B4A2A'), makeDog('#1D1B1A')];
+kutyak.forEach((k, i) => { k.x = 30 + i * 2; k.y = 6 + i; k.cel = ujCel(); });
+kutyak.forEach((k) => world.add(k.arnyek));
+let kMod = 'seta', kIdo = kRnd(12, 25), kuldozo = 0, kSzunet = 0;
+// menekülési cél: a gyep olyan pontja, ami messze van a kergetőtől
+const menekul = (u) => { let c = ujCel(); for (let i = 0; i < 12 && Math.hypot(c.x - u.x, c.y - u.y) < 7; i++) c = ujCel(); return c; };
+
+function kutyaLepes(dt) {
+  kIdo -= dt; kSzunet -= dt;
+  if (kMod === 'seta' && kIdo <= 0) { kMod = 'kerget'; kIdo = kRnd(6, 10); kuldozo = Math.random() < 0.5 ? 0 : 1; kutyak[1 - kuldozo].cel = menekul(kutyak[kuldozo]); kSzunet = 0; }
+  else if (kMod === 'kerget' && kIdo <= 0) { kMod = 'seta'; kIdo = kRnd(15, 35); kutyak.forEach((k) => { k.cel = ujCel(); k.var = kRnd(0.5, 2); }); }
+  kutyak.forEach((k, i) => {
+    let cel = k.cel, vmax = 1.1, fordul = 2.5;
+    if (kMod === 'kerget') {
+      const masik = kutyak[1 - i];
+      if (i === kuldozo) { cel = { x: masik.x, y: masik.y }; vmax = kSzunet > 0 ? 0 : 4.6; fordul = 5; }   // elkapás után kivár
+      else { vmax = 4.3; fordul = 5; if (Math.hypot(k.x - cel.x, k.y - cel.y) < 1.2) k.cel = cel = menekul(masik); }
+      if (i === kuldozo && kSzunet <= 0 && Math.hypot(k.x - masik.x, k.y - masik.y) < 0.9) {
+        kuldozo = 1 - kuldozo; kSzunet = 1.5;                       // szerepcsere: az elkapott kerget tovább
+        k.cel = menekul(masik);
+      }
+    }
+    const tav = Math.hypot(cel.x - k.x, cel.y - k.y);
+    let celSeb = vmax;
+    if (kMod === 'seta') {
+      if (k.var > 0) { k.var -= dt; celSeb = 0; }
+      else if (tav < 0.4) { k.var = kRnd(1, 4); k.cel = ujCel(); celSeb = 0; }
+    }
+    k.seb += (celSeb - k.seb) * Math.min(1, dt * 3);
+    if (k.seb > 0.05) {
+      let d = Math.atan2(cel.y - k.y, cel.x - k.x) - k.irany;
+      d = Math.atan2(Math.sin(d), Math.cos(d));
+      k.irany += Math.max(-fordul * dt, Math.min(fordul * dt, d));
+    }
+    k.x = Math.min(KUTYA_TER.x1, Math.max(KUTYA_TER.x0, k.x + Math.cos(k.irany) * k.seb * dt));
+    k.y = Math.min(KUTYA_TER.y1, Math.max(KUTYA_TER.y0, k.y + Math.sin(k.irany) * k.seb * dt));
+    const h = talaj(k.x, k.y);
+    k.fazis += k.seb * dt * 4.2;
+    const amp = Math.min(0.85, k.seb * 0.22);
+    k.labak.forEach((l, j) => { l.rotation.z = Math.sin(k.fazis + (j === 0 || j === 3 ? 0 : Math.PI)) * amp; });
+    k.test.position.y = Math.abs(Math.sin(k.fazis)) * Math.min(0.06, k.seb * 0.015);
+    k.farok.rotation.x = Math.sin(performance.now() / 110 + i) * (k.seb < 0.2 ? 0.6 : 0.25);
+    k.obj.position.set(k.x, h, -k.y);
+    k.obj.rotation.y = k.irany;                                      // telek +y = world −z, így a forgás egyezik
+    k.arnyek.position.set(k.x, h + 0.02, -k.y); k.arnyek.rotation.z = k.irany;
+  });
+}
+let kUtolso = performance.now();
+(function kutyaHurok(t) {
+  const dt = Math.min(0.05, ((t ?? performance.now()) - kUtolso) / 1000); kUtolso = t ?? performance.now();
+  kutyaLepes(dt);
+  if (!rendering && !document.hidden) {
+    if (needsShadow) { renderer.shadowMap.needsUpdate = true; needsShadow = false; }
+    renderer.render(scene, camera);
+  }
+  requestAnimationFrame(kutyaHurok);
+})();
+
+window.__scene = { scene, camera, world, plantGroup, sun, renderer, manifest, PLANTS,
+                   kutyak: { lista: kutyak, lepes: kutyaLepes, mod: () => kMod } };
 </script>
 </body>
 </html>
