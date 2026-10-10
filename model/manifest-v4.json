@@ -496,7 +496,7 @@
   },
   "szeder__lomb": {
    "file": "model/v4-szeder__lomb.bin",
-   "tris": 3360,
+   "tris": 6720,
    "color": "#4E6B34",
    "ablak": [
     3.9,
@@ -505,12 +505,12 @@
   },
   "szeder__vesszo": {
    "file": "model/v4-szeder__vesszo.bin",
-   "tris": 840,
+   "tris": 1680,
    "color": "#6B3F3A"
   },
   "szeder__virag": {
    "file": "model/v4-szeder__virag.bin",
-   "tris": 1600,
+   "tris": 3200,
    "color": "#F3EDE6",
    "ablak": [
     5.4,
@@ -519,7 +519,7 @@
   },
   "szeder__termes": {
    "file": "model/v4-szeder__termes.bin",
-   "tris": 2200,
+   "tris": 4400,
    "color": "#1E1424",
    "ablak": [
     7.0,
