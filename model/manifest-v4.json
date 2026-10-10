@@ -455,7 +455,7 @@
   },
   "viraglugas__b1-virag1": {
    "file": "model/v4-viraglugas__b1-virag1.bin",
-   "tris": 1910,
+   "tris": 2050,
    "color": "#F2C6CF",
    "ablak": [
     5.6,
@@ -464,7 +464,7 @@
   },
   "viraglugas__b1-virag2": {
    "file": "model/v4-viraglugas__b1-virag2.bin",
-   "tris": 1050,
+   "tris": 1130,
    "color": "#5B2A6E",
    "ablak": [
     6.5,
@@ -478,7 +478,7 @@
   },
   "viraglugas__b2-virag1": {
    "file": "model/v4-viraglugas__b2-virag1.bin",
-   "tris": 1460,
+   "tris": 1420,
    "color": "#E2B23C",
    "ablak": [
     5.5,
@@ -487,7 +487,7 @@
   },
   "viraglugas__b2-virag2": {
    "file": "model/v4-viraglugas__b2-virag2.bin",
-   "tris": 1500,
+   "tris": 1400,
    "color": "#F5F3EC",
    "ablak": [
     6.5,
