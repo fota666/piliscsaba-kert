@@ -493,6 +493,7 @@ const plantGroup = new THREE.Group();
 plantGroup.name = 'novenyek';
 world.add(plantGroup);
 const pickables = [];
+const kutyaPick = [];                 // a kutyák találati gömbjei (a fa-újraépítés nem törli őket)
 
 const MEGLEVO = new Set(['korte', 'szilva', 'ezustfenyo']);   // már megvan, kifejlett — a kor-csúszka nem érinti
 
@@ -763,11 +764,11 @@ addEventListener('pointermove', (e) => {
     ptr.x = (pt.x / innerWidth) * 2 - 1;
     ptr.y = -(pt.y / innerHeight) * 2 + 1;
     ray.setFromCamera(ptr, camera);
-    const hit = ray.intersectObjects(pickables, false)[0];
+    const hit = ray.intersectObjects(kutyaPick.concat(pickables), false)[0];
     if (!hit) { tip.style.opacity = 0; return; }
     const d = hit.object.userData;
     tip.querySelector('b').textContent = d.label;
-    tip.querySelector('span').textContent = `${d.h} m × ⌀ ${d.d} m · X ${d.x} / Y ${d.y}`;
+    tip.querySelector('span').textContent = d.kutya ? d.kutya : `${d.h} m × ⌀ ${d.d} m · X ${d.x} / Y ${d.y}`;
     tip.style.left = pt.x + 'px';
     tip.style.top = pt.y + 'px';
     tip.style.opacity = 1;
@@ -833,6 +834,13 @@ function talaj(x, y) {                                               // telek (x
 const kRnd = (a, b) => a + Math.random() * (b - a);
 const ujCel = () => { let c; do { c = { x: kRnd(KUTYA_TER.x0, KUTYA_TER.x1), y: kRnd(KUTYA_TER.y0, KUTYA_TER.y1) }; } while (bentHaz(c.x, c.y)); return c; };
 const kutyak = [makeDog('#7B4A2A'), makeDog('#1D1B1A')];
+// egérrel rámutatva a nevük: láthatatlan találati gömb a kutyán, a fák mellé a pickables listába
+[['Moki', 'barna kutya'], ['Dinnye', 'fekete kutya']].forEach(([nev, leiras], i) => {
+  const p = new THREE.Mesh(new THREE.SphereGeometry(0.55, 8, 6), new THREE.MeshBasicMaterial({ visible: false }));
+  p.position.set(0.05, 0.55, 0);
+  p.userData = { label: nev, kutya: leiras };
+  kutyak[i].obj.add(p); kutyaPick.push(p);
+});
 kutyak.forEach((k, i) => { k.x = 30 + i * 2; k.y = 6 + i; k.cel = ujCel(); k.z = talaj(k.x, k.y); k.vz = 0; k.levegoben = false; });
 kutyak.forEach((k) => world.add(k.arnyek));
 let kMod = 'seta', kIdo = kRnd(12, 25), kuldozo = 0, kSzunet = 0;
