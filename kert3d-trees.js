@@ -155,7 +155,7 @@ export const SPECIES = {
   'oszlopos-diszalma-fa':  { type: 'model', model: './model/oszlopos-diszalma-fa.glb', h: 5,  d: 2.6, sez: 'oszlopos-diszalma-fa' },  // Oszlopos díszalma 'Van Eseltine'
   'husos-som':             { type: 'model', model: './model/husos-som.glb',           h: 5,   d: 4,   sez: 'husos-som' },             // Som 'Jolico'
   'birsalma':              { type: 'model', model: './model/birsalma.glb',            h: 4,   d: 3.5, sez: 'birsalma' },              // Birs 'Bereczki'
-  'mezalmacska':           { type: 'model', model: './model/mezalmacska.glb',         h: 3.5, d: 3,   sez: 'mezalmacska' },           // Mézalmácska 'Martin'
+  'mezalmacska':           { type: 'model', model: './model/mezalmacska.glb',         h: 3,   d: 2,   sez: 'mezalmacska' },           // Mézalmácska 'Martin'
   'acer-buergerianum':     { type: 'model', model: './model/seasons/acer-buergerianum.glb', h: 8, d: 7, sez: 'acer-buergerianum' },   // Háromerű juhar
   // Termő almafák — saját GLB még nincs, a Malus-testvér mézalmácska szettjét viszik, nagyobb méretben.
   'alma-luna':             { type: 'model', model: './model/mezalmacska.glb',         h: 4.2, d: 3.6, sez: 'mezalmacska' },           // Alma 'Luna' (rezisztens)
