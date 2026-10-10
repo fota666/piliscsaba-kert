@@ -482,9 +482,10 @@ function applySeason(month) {
     });
   });
   // kézzel tervezett elemek (build_scene.py 3. lépés): futórózsás lugasblokk és magaságyás-zöldség
-  const ablak = { 'viraglugas__viraglugas-lomb': [3.8, 11.4], 'viraglugas__viraglugas-virag': [5.2, 9.8],
-                  'magasagyas__magasagyas-zold': [4.2, 10.6] };
-  Object.entries(ablak).forEach(([cls, [a, b]]) => { if (meshes[cls]) meshes[cls].visible = inWindow(month, a, b); });
+  // (az évszakablakot a build_scene.py írja a manifestbe: classes[cls].ablak = [kezdő, záró hónap])
+  Object.entries(manifest.classes).forEach(([cls, info]) => {
+    if (info.ablak && meshes[cls]) meshes[cls].visible = inWindow(month, info.ablak[0], info.ablak[1]);
+  });
   needsShadow = true;
 }
 

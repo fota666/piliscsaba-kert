@@ -438,17 +438,79 @@
   "magasagyas__magasagyas-zold": {
    "file": "model/v4-magasagyas__magasagyas-zold.bin",
    "tris": 360,
-   "color": "#6E9A45"
+   "color": "#6E9A45",
+   "ablak": [
+    4.2,
+    10.6
+   ]
   },
-  "viraglugas__viraglugas-lomb": {
-   "file": "model/v4-viraglugas__viraglugas-lomb.bin",
-   "tris": 156,
-   "color": "#4F6F3A"
+  "viraglugas__b1-lomb": {
+   "file": "model/v4-viraglugas__b1-lomb.bin",
+   "tris": 52,
+   "color": "#4F6F3A",
+   "ablak": [
+    3.8,
+    11.4
+   ]
   },
-  "viraglugas__viraglugas-virag": {
-   "file": "model/v4-viraglugas__viraglugas-virag.bin",
-   "tris": 8880,
-   "color": "#D9739A"
+  "viraglugas__b1-virag1": {
+   "file": "model/v4-viraglugas__b1-virag1.bin",
+   "tris": 1890,
+   "color": "#F2C6CF",
+   "ablak": [
+    5.6,
+    9.6
+   ]
+  },
+  "viraglugas__b1-virag2": {
+   "file": "model/v4-viraglugas__b1-virag2.bin",
+   "tris": 1070,
+   "color": "#5B2A6E",
+   "ablak": [
+    6.5,
+    9.0
+   ]
+  },
+  "viraglugas__b2-lomb": {
+   "file": "model/v4-viraglugas__b2-lomb.bin",
+   "tris": 52,
+   "color": "#5E7F3B",
+   "ablak": [
+    4.8,
+    10.8
+   ]
+  },
+  "viraglugas__b2-virag1": {
+   "file": "model/v4-viraglugas__b2-virag1.bin",
+   "tris": 2960,
+   "color": "#E8742A",
+   "ablak": [
+    6.8,
+    9.3
+   ]
+  },
+  "viraglugas__b3-lomb": {
+   "file": "model/v4-viraglugas__b3-lomb.bin",
+   "tris": 52,
+   "color": "#3C5A2C"
+  },
+  "viraglugas__b3-virag1": {
+   "file": "model/v4-viraglugas__b3-virag1.bin",
+   "tris": 1700,
+   "color": "#E2B23C",
+   "ablak": [
+    5.5,
+    7.2
+   ]
+  },
+  "viraglugas__b3-virag2": {
+   "file": "model/v4-viraglugas__b3-virag2.bin",
+   "tris": 1260,
+   "color": "#F5F3EC",
+   "ablak": [
+    6.5,
+    10.0
+   ]
   }
  }
 }
