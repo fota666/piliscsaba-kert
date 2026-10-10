@@ -817,34 +817,39 @@ function makeDog(szin) {
   return { obj: kutya, test: g, arnyek, labak, farok, fej, x: 0, y: 0, irany: 0, seb: 0, cel: null, var: 0, fazis: 0 };
 }
 
-const KUTYA_TER = { x0: 22, x1: 48, y0: 1.5, y1: 12.5 };            // a gyep, ahol futkároznak (telek-koord.)
-const terepMeshek = Object.keys(meshes).filter((c) => /^(terep|beton)__/.test(c)).map((c) => meshes[c]).filter(Boolean);
+// Az egész telken futkároznak (a ház kivételével), minden járható felületen: terep, beton,
+// lépcső, támfal teteje, magaságyás. A szintkülönbségeket felugorják / leugorják.
+const KUTYA_TER = { x0: 0.6, x1: 58.8, y0: 0.5, y1: 18.2 };
+const HAZ = { x0: 4.8, x1: 20.2, y0: 1.7, y1: 11.7 };                // ide nem mennek be
+const bentHaz = (x, y) => x > HAZ.x0 && x < HAZ.x1 && y > HAZ.y0 && y < HAZ.y1;
+const terepMeshek = Object.keys(meshes).filter((c) => /^(terep|beton|lepcso|magasagyas)__/.test(c))
+  .map((c) => meshes[c]).filter(Boolean);
 const _ray = new THREE.Raycaster(), _le = new THREE.Vector3(0, -1, 0), _fe = new THREE.Vector3();
-function talaj(x, y) {                                               // telek (x, y) → talajmagasság
+function talaj(x, y) {                                               // telek (x, y) → a legfelső járható felület
   _fe.set(x, 60, -y); _ray.set(_fe, _le);
   const h = _ray.intersectObjects(terepMeshek, false)[0];
-  return h ? h.point.y : 0;
+  return h ? h.point.y : -99;
 }
 const kRnd = (a, b) => a + Math.random() * (b - a);
-const ujCel = () => ({ x: kRnd(KUTYA_TER.x0, KUTYA_TER.x1), y: kRnd(KUTYA_TER.y0, KUTYA_TER.y1) });
+const ujCel = () => { let c; do { c = { x: kRnd(KUTYA_TER.x0, KUTYA_TER.x1), y: kRnd(KUTYA_TER.y0, KUTYA_TER.y1) }; } while (bentHaz(c.x, c.y)); return c; };
 const kutyak = [makeDog('#7B4A2A'), makeDog('#1D1B1A')];
-kutyak.forEach((k, i) => { k.x = 30 + i * 2; k.y = 6 + i; k.cel = ujCel(); });
+kutyak.forEach((k, i) => { k.x = 30 + i * 2; k.y = 6 + i; k.cel = ujCel(); k.z = talaj(k.x, k.y); k.vz = 0; k.levegoben = false; });
 kutyak.forEach((k) => world.add(k.arnyek));
 let kMod = 'seta', kIdo = kRnd(12, 25), kuldozo = 0, kSzunet = 0;
-// menekülési cél: a gyep olyan pontja, ami messze van a kergetőtől
-const menekul = (u) => { let c = ujCel(); for (let i = 0; i < 12 && Math.hypot(c.x - u.x, c.y - u.y) < 7; i++) c = ujCel(); return c; };
+const menekul = (u) => { let c = ujCel(); for (let i = 0; i < 12 && Math.hypot(c.x - u.x, c.y - u.y) < 9; i++) c = ujCel(); return c; };
+const G = 9.81, MAX_UGRAS = 1.3;                                     // ekkora szintet még felugranak
 
 function kutyaLepes(dt) {
   kIdo -= dt; kSzunet -= dt;
-  if (kMod === 'seta' && kIdo <= 0) { kMod = 'kerget'; kIdo = kRnd(6, 10); kuldozo = Math.random() < 0.5 ? 0 : 1; kutyak[1 - kuldozo].cel = menekul(kutyak[kuldozo]); kSzunet = 0; }
-  else if (kMod === 'kerget' && kIdo <= 0) { kMod = 'seta'; kIdo = kRnd(15, 35); kutyak.forEach((k) => { k.cel = ujCel(); k.var = kRnd(0.5, 2); }); }
+  if (kMod === 'seta' && kIdo <= 0) { kMod = 'kerget'; kIdo = kRnd(7, 12); kuldozo = Math.random() < 0.5 ? 0 : 1; kutyak[1 - kuldozo].cel = menekul(kutyak[kuldozo]); kSzunet = 0; }
+  else if (kMod === 'kerget' && kIdo <= 0) { kMod = 'seta'; kIdo = kRnd(12, 28); kutyak.forEach((k) => { k.cel = ujCel(); k.var = kRnd(0.5, 2); }); }
   kutyak.forEach((k, i) => {
-    let cel = k.cel, vmax = 1.1, fordul = 2.5;
+    let cel = k.cel, vmax = 1.7, fordul = 3;
     if (kMod === 'kerget') {
       const masik = kutyak[1 - i];
-      if (i === kuldozo) { cel = { x: masik.x, y: masik.y }; vmax = kSzunet > 0 ? 0 : 4.6; fordul = 5; }   // elkapás után kivár
-      else { vmax = 4.3; fordul = 5; if (Math.hypot(k.x - cel.x, k.y - cel.y) < 1.2) k.cel = cel = menekul(masik); }
-      if (i === kuldozo && kSzunet <= 0 && Math.hypot(k.x - masik.x, k.y - masik.y) < 0.9) {
+      if (i === kuldozo) { cel = { x: masik.x, y: masik.y }; vmax = kSzunet > 0 ? 0 : 7.2; fordul = 6; }   // elkapás után kivár
+      else { vmax = 6.7; fordul = 6; if (Math.hypot(k.x - cel.x, k.y - cel.y) < 1.5) k.cel = cel = menekul(masik); }
+      if (i === kuldozo && kSzunet <= 0 && Math.hypot(k.x - masik.x, k.y - masik.y) < 1.0) {
         kuldozo = 1 - kuldozo; kSzunet = 1.5;                       // szerepcsere: az elkapott kerget tovább
         k.cel = menekul(masik);
       }
@@ -855,23 +860,44 @@ function kutyaLepes(dt) {
       if (k.var > 0) { k.var -= dt; celSeb = 0; }
       else if (tav < 0.4) { k.var = kRnd(1, 4); k.cel = ujCel(); celSeb = 0; }
     }
-    k.seb += (celSeb - k.seb) * Math.min(1, dt * 3);
-    if (k.seb > 0.05) {
+    k.seb += (celSeb - k.seb) * Math.min(1, dt * (k.levegoben ? 0.5 : 3));
+    if (k.seb > 0.05 && !k.levegoben) {
       let d = Math.atan2(cel.y - k.y, cel.x - k.x) - k.irany;
       d = Math.atan2(Math.sin(d), Math.cos(d));
       k.irany += Math.max(-fordul * dt, Math.min(fordul * dt, d));
     }
-    k.x = Math.min(KUTYA_TER.x1, Math.max(KUTYA_TER.x0, k.x + Math.cos(k.irany) * k.seb * dt));
-    k.y = Math.min(KUTYA_TER.y1, Math.max(KUTYA_TER.y0, k.y + Math.sin(k.irany) * k.seb * dt));
+    // következő pozíció — a ház és a túl magas fal megállítja (új célt választ)
+    let nx = Math.min(KUTYA_TER.x1, Math.max(KUTYA_TER.x0, k.x + Math.cos(k.irany) * k.seb * dt));
+    let ny = Math.min(KUTYA_TER.y1, Math.max(KUTYA_TER.y0, k.y + Math.sin(k.irany) * k.seb * dt));
+    const elore = talaj(k.x + Math.cos(k.irany) * 0.45, k.y + Math.sin(k.irany) * 0.45);   // fél lépéssel előre
+    const hn = talaj(nx, ny);
+    const akadaly = bentHaz(nx, ny) || hn < -50 || (!k.levegoben && hn - k.z > MAX_UGRAS);
+    if (akadaly) { nx = k.x; ny = k.y; k.seb *= 0.3; k.cel = kMod === 'kerget' && i !== kuldozo ? menekul(kutyak[1 - i]) : ujCel(); }
+    // felugrás: ha előttünk kicsit magasabb szint jön, elrugaszkodik
+    else if (!k.levegoben && elore - k.z > 0.18 && elore - k.z <= MAX_UGRAS) {
+      k.vz = Math.sqrt(2 * G * (elore - k.z + 0.3)); k.levegoben = true;
+    }
+    // kergetés közben néha csak úgy felugrik
+    else if (!k.levegoben && kMod === 'kerget' && k.seb > 4 && Math.random() < dt * 0.35) { k.vz = 3.2; k.levegoben = true; }
+    k.x = nx; k.y = ny;
     const h = talaj(k.x, k.y);
-    k.fazis += k.seb * dt * 4.2;
-    const amp = Math.min(0.85, k.seb * 0.22);
-    k.labak.forEach((l, j) => { l.rotation.z = Math.sin(k.fazis + (j === 0 || j === 3 ? 0 : Math.PI)) * amp; });
-    k.test.position.y = Math.abs(Math.sin(k.fazis)) * Math.min(0.06, k.seb * 0.015);
+    if (k.levegoben || h < k.z - 0.12) {                             // levegőben, vagy lelép egy szintről: zuhan
+      k.levegoben = true; k.vz -= G * dt; k.z += k.vz * dt;
+      if (k.z <= h && k.vz <= 0) { k.z = h; k.vz = 0; k.levegoben = false; }
+    } else k.z = h;                                                  // talajon: követi a lejtőt
+    if (!k.levegoben) k.fazis += k.seb * dt * 3.4;
+    const amp = Math.min(0.85, k.seb * 0.16);
+    k.labak.forEach((l, j) => {
+      l.rotation.z = k.levegoben ? (j < 2 ? 0.7 : -0.7)                // ugrásban: első láb előre, hátsó hátra
+                                 : Math.sin(k.fazis + (j === 0 || j === 3 ? 0 : Math.PI)) * amp;
+    });
+    k.test.rotation.z = k.levegoben ? Math.max(-0.35, Math.min(0.35, k.vz * 0.08)) : 0;
+    k.test.position.y = k.levegoben ? 0 : Math.abs(Math.sin(k.fazis)) * Math.min(0.06, k.seb * 0.012);
     k.farok.rotation.x = Math.sin(performance.now() / 110 + i) * (k.seb < 0.2 ? 0.6 : 0.25);
-    k.obj.position.set(k.x, h, -k.y);
+    k.obj.position.set(k.x, k.z, -k.y);
     k.obj.rotation.y = k.irany;                                      // telek +y = world −z, így a forgás egyezik
     k.arnyek.position.set(k.x, h + 0.02, -k.y); k.arnyek.rotation.z = k.irany;
+    const fel = Math.max(0, k.z - h); k.arnyek.material.opacity = 0.22 / (1 + fel * 1.5);
   });
 }
 let kUtolso = performance.now();
