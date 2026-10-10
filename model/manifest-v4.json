@@ -493,6 +493,38 @@
     6.5,
     10.0
    ]
+  },
+  "szeder__lomb": {
+   "file": "model/v4-szeder__lomb.bin",
+   "tris": 3360,
+   "color": "#4E6B34",
+   "ablak": [
+    3.9,
+    11.6
+   ]
+  },
+  "szeder__vesszo": {
+   "file": "model/v4-szeder__vesszo.bin",
+   "tris": 840,
+   "color": "#6B3F3A"
+  },
+  "szeder__virag": {
+   "file": "model/v4-szeder__virag.bin",
+   "tris": 1600,
+   "color": "#F3EDE6",
+   "ablak": [
+    5.4,
+    6.4
+   ]
+  },
+  "szeder__termes": {
+   "file": "model/v4-szeder__termes.bin",
+   "tris": 2200,
+   "color": "#1E1424",
+   "ablak": [
+    7.0,
+    8.6
+   ]
   }
  }
 }
