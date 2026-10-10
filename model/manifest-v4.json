@@ -15,33 +15,6 @@
  },
  "plants": [
   {
-   "species": "fuge",
-   "x": 0.74,
-   "y": 11.21,
-   "base": 1.65,
-   "h": 3.19,
-   "d": 3.79,
-   "rot": 2.4791
-  },
-  {
-   "species": "josta",
-   "x": 1.13,
-   "y": 4.26,
-   "base": 0.65,
-   "h": 1.89,
-   "d": 1.81,
-   "rot": 0.0
-  },
-  {
-   "species": "perzsafa-bokorfa",
-   "x": 1.21,
-   "y": 16.46,
-   "base": 1.78,
-   "h": 4.98,
-   "d": 6.18,
-   "rot": 0.0
-  },
-  {
    "species": "magnolia-kay-parris",
    "x": 21.46,
    "y": 13.45,
@@ -132,6 +105,15 @@
    "rot": 0.0
   },
   {
+   "species": "fuge",
+   "x": 48.9,
+   "y": 3.3,
+   "h": 2.8,
+   "d": 2.8,
+   "rot": 0,
+   "base": -3.63
+  },
+  {
    "species": "acer-buergerianum",
    "x": 49.06,
    "y": 7.76,
@@ -141,13 +123,13 @@
    "rot": 0.0
   },
   {
-   "species": "naspolya",
-   "x": 49.66,
-   "y": 1.68,
-   "base": -3.67,
-   "h": 4.33,
-   "d": 5.03,
-   "rot": 0.0
+   "species": "josta",
+   "x": 49.3,
+   "y": 0.9,
+   "h": 1.89,
+   "d": 1.81,
+   "rot": 0,
+   "base": -3.64
   },
   {
    "species": "husos-som",
