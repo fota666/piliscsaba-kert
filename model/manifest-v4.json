@@ -424,6 +424,31 @@
    "file": "model/v4-komposzt__groundcover-wood-mix.bin",
    "tris": 1558,
    "color": "#857973"
+  },
+  "magasagyas__magasagyas-keret": {
+   "file": "model/v4-magasagyas__magasagyas-keret.bin",
+   "tris": 120,
+   "color": "#8B6B47"
+  },
+  "magasagyas__magasagyas-fold": {
+   "file": "model/v4-magasagyas__magasagyas-fold.bin",
+   "tris": 30,
+   "color": "#5A4030"
+  },
+  "magasagyas__magasagyas-zold": {
+   "file": "model/v4-magasagyas__magasagyas-zold.bin",
+   "tris": 360,
+   "color": "#6E9A45"
+  },
+  "viraglugas__viraglugas-lomb": {
+   "file": "model/v4-viraglugas__viraglugas-lomb.bin",
+   "tris": 156,
+   "color": "#4F6F3A"
+  },
+  "viraglugas__viraglugas-virag": {
+   "file": "model/v4-viraglugas__viraglugas-virag.bin",
+   "tris": 8880,
+   "color": "#D9739A"
   }
  }
 }
