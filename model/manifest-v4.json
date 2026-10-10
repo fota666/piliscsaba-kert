@@ -96,6 +96,15 @@
    "rot": 0.0
   },
   {
+   "species": "ribizli-jvt",
+   "x": 45.7,
+   "y": 0.75,
+   "h": 1.4,
+   "d": 1.4,
+   "rot": 0,
+   "base": -3.57
+  },
+  {
    "species": "oszlopos-diszalma-fa",
    "x": 46.08,
    "y": 13.53,

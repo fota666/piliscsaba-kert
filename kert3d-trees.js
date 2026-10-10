@@ -165,9 +165,10 @@ export const SPECIES = {
   'berkenye':              { type: 'model', model: './model/berkenye.glb',            h: 3.5, d: 3   },  // Berkenye 'Granatnaja'
   'fuge':                  { type: 'model', model: './model/fuge.glb',                h: 2.8, d: 2.8 },  // Füge 'Violette de Bordeaux' — kompakt fajta
   'fuge-ronde':            { type: 'model', model: './model/fuge.glb',                h: 2.8, d: 3.0 },  // Füge 'Ronde de Bordeaux'
-  'josta':                 { type: 'model', model: './model/josta.glb',               h: 1.8, d: 1.8 },  // Jósta 'Jodeli'
+  'josta':                 { type: 'model', model: './model/josta.glb',               h: 1.8, d: 1.8 },  // Jósta 'Josta'
   'egres':                 { type: 'model', model: './model/egres.glb',               h: 1.2, d: 1.2 },  // Egres 'Hinnonmäki Yellow'
-  'ribizli':               { type: 'model', model: './model/ribizli.glb',             h: 1.4, d: 1.4 },  // Ribizli
+  'ribizli':               { type: 'model', model: './model/ribizli.glb',             h: 1.4, d: 1.4 },  // Ribizli 'Rovada' (piros, késői)
+  'ribizli-jvt':           { type: 'model', model: './model/ribizli.glb',             h: 1.4, d: 1.4 },  // Ribizli 'Jonkheer van Tets' (piros, korai)
   'madarbirs':             { type: 'model', model: './model/madarbirs-kaszkad.glb',   h: 1.8, d: 2.8, dz: 1.6 },  // Madárbirs sövény — ÖRÖKZÖLD
   'szolo-kocka':           { type: 'model', model: './model/szolo-kocka.glb',         h: 3.4, d: 5.4, dz: 5.1 }   // Szőlő-kocka a konyha fölé
 };
