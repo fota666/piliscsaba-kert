@@ -16,12 +16,12 @@
  "plants": [
   {
    "species": "fuge",
-   "x": 0.87,
-   "y": 11.32,
+   "x": 0.74,
+   "y": 11.21,
    "base": 1.65,
    "h": 3.19,
-   "d": 3.74,
-   "rot": 0.0
+   "d": 3.79,
+   "rot": 2.4791
   },
   {
    "species": "josta",
@@ -42,12 +42,12 @@
    "rot": 0.0
   },
   {
-   "species": "diszcseresznye",
+   "species": "magnolia-kay-parris",
    "x": 21.46,
    "y": 13.45,
    "base": -1.67,
    "h": 5.0,
-   "d": 1.5,
+   "d": 3.0,
    "rot": 0.0
   },
   {
@@ -102,15 +102,6 @@
    "base": -2.32,
    "h": 5.83,
    "d": 5.61,
-   "rot": 0.0
-  },
-  {
-   "species": "diszcseresznye",
-   "x": 41.48,
-   "y": 0.76,
-   "base": -3.49,
-   "h": 5.0,
-   "d": 1.5,
    "rot": 0.0
   },
   {

@@ -141,7 +141,10 @@ export const SPECIES = {
   'ezustfenyo':        { type: 'model', model: './model/ezustfenyo.glb', h: 12, d: 5, color: '#95ABAC' },   // örökzöld
   'szilva':            { type: 'model', model: './model/szilva.glb',  h: 6,   d: 5,   sez: 'szilva' },
   'korte':             { type: 'model', model: './model/korte.glb',   h: 2.6, d: 2.1, sez: 'korte' },
-  'diszcseresznye':    { type: 'model', model: './model/amanogawa.glb', h: 5, d: 1.5, sez: 'amanogawa' },   // 'Amanogawa' (oszlopos)
+  'diszcseresznye':    { type: 'model', model: './model/amanogawa.glb', h: 5, d: 1.5, sez: 'amanogawa' },   // 'Amanogawa' (oszlopos) — a tervből kikerült, a magnólia váltotta
+  // Örökzöld magnólia 'Kay Parris' — saját GLB még nincs: a tömött cseresznye-sablon, sötét fényes
+  // örökzöld lombbal és krémfehér virággal. Nincs évszak-szett: télen is lombos.
+  'magnolia-kay-parris': { type: 'model', model: './model/amanogawa.glb', h: 5, d: 3, color: '#3E5A33', viragColor: '#F3EEDC' },
 
   /* — fajtatervek: valódi exportált GLB-sablonok (fak.md, piliscsabai lista). A szín a modell
      saját, kutatott materialneveiben van besütve (lomb-bordo, lomb-fuge stb.) — itt nincs felülírás. */
@@ -152,7 +155,7 @@ export const SPECIES = {
   'oszlopos-diszalma-fa':  { type: 'model', model: './model/oszlopos-diszalma-fa.glb', h: 5,  d: 2.6, sez: 'oszlopos-diszalma-fa' },  // Oszlopos díszalma 'Van Eseltine'
   'husos-som':             { type: 'model', model: './model/husos-som.glb',           h: 5,   d: 4,   sez: 'husos-som' },             // Som 'Jolico'
   'birsalma':              { type: 'model', model: './model/birsalma.glb',            h: 4,   d: 3.5, sez: 'birsalma' },              // Birs 'Bereczki'
-  'mezalmacska':           { type: 'model', model: './model/mezalmacska.glb',         h: 3.5, d: 3,   sez: 'mezalmacska' },           // Mézalmácska 'Smokey'
+  'mezalmacska':           { type: 'model', model: './model/mezalmacska.glb',         h: 3.5, d: 3,   sez: 'mezalmacska' },           // Mézalmácska 'Martin'
   'acer-buergerianum':     { type: 'model', model: './model/seasons/acer-buergerianum.glb', h: 8, d: 7, sez: 'acer-buergerianum' },   // Háromerű juhar
   // Termő almafák — saját GLB még nincs, a Malus-testvér mézalmácska szettjét viszik, nagyobb méretben.
   'alma-luna':             { type: 'model', model: './model/mezalmacska.glb',         h: 4.2, d: 3.6, sez: 'mezalmacska' },           // Alma 'Luna' (rezisztens)
@@ -234,12 +237,27 @@ function fromModel(key, s, h, d, evszak) {
   if (s.color) {
     const fm = speciesFoliageMats(key, s.color);
     g.traverse((o) => { if (o.isMesh) {
-      if (/-arnyek$/.test(o.material.name)) o.material = fm.arn;
+      if (/^lomb-.*-arnyek$/.test(o.material.name)) o.material = fm.arn;
       else if (/^lomb-/.test(o.material.name)) o.material = fm.lomb;
       o.castShadow = true; o.receiveShadow = true;
     }});
   }
+  // virágszín felülírása (pl. a magnólia a cseresznye-sablon rózsaszín virágát fehérre festi)
+  if (s.viragColor) {
+    const vm = speciesViragMats(key, s.viragColor);
+    g.traverse((o) => { if (o.isMesh && /^virag/.test(o.material.name)) {
+      o.material = /-arnyek$/.test(o.material.name) ? vm.arn : vm.fo;
+    }});
+  }
   return g;
+}
+
+const _viragMatCache = {};
+function speciesViragMats(key, color) {
+  if (_viragMatCache[key]) return _viragMatCache[key];
+  const fo = MATERIALS.lomb.clone(); fo.color.set(color); fo.name = 'virag-' + key;
+  const arn = MATERIALS.lomb.clone(); arn.color.set(color).multiplyScalar(0.82); arn.name = 'virag-' + key + '-arnyek';
+  return (_viragMatCache[key] = { fo, arn });
 }
 
 /** Egy fajta példánya. h/d METERBEN (kihagyva a SPECIES tábla alapmérete). growth = 0..1 (ültetés → kifejlett). */

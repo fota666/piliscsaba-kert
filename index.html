@@ -379,12 +379,13 @@ const LABEL = {
   'diszcseresznye': "Díszcseresznye 'Amanogawa'", 'diszalma-royalty-fa': "Díszalma 'Royalty'",
   'oszlopos-diszalma-fa': "Oszlopos díszalma 'Van Eseltine'", 'birsalma': "Birs 'Bereczki'",
   'husos-som': "Som 'Jolico'", 'szilva': 'Szilva', 'korte': 'Körte',
-  'perzsafa-bokorfa': 'Perzsafa (bokor)', 'mezalmacska': "Mézalmácska 'Smokey'",
+  'perzsafa-bokorfa': 'Perzsafa (bokor)', 'mezalmacska': "Mézalmácska 'Martin'",
   'tatar-juhar': 'Tatár juhar', 'naspolya': "Naspolya 'Nottingham'", 'josta': 'Jósta',
   'berkenye': "Berkenye 'Granatnaja'", 'fuge': "Füge 'Violette de Bordeaux'",
   'egres': "Egres 'Hinnonmäki Yellow'", 'ribizli': 'Ribizli', 'acer-buergerianum': 'Háromerű juhar',
   'madarbirs': 'Madárbirs sövény', 'szolo-kocka': 'Szőlő-kocka',
-  'alma-luna': "Alma 'Luna'", 'alma-bonita': "Alma 'Bonita'"
+  'alma-luna': "Alma 'Luna'", 'alma-bonita': "Alma 'Bonita'",
+  'magnolia-kay-parris': "Örökzöld magnólia 'Kay Parris'"
 };
 const PLANTS = manifest.plants.filter(p => SPECIES[p.species]);
 
@@ -402,6 +403,7 @@ const PHENO = {
   'diszalma-royalty-fa':  { lomb: [4.0, 9.8, 11.2], nyar: '#6E3644', osz: '#7A3A46', virag: [4.5, 5.2, '#8E2D50'] },
   'oszlopos-diszalma-fa': { lomb: [4.0, 9.9, 11.3], nyar: '#93AE7B', osz: '#D2B24A', virag: [4.5, 5.3, '#E8A9BE'] },
   'diszcseresznye':       { lomb: [4.5, 9.7, 11.0], nyar: '#7E9A63', osz: '#D08A3E', virag: [4.0, 5.0, '#F0C8D4'] },
+  'magnolia-kay-parris':  { orokzold: true, virag: [5.3, 7.5, '#F3EEDC'] },   // ÖRÖKZÖLD, május–július virágzik, ősszel szórványosan
   'birsalma':             { lomb: [4.2, 10.0, 11.3], nyar: '#93A98B', osz: '#C9B24E', virag: [5.0, 5.6, '#F3DCDC'], termes: [9.0, 10.8] },
   'husos-som':            { lomb: [3.8, 9.6, 11.0], nyar: '#ADC28D', osz: '#9C4A46', virag: [2.5, 3.6, '#E8C63A'], termes: [7.5, 8.8] },
   'naspolya':             { lomb: [4.2, 10.0, 11.4], nyar: '#74905E', osz: '#B5762F', virag: [5.2, 6.0, '#F6F1E6'], termes: [9.8, 11.5] },
