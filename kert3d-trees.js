@@ -165,7 +165,7 @@ export const SPECIES = {
   'berkenye':              { type: 'model', model: './model/berkenye.glb',            h: 3.5, d: 3   },  // Berkenye 'Granatnaja'
   'fuge':                  { type: 'model', model: './model/fuge.glb',                h: 2.8, d: 2.8 },  // Füge 'Violette de Bordeaux' — kompakt fajta
   'fuge-ronde':            { type: 'model', model: './model/fuge.glb',                h: 2.8, d: 3.0 },  // Füge 'Ronde de Bordeaux'
-  'josta':                 { type: 'model', model: './model/josta.glb',               h: 1.8, d: 1.8 },  // Jósta 'Josta'
+  'josta':                 { type: 'model', model: './model/josta.glb',               h: 1.8, d: 1.8 },  // Jósta 'Jodeli'
   'egres':                 { type: 'model', model: './model/egres.glb',               h: 1.2, d: 1.2 },  // Egres 'Hinnonmäki Yellow'
   'ribizli':               { type: 'model', model: './model/ribizli.glb',             h: 1.4, d: 1.4 },  // Ribizli 'Rovada' (piros, késői)
   'ribizli-jvt':           { type: 'model', model: './model/ribizli.glb',             h: 1.4, d: 1.4 },  // Ribizli 'Jonkheer van Tets' (piros, korai)
