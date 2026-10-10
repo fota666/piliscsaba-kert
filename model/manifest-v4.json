@@ -474,38 +474,20 @@
   "viraglugas__b2-lomb": {
    "file": "model/v4-viraglugas__b2-lomb.bin",
    "tris": 52,
-   "color": "#5E7F3B",
-   "ablak": [
-    4.8,
-    10.8
-   ]
+   "color": "#3C5A2C"
   },
   "viraglugas__b2-virag1": {
    "file": "model/v4-viraglugas__b2-virag1.bin",
-   "tris": 2960,
-   "color": "#E8742A",
-   "ablak": [
-    6.8,
-    9.3
-   ]
-  },
-  "viraglugas__b3-lomb": {
-   "file": "model/v4-viraglugas__b3-lomb.bin",
-   "tris": 52,
-   "color": "#3C5A2C"
-  },
-  "viraglugas__b3-virag1": {
-   "file": "model/v4-viraglugas__b3-virag1.bin",
-   "tris": 1700,
+   "tris": 1460,
    "color": "#E2B23C",
    "ablak": [
     5.5,
     7.2
    ]
   },
-  "viraglugas__b3-virag2": {
-   "file": "model/v4-viraglugas__b3-virag2.bin",
-   "tris": 1260,
+  "viraglugas__b2-virag2": {
+   "file": "model/v4-viraglugas__b2-virag2.bin",
+   "tris": 1500,
    "color": "#F5F3EC",
    "ablak": [
     6.5,
