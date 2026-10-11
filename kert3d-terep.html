@@ -678,9 +678,10 @@ function objAblak(ablak, nev) {
       g.position.x -= (bb.min.x + bb.max.x) / 2; g.position.z -= (bb.min.z + bb.max.z) / 2;
       const sx = o.hossz ? o.hossz / (bb.max.x - bb.min.x) : 1;
       const sz = o.melyseg ? o.melyseg / (bb.max.z - bb.min.z) : 1;
+      const sy = o.magassag ? o.magassag / bb.max.y : 1;               // a lomb teteje a kért magasságra
       belso.matrixAutoUpdate = false;
       belso.matrix.copy(new THREE.Matrix4().makeShear(o.lejtes || 0, 0, 0, 0, 0, 0)
-                        .multiply(new THREE.Matrix4().makeScale(sx, 1, sz)));
+                        .multiply(new THREE.Matrix4().makeScale(sx, sy, sz)));
       const kulso = new THREE.Group(); kulso.name = o.nev; kulso.add(belso);
       kulso.position.set(o.x, o.z, -o.y);
       kulso.traverse((m) => { if (m.isMesh) {

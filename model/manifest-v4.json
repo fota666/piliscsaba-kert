@@ -61,9 +61,9 @@
   },
   {
    "species": "alma-luna",
-   "x": 29.22,
+   "x": 29.25,
    "y": 18.08,
-   "base": -1.12,
+   "base": -1.13,
    "h": 4.5,
    "d": 4.5,
    "rot": 0.0
@@ -106,15 +106,6 @@
    "rot": 0.0
   },
   {
-   "species": "alma-bonita",
-   "x": 44.8,
-   "y": 17.83,
-   "base": -3.08,
-   "h": 4.5,
-   "d": 4.5,
-   "rot": 0.0
-  },
-  {
    "species": "ribizli-jvt",
    "x": 45.7,
    "y": 0.75,
@@ -130,6 +121,15 @@
    "base": -3.99,
    "h": 5.04,
    "d": 2.68,
+   "rot": 0.0
+  },
+  {
+   "species": "alma-bonita",
+   "x": 46.22,
+   "y": 17.83,
+   "base": -3.26,
+   "h": 4.5,
+   "d": 4.5,
    "rot": 0.0
   },
   {
@@ -300,16 +300,6 @@
    "tris": 69,
    "color": "#727272"
   },
-  "szolokapu__color-m07": {
-   "file": "model/v4-szolokapu__color-m07.bin",
-   "tris": 3192,
-   "color": "#3A3A3A"
-  },
-  "szolokapu__color-m09": {
-   "file": "model/v4-szolokapu__color-m09.bin",
-   "tris": 308,
-   "color": "#000000"
-  },
   "konyha__alap": {
    "file": "model/v4-konyha__alap.bin",
    "tris": 218,
@@ -435,6 +425,11 @@
    "tris": 1558,
    "color": "#857973"
   },
+  "szolokapu__iv-vas": {
+   "file": "model/v4-szolokapu__iv-vas.bin",
+   "tris": 2304,
+   "color": "#1B1A18"
+  },
   "magasagyas__magasagyas-keret": {
    "file": "model/v4-magasagyas__magasagyas-keret.bin",
    "tris": 120,
@@ -474,11 +469,13 @@
      9.0
     ]
    },
-   "hossz": 4.5,
+   "hossz": 3.122,
    "lejtes": -0.093,
-   "x": 11.924,
-   "y": 16.53,
-   "z": 0.875
+   "melyseg": 2.377,
+   "magassag": 2.224,
+   "x": 10.728,
+   "y": 16.675,
+   "z": 0.938
   },
   {
    "nev": "Örökzöld virágalagút",
@@ -499,11 +496,13 @@
      10.0
     ]
    },
-   "hossz": 4.006,
+   "hossz": 3.448,
    "lejtes": -0.1256,
-   "x": 48.702,
-   "y": 16.53,
-   "z": -3.572
+   "melyseg": 2.377,
+   "magassag": 2.224,
+   "x": 49.564,
+   "y": 16.675,
+   "z": -3.727
   },
   {
    "nev": "Szeder 'Triple Crown'",
@@ -524,10 +523,11 @@
     ]
    },
    "lejtes": -0.1256,
+   "hossz": 3.228,
    "melyseg": 0.6,
-   "x": 52.608,
+   "x": 52.912,
    "y": 18.25,
-   "z": -4.06
+   "z": -4.098
   },
   {
    "nev": "Szedermálna 'Buckingham Tayberry'",
@@ -544,10 +544,11 @@
     ]
    },
    "lejtes": -0.1256,
+   "hossz": 3.228,
    "melyseg": 0.6,
-   "x": 33.078,
+   "x": 32.824,
    "y": 18.25,
-   "z": -1.606
+   "z": -1.574
   },
   {
    "nev": "Szedermálna 'Thornless Loganberry'",
@@ -564,10 +565,11 @@
     ]
    },
    "lejtes": -0.093,
+   "hossz": 2.902,
    "melyseg": 0.6,
-   "x": 3.124,
+   "x": 1.661,
    "y": 18.25,
-   "z": 1.695
+   "z": 1.831
   }
  ]
 }
