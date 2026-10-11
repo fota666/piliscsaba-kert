@@ -1127,6 +1127,8 @@ document.querySelectorAll('.btns button[data-view]').forEach((b) => b.addEventLi
 
 let kUtolso = performance.now();
 (function kutyaHurok(t) {
+  // 30 kép/mp elég a kutyáknak: feleannyi rajzolás, a mozgás így is folyamatos
+  if (t !== undefined && t - kUtolso < 1000 / 30 - 2) { requestAnimationFrame(kutyaHurok); return; }
   const dt = Math.min(0.05, ((t ?? performance.now()) - kUtolso) / 1000); kUtolso = t ?? performance.now();
   kutyaLepes(dt);
   if (kovetett !== null) kutyaKamera(Math.min(1, dt * 10));
