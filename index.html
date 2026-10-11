@@ -127,6 +127,7 @@ const app = document.getElementById('app');
 const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.shadowMap.enabled = true;
+renderer.localClippingEnabled = true;          // a letört csúcsú fákhoz
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.shadowMap.autoUpdate = false;
 app.appendChild(renderer.domElement);
@@ -514,8 +515,16 @@ function makePlantGroup(p, i, g0, evszak, h, d) {
   raw.rotation.y = (p.rot !== undefined) ? p.rot : (i * 137.5 * Math.PI) / 180;
   const g = flatten(raw, key);
   g.position.set(p.x, p.base, -p.y);
-  g.userData = { ...p, species: key, label: LABEL[key] || key,
-                 h: +h.toFixed(1), d: +d.toFixed(1), _pi: i };
+  let hMutat = h;
+  if (p.letort) {
+    // letört csúcs: a modell felső részét vágósíkkal levágjuk (saját anyagmásolat, hogy a másik fát ne érintse)
+    const vag = p.base + h * (1 - p.letort);
+    const sik = [new THREE.Plane(new THREE.Vector3(0, -1, 0), vag)];
+    g.traverse((m) => { if (m.isMesh) { m.material = m.material.clone(); m.material.clippingPlanes = sik; m.material.clipShadows = true; } });
+    hMutat = h * (1 - p.letort);
+  }
+  g.userData = { ...p, species: key, label: (LABEL[key] || key) + (p.letort ? ' (letört csúcs)' : ''),
+                 h: +hMutat.toFixed(1), d: +d.toFixed(1), _pi: i };
   return g;
 }
 
