@@ -653,7 +653,10 @@ function objAblak(ablak, nev) {
       // belső csoport: a forgatott modellt középre tesszük, hosszra / mélységre méretezzük,
       // és a lejtés szerint elnyírjuk (y' = y + lejtes · x), hogy két ív közé pontosan beférjen
       const belso = new THREE.Group(); belso.add(g); belso.updateMatrixWorld(true);
-      const bb = new THREE.Box3().setFromObject(belso);
+      // méretezés a lombra (a kilógó vesszők rövidebb, hézagos alagutat adnának)
+      const bb = new THREE.Box3();
+      belso.traverse((m) => { if (m.isMesh && /^lomb/.test(m.material.name || '')) bb.expandByObject(m); });
+      if (bb.isEmpty()) bb.setFromObject(belso);
       g.position.x -= (bb.min.x + bb.max.x) / 2; g.position.z -= (bb.min.z + bb.max.z) / 2;
       const sx = o.hossz ? o.hossz / (bb.max.x - bb.min.x) : 1;
       const sz = o.melyseg ? o.melyseg / (bb.max.z - bb.min.z) : 1;
