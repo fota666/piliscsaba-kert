@@ -866,8 +866,9 @@ document.getElementById('bar').style.display = 'flex';
 render();
 
 /* ---------- kutyák: egy barna és egy fekete. Sétálgatnak a gyepen, néha kergetik egymást. ---------- */
-function makeDog(szin) {
+function makeDog(szin, modell, nev) {
   const g = new THREE.Group();
+  if (modell) return kutyaModellbol(g, modell, nev);
   const m = new THREE.MeshLambertMaterial({ color: szin });
   const s = new THREE.MeshLambertMaterial({ color: new THREE.Color(szin).multiplyScalar(0.55) });
   const box = (w, h, d, x, y, z, mat = m) => { const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat); b.position.set(x, y, z); g.add(b); return b; };
@@ -910,7 +911,25 @@ function talaj(x, y) {                                               // telek (x
 }
 const kRnd = (a, b) => a + Math.random() * (b - a);
 const ujCel = () => { let c; do { c = { x: kRnd(KUTYA_TER.x0, KUTYA_TER.x1), y: kRnd(KUTYA_TER.y0, KUTYA_TER.y1) }; } while (bentHaz(c.x, c.y)); return c; };
-const kutyak = [makeDog('#7B4A2A'), makeDog('#1D1B1A')];
+// a kutyák saját GLB-modellje (futásanimációval); ha nem töltődik be, marad a dobozkutya
+function kutyaModellbol(g, gltf, nev) {
+  const m = gltf.scene; g.add(m);
+  m.traverse((o) => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = true; } });
+  const mixer = new THREE.AnimationMixer(m);
+  const akcio = gltf.animations[0] ? mixer.clipAction(gltf.animations[0]) : null;
+  if (akcio) akcio.play();
+  const arnyek = new THREE.Mesh(new THREE.CircleGeometry(0.42, 16),
+    new THREE.MeshBasicMaterial({ color: '#000', transparent: true, opacity: 0.22, depthWrite: false }));
+  arnyek.rotation.x = -Math.PI / 2; arnyek.scale.set(1.3, 0.55, 1);
+  const forgo = new THREE.Group(); forgo.position.y = 0.5; g.position.y = -0.5; forgo.add(g);
+  const kutya = new THREE.Group(); kutya.add(forgo); world.add(kutya);
+  return { obj: kutya, forgo, test: g, arnyek, labak: [], farok: new THREE.Group(), fej: m.getObjectByName(nev + '-fej') || new THREE.Group(),
+           mixer, akcio, szalto: null, x: 0, y: 0, irany: 0, seb: 0, cel: null, var: 0, fazis: 0 };
+}
+const _kLdr = new GLTFLoader();
+const [mokiGltf, dinnyeGltf] = await Promise.all(['./model/moki-futas.glb', './model/dinnye-futas.glb']
+  .map((u) => _kLdr.loadAsync(u).catch((e) => { console.warn('kutyamodell nem töltődött be:', u, e); return null; })));
+const kutyak = [makeDog('#7B4A2A', mokiGltf, 'moki'), makeDog('#1D1B1A', dinnyeGltf, 'dinnye')];
 // egérrel rámutatva a nevük: láthatatlan találati gömb a kutyán, a fák mellé a pickables listába
 [['Moki', 'barna kutya'], ['Dinnye', 'fekete kutya']].forEach(([nev, leiras], i) => {
   const p = new THREE.Mesh(new THREE.SphereGeometry(0.55, 8, 6), new THREE.MeshBasicMaterial({ visible: false }));
@@ -984,6 +1003,11 @@ function kutyaLepes(dt) {
     } else k.forgo.rotation.z = k.levegoben ? Math.max(-0.35, Math.min(0.35, k.vz * 0.08)) : 0;
     k.test.position.y = -0.5 + (k.levegoben ? 0 : Math.abs(Math.sin(k.fazis)) * Math.min(0.06, k.seb * 0.012));
     k.farok.rotation.x = Math.sin(performance.now() / 110 + i) * (k.seb < 0.2 ? 0.6 : 0.25);
+    if (k.mixer) {                                                   // GLB futásanimáció: a tempó a sebességet követi
+      if (k.szalto) k.mixer.setTime(0.08);                           // szaltóban behúzott lábak
+      else if (k.seb < 0.15 && !k.levegoben) k.mixer.setTime(0);     // áll
+      else k.mixer.update(dt * Math.min(1.3, Math.max(0.35, k.seb / 6.5)));
+    }
     k.obj.position.set(k.x, k.z, -k.y);
     k.obj.rotation.y = k.irany;                                      // telek +y = world −z, így a forgás egyezik
     k.arnyek.position.set(k.x, h + 0.02, -k.y); k.arnyek.rotation.z = k.irany;
