@@ -430,6 +430,11 @@
    "tris": 2304,
    "color": "#1B1A18"
   },
+  "lugas__szegely": {
+   "file": "model/v4-lugas__szegely.bin",
+   "tris": 648,
+   "color": "#B9B6AE"
+  },
   "magasagyas__magasagyas-keret": {
    "file": "model/v4-magasagyas__magasagyas-keret.bin",
    "tris": 120,
