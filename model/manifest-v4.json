@@ -452,88 +452,75 @@
     4.2,
     10.6
    ]
-  },
-  "viraglugas__b1-lomb": {
-   "file": "model/v4-viraglugas__b1-lomb.bin",
-   "tris": 52,
-   "color": "#4F6F3A",
-   "ablak": [
-    3.8,
-    11.4
-   ]
-  },
-  "viraglugas__b1-virag1": {
-   "file": "model/v4-viraglugas__b1-virag1.bin",
-   "tris": 2050,
-   "color": "#F2C6CF",
-   "ablak": [
-    5.6,
-    9.6
-   ]
-  },
-  "viraglugas__b1-virag2": {
-   "file": "model/v4-viraglugas__b1-virag2.bin",
-   "tris": 1130,
-   "color": "#5B2A6E",
-   "ablak": [
-    6.5,
-    9.0
-   ]
-  },
-  "viraglugas__b2-lomb": {
-   "file": "model/v4-viraglugas__b2-lomb.bin",
-   "tris": 52,
-   "color": "#3C5A2C"
-  },
-  "viraglugas__b2-virag1": {
-   "file": "model/v4-viraglugas__b2-virag1.bin",
-   "tris": 1420,
-   "color": "#E2B23C",
-   "ablak": [
-    5.5,
-    7.2
-   ]
-  },
-  "viraglugas__b2-virag2": {
-   "file": "model/v4-viraglugas__b2-virag2.bin",
-   "tris": 1400,
-   "color": "#F5F3EC",
-   "ablak": [
-    6.5,
-    10.0
-   ]
-  },
-  "szeder__lomb": {
-   "file": "model/v4-szeder__lomb.bin",
-   "tris": 3360,
-   "color": "#4E6B34",
-   "ablak": [
-    3.9,
-    11.6
-   ]
-  },
-  "szeder__vesszo": {
-   "file": "model/v4-szeder__vesszo.bin",
-   "tris": 840,
-   "color": "#6B3F3A"
-  },
-  "szeder__virag": {
-   "file": "model/v4-szeder__virag.bin",
-   "tris": 1600,
-   "color": "#F3EDE6",
-   "ablak": [
-    5.4,
-    6.4
-   ]
-  },
-  "szeder__termes": {
-   "file": "model/v4-szeder__termes.bin",
-   "tris": 2200,
-   "color": "#1E1424",
-   "ablak": [
-    7.0,
-    8.6
-   ]
   }
- }
+ },
+ "objects": [
+  {
+   "nev": "Rózsás virágalagút",
+   "model": "./model/viraglugas-rozsas.glb",
+   "x": 11.924,
+   "y": 16.53,
+   "z": 0.67,
+   "rot": 90,
+   "ablak": {
+    "lomb-": [
+     3.8,
+     11.4
+    ],
+    "virag-rozsa": [
+     5.6,
+     9.6
+    ],
+    "virag-iszalag": [
+     6.5,
+     9.0
+    ]
+   }
+  },
+  {
+   "nev": "Örökzöld virágalagút",
+   "model": "./model/viraglugas-orokzold.glb",
+   "x": 48.702,
+   "y": 16.53,
+   "z": -3.817,
+   "rot": 90,
+   "ablak": {
+    "lomb-lonc": null,
+    "lomb-iszalag": [
+     4.0,
+     11.0
+    ],
+    "virag-lonc": [
+     5.5,
+     7.2
+    ],
+    "virag-iszalag": [
+     6.5,
+     10.0
+    ]
+   }
+  },
+  {
+   "nev": "Szeder 'Triple Crown'",
+   "model": "./model/szeder-fal.glb",
+   "x": 52.608,
+   "y": 17.85,
+   "z": -4.06,
+   "rot": 0,
+   "ablak": {
+    "lomb-": [
+     3.9,
+     11.6
+    ],
+    "termes-eretlen": [
+     6.3,
+     7.3
+    ],
+    "termes-szolo": [
+     7.0,
+     8.6
+    ]
+   }
+  }
+ ]
 }

@@ -109,6 +109,7 @@
 <script type="module">
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { makeSpecies, SPECIES, preloadSpeciesModels } from './kert3d-trees.js';
 
 const LAT = 47.64 * Math.PI / 180;
@@ -486,6 +487,7 @@ function applySeason(month) {
   Object.entries(manifest.classes).forEach(([cls, info]) => {
     if (info.ablak && meshes[cls]) meshes[cls].visible = inWindow(month, info.ablak[0], info.ablak[1]);
   });
+  objGroup.traverse((m) => { if (m.isMesh && m.userData.ablak) m.visible = inWindow(month, m.userData.ablak[0], m.userData.ablak[1]); });
   needsShadow = true;
 }
 
@@ -626,6 +628,32 @@ function flatten(group, name) {
   });
   return out;
 }
+/* ---------- kész GLB-objektumok (virágalagutak, szederfal): manifest.objects ----------
+   Helyüket a build_scene.py számolja. Az évszakot az anyagnév előtagja vezérli:
+   o.ablak = { előtag: [kezdő hónap, záró hónap] | null (egész évben) }; ami nincs benne, az mindig látszik. */
+const objGroup = new THREE.Group(); objGroup.name = 'objektumok'; world.add(objGroup);
+function objAblak(ablak, nev) {
+  let best = null, bl = -1;
+  for (const [pre, w] of Object.entries(ablak || {})) if (nev.startsWith(pre) && pre.length > bl) { best = w; bl = pre.length; }
+  return bl < 0 ? undefined : best;
+}
+{
+  const ldr = new GLTFLoader();
+  await Promise.all((manifest.objects || []).map(async (o) => {
+    try {
+      const g = (await ldr.loadAsync(o.model)).scene;
+      g.name = o.nev;
+      g.position.set(o.x, o.z, -o.y);
+      g.rotation.y = (o.rot || 0) * Math.PI / 180;
+      g.traverse((m) => { if (m.isMesh) {
+        m.castShadow = m.receiveShadow = true;
+        m.userData.ablak = objAblak(o.ablak, m.material.name || '');
+      } });
+      objGroup.add(g);
+    } catch (e) { console.warn('objektum nem töltődött be:', o.model, e); }
+  }));
+}
+
 await preloadSpeciesModels();   // GLB-alapú fajták (ezüstfenyő) betöltése az első fa-építés előtt
 buildPlants(1);
 applySeason(+document.getElementById('month').value);
