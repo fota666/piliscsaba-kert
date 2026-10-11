@@ -728,7 +728,9 @@ const TOK_ABLAK = { 'lomb-': [4.6, 10.9], 'termes-': [8.3, 10.2] };      // vess
         geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setAttribute('normal', new THREE.BufferAttribute(nor, 3));
         geo.computeBoundingSphere();
         const im = new THREE.InstancedMesh(geo, mat, lista.length);
-        lista.forEach((t, i) => { m4.makeRotationY(t.rot || 0).setPosition(t.x, t.z, -t.y); im.setMatrixAt(i, m4); });
+        lista.forEach((t, i) => {
+          m4.makeRotationY(t.rot || 0).scale(new THREE.Vector3(t.sx || 1, t.sy || 1, t.sz || 1)).setPosition(t.x, t.z, -t.y);
+          im.setMatrixAt(i, m4); });
         im.instanceMatrix.needsUpdate = true; im.computeBoundingSphere();
         im.castShadow = im.receiveShadow = true;
         im.name = 'tokek-' + nev; im.userData.ablak = objAblak(TOK_ABLAK, nev);
