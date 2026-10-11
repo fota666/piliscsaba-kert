@@ -238,11 +238,11 @@
   "terep__color-m05": {
    "file": "model/v4-terep__color-m05.bin",
    "tris": 51,
-   "color": "#727272"
+   "color": "#9A9694"
   },
   "terep__concrete-aggregate-smoke": {
    "file": "model/v4-terep__concrete-aggregate-smoke.bin",
-   "tris": 25,
+   "tris": 28,
    "color": "#9A9694"
   },
   "terep__carpet-plush-forest": {
@@ -252,7 +252,7 @@
   },
   "terep__alap": {
    "file": "model/v4-terep__alap.bin",
-   "tris": 40,
+   "tris": 37,
    "color": "#A78A62"
   },
   "terep__color-m04": {
@@ -433,7 +433,7 @@
   "lugas__szegely": {
    "file": "model/v4-lugas__szegely.bin",
    "tris": 648,
-   "color": "#B9B6AE"
+   "color": "#9A9694"
   },
   "magasagyas__magasagyas-keret": {
    "file": "model/v4-magasagyas__magasagyas-keret.bin",
