@@ -649,14 +649,24 @@ function objAblak(ablak, nev) {
   await Promise.all((manifest.objects || []).map(async (o) => {
     try {
       const g = (await ldr.loadAsync(o.model)).scene;
-      g.name = o.nev;
-      g.position.set(o.x, o.z, -o.y);
       g.rotation.y = (o.rot || 0) * Math.PI / 180;
-      g.traverse((m) => { if (m.isMesh) {
+      // belső csoport: a forgatott modellt középre tesszük, hosszra / mélységre méretezzük,
+      // és a lejtés szerint elnyírjuk (y' = y + lejtes · x), hogy két ív közé pontosan beférjen
+      const belso = new THREE.Group(); belso.add(g); belso.updateMatrixWorld(true);
+      const bb = new THREE.Box3().setFromObject(belso);
+      g.position.x -= (bb.min.x + bb.max.x) / 2; g.position.z -= (bb.min.z + bb.max.z) / 2;
+      const sx = o.hossz ? o.hossz / (bb.max.x - bb.min.x) : 1;
+      const sz = o.melyseg ? o.melyseg / (bb.max.z - bb.min.z) : 1;
+      belso.matrixAutoUpdate = false;
+      belso.matrix.copy(new THREE.Matrix4().makeShear(o.lejtes || 0, 0, 0, 0, 0, 0)
+                        .multiply(new THREE.Matrix4().makeScale(sx, 1, sz)));
+      const kulso = new THREE.Group(); kulso.name = o.nev; kulso.add(belso);
+      kulso.position.set(o.x, o.z, -o.y);
+      kulso.traverse((m) => { if (m.isMesh) {
         m.castShadow = m.receiveShadow = true;
         m.userData.ablak = objAblak(o.ablak, m.material.name || '');
       } });
-      objGroup.add(g);
+      objGroup.add(kulso);
     } catch (e) { console.warn('objektum nem töltődött be:', o.model, e); }
   }));
 }

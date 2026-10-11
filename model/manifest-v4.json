@@ -458,9 +458,6 @@
   {
    "nev": "Rózsás virágalagút",
    "model": "./model/viraglugas-rozsas.glb",
-   "x": 11.924,
-   "y": 16.53,
-   "z": 0.67,
    "rot": 90,
    "ablak": {
     "lomb-": [
@@ -475,14 +472,16 @@
      6.5,
      9.0
     ]
-   }
+   },
+   "hossz": 4.32,
+   "lejtes": -0.093,
+   "x": 11.924,
+   "y": 16.53,
+   "z": 0.875
   },
   {
    "nev": "Örökzöld virágalagút",
    "model": "./model/viraglugas-orokzold.glb",
-   "x": 48.702,
-   "y": 16.53,
-   "z": -3.817,
    "rot": 90,
    "ablak": {
     "lomb-lonc": null,
@@ -498,14 +497,16 @@
      6.5,
      10.0
     ]
-   }
+   },
+   "hossz": 3.826,
+   "lejtes": -0.1256,
+   "x": 48.702,
+   "y": 16.53,
+   "z": -3.572
   },
   {
    "nev": "Szeder 'Triple Crown'",
    "model": "./model/szeder-fal.glb",
-   "x": 52.608,
-   "y": 17.85,
-   "z": -4.06,
    "rot": 0,
    "ablak": {
     "lomb-": [
@@ -520,7 +521,11 @@
      7.0,
      8.6
     ]
-   }
+   },
+   "melyseg": 0.6,
+   "x": 52.608,
+   "y": 18.25,
+   "z": -4.06
   }
  ]
 }
