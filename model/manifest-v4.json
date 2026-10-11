@@ -272,7 +272,7 @@
   },
   "beton__concrete-aggregate-smoke": {
    "file": "model/v4-beton__concrete-aggregate-smoke.bin",
-   "tris": 237,
+   "tris": 231,
    "color": "#9A9694"
   },
   "beton__blacktop-old-01": {
@@ -294,6 +294,11 @@
    "file": "model/v4-beton__color-m05.bin",
    "tris": 15,
    "color": "#727272"
+  },
+  "beton__placc-zold": {
+   "file": "model/v4-beton__placc-zold.bin",
+   "tris": 6,
+   "color": "#899955"
   },
   "lepcso__color-m05": {
    "file": "model/v4-lepcso__color-m05.bin",
@@ -434,6 +439,16 @@
    "file": "model/v4-lugas__szegely.bin",
    "tris": 648,
    "color": "#9A9694"
+  },
+  "beton__placc-perem": {
+   "file": "model/v4-beton__placc-perem.bin",
+   "tris": 6,
+   "color": "#9A9694"
+  },
+  "lepcso__korlat": {
+   "file": "model/v4-lepcso__korlat.bin",
+   "tris": 48,
+   "color": "#181818"
   },
   "magasagyas__magasagyas-keret": {
    "file": "model/v4-magasagyas__magasagyas-keret.bin",
