@@ -530,7 +530,7 @@
    "z": -4.06
   },
   {
-   "nev": "Szedermálna",
+   "nev": "Szedermálna 'Buckingham Tayberry'",
    "model": "./model/malnaszeder-fal.glb",
    "rot": 0,
    "ablak": {
@@ -548,6 +548,26 @@
    "x": 33.078,
    "y": 18.25,
    "z": -1.606
+  },
+  {
+   "nev": "Szedermálna 'Thornless Loganberry'",
+   "model": "./model/malnaszeder-fal.glb",
+   "rot": 0,
+   "ablak": {
+    "lomb-": [
+     3.9,
+     11.6
+    ],
+    "termes-malnaszeder": [
+     6.8,
+     8.3
+    ]
+   },
+   "lejtes": -0.093,
+   "melyseg": 0.6,
+   "x": 3.124,
+   "y": 18.25,
+   "z": 1.695
   }
  ]
 }
