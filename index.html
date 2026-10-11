@@ -394,6 +394,7 @@ setPano(true);                       // alapból bekapcsolva
    (manifest.plants), a geometria a mi kert3d-trees.js modelljeink ---------- */
 const LABEL = {
   'crimson-snow': "Vörös juhar 'Crimson King'", 'ezustfenyo': 'Ezüstfenyő',
+  'ezustfenyo-nyirt': 'Ezüstfenyő', 'ezustfenyo-tort': 'Ezüstfenyő (letört csúcs)',
   'diszcseresznye': "Díszcseresznye 'Amanogawa'", 'diszalma-royalty-fa': "Díszalma 'Royal Raindrops'",
   'oszlopos-diszalma-fa': "Oszlopos díszalma 'Van Eseltine'", 'birsalma': "Birs 'Bereczki'",
   'husos-som': "Som 'Jolico'", 'szilva': 'Szilva', 'korte': 'Körte',
@@ -415,6 +416,8 @@ const PLANTS = manifest.plants.filter(p => SPECIES[p.species]);
    orokzold: nincs lombhullás                                                          */
 const PHENO = {
   'ezustfenyo':           { orokzold: true },
+  'ezustfenyo-nyirt':     { orokzold: true },
+  'ezustfenyo-tort':      { orokzold: true },
   'szilva':               { lomb: [4.4, 9.8, 11.2], nyar: '#6E8A56', osz: '#C8A63C', virag: [3.6, 4.3, '#F7F3EC'], termes: [7.5, 9.2] },
   'korte':                { lomb: [4.5, 9.9, 11.3], nyar: '#77925C', osz: '#C46A3A', virag: [4.0, 4.6, '#F5F2EA'], termes: [8.0, 10.0] },
   'crimson-snow':         { lomb: [4.3, 9.9, 11.2], nyar: '#7C4C56', osz: '#7A3F32', virag: [4.0, 4.5, '#7A3B4A'] },
@@ -515,7 +518,7 @@ world.add(plantGroup);
 const pickables = [];
 const kutyaPick = [];                 // a kutyák találati gömbjei (a fa-újraépítés nem törli őket)
 
-const MEGLEVO = new Set(['korte', 'szilva', 'ezustfenyo']);   // már megvan, kifejlett — a kor-csúszka nem érinti
+const MEGLEVO = new Set(['korte', 'szilva', 'ezustfenyo', 'ezustfenyo-nyirt', 'ezustfenyo-tort']);   // már megvan, kifejlett — a kor-csúszka nem érinti
 
 /** Egy növény kész, összevont csoportja — a buildPlants és az évszak-átúsztatás is ezt használja. */
 function makePlantGroup(p, i, g0, evszak, h, d) {
@@ -539,7 +542,7 @@ function makePlantGroup(p, i, g0, evszak, h, d) {
       m.material = m.material.clone(); m.material.clippingPlanes = sikok; m.material.clipShadows = true; });
     if (p.letort) hMutat = h * (1 - p.letort);
   }
-  g.userData = { ...p, species: key, label: (LABEL[key] || key) + (p.letort ? ' (letört csúcs)' : ''),
+  g.userData = { ...p, species: key, label: LABEL[key] || key,
                  h: +hMutat.toFixed(1), d: +d.toFixed(1), _pi: i };
   return g;
 }

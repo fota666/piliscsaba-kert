@@ -138,7 +138,10 @@ export function makeTree(type, { h, d, seed = 1, name } = {}) {
 /** Fajta → forma ajánlás a piliscsabai listához. */
 export const SPECIES = {
   // "sez" = van négy évszakos modellje (model/seasons/<sez>-tavasz|osz|tel.glb; a nyár a fő modell)
-  'ezustfenyo':        { type: 'model', model: './model/ezustfenyo.glb', h: 12, d: 5, color: '#95ABAC', felnyirva: 2.0 },   // örökzöld; alul 2 m-ig felnyírva
+  'ezustfenyo':        { type: 'model', model: './model/ezustfenyo.glb', h: 12, d: 5, color: '#95ABAC' },   // örökzöld (régi, már nem használt)
+  // a valós két fenyő: 2 m-ig felnyírva; az alsónak a felső harmada letört (saját modellek)
+  'ezustfenyo-nyirt':  { type: 'model', model: './model/ezustfenyo-nyirt.glb', h: 11.45, d: 4.13 },
+  'ezustfenyo-tort':   { type: 'model', model: './model/ezustfenyo-tort.glb',  h: 8.82,  d: 4.13 },
   'szilva':            { type: 'model', model: './model/szilva.glb',  h: 6,   d: 5,   sez: 'szilva' },
   'korte':             { type: 'model', model: './model/korte.glb',   h: 2.6, d: 2.1, sez: 'korte' },
   'diszcseresznye':    { type: 'model', model: './model/amanogawa.glb', h: 5, d: 1.5, sez: 'amanogawa' },   // 'Amanogawa' (oszlopos) — a tervből kikerült, a magnólia váltotta
