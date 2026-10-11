@@ -248,7 +248,7 @@
   "terep__carpet-plush-forest": {
    "file": "model/v4-terep__carpet-plush-forest.bin",
    "tris": 9,
-   "color": "#8A8760"
+   "color": "#899955"
   },
   "terep__alap": {
    "file": "model/v4-terep__alap.bin",
@@ -491,8 +491,8 @@
    },
    "hossz": 3.156,
    "lejtes": -0.093,
-   "melyseg": 2.377,
-   "magassag": 2.224,
+   "melyseg": 2.9,
+   "magassag": 2.6,
    "x": 10.844,
    "y": 16.675,
    "z": 0.927
@@ -518,8 +518,8 @@
    },
    "hossz": 3.505,
    "lejtes": -0.1256,
-   "melyseg": 2.377,
-   "magassag": 2.224,
+   "melyseg": 2.9,
+   "magassag": 2.6,
    "x": 49.479,
    "y": 16.675,
    "z": -3.716

@@ -525,12 +525,18 @@ function makePlantGroup(p, i, g0, evszak, h, d) {
   const g = flatten(raw, key);
   g.position.set(p.x, p.base, -p.y);
   let hMutat = h;
-  if (p.letort) {
-    // letört csúcs: a modell felső részét vágósíkkal levágjuk (saját anyagmásolat, hogy a másik fát ne érintse)
-    const vag = p.base + h * (1 - p.letort);
-    const sik = [new THREE.Plane(new THREE.Vector3(0, -1, 0), vag)];
-    g.traverse((m) => { if (m.isMesh) { m.material = m.material.clone(); m.material.clippingPlanes = sik; m.material.clipShadows = true; } });
-    hMutat = h * (1 - p.letort);
+  // vágósíkok (saját anyagmásolaton, hogy más fát ne érintsen):
+  //  - letört csúcs: a modell felső része eltűnik
+  //  - felnyírt fa: a lomb alul a megadott magasságig eltűnik, a törzs marad
+  const felul = p.letort ? new THREE.Plane(new THREE.Vector3(0, -1, 0), p.base + h * (1 - p.letort)) : null;
+  const nyir = SPECIES[key] && SPECIES[key].felnyirva;
+  const alul = nyir ? new THREE.Plane(new THREE.Vector3(0, 1, 0), -(p.base + nyir)) : null;
+  if (felul || alul) {
+    g.traverse((m) => { if (!m.isMesh) return;
+      const sikok = [felul, /^lomb/i.test(m.material.name || '') ? alul : null].filter(Boolean);
+      if (!sikok.length) return;
+      m.material = m.material.clone(); m.material.clippingPlanes = sikok; m.material.clipShadows = true; });
+    if (p.letort) hMutat = h * (1 - p.letort);
   }
   g.userData = { ...p, species: key, label: (LABEL[key] || key) + (p.letort ? ' (letört csúcs)' : ''),
                  h: +hMutat.toFixed(1), d: +d.toFixed(1), _pi: i };
