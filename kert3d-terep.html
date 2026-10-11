@@ -109,6 +109,11 @@
     <button id="berendezes-toggle" data-on>Berendezés</button>
     <button id="pano-toggle" data-on>Panoráma</button>
   </div>
+  <div class="sep"></div>
+  <div class="btns">
+    <button data-kutya="0">Moki szemével</button>
+    <button data-kutya="1">Dinnye szemével</button>
+  </div>
 </div>
 
 <div id="tip"><b></b><span></span></div>
@@ -997,10 +1002,45 @@ renderer.domElement.addEventListener('pointerup', (e) => {
   const hit = _kRay.intersectObjects(kutyaPick, false)[0];
   if (hit) szaltozz(kutyak[kutyaPick.indexOf(hit.object)]);
 });
+/* ---------- kutyanézet: a kamera a kiválasztott kutya fejéből néz előre ---------- */
+let kovetett = null;
+const _kSzem = new THREE.Vector3(), _kCel = new THREE.Vector3();
+function kovetesIndul(i) {
+  kovetesVege();
+  kovetett = i;
+  kutyak[i].fej.visible = false;                                    // a saját fejét ne lássuk belülről
+  controls.enabled = false;
+  camera.near = 0.05; camera.updateProjectionMatrix();
+  document.querySelectorAll('.btns button[data-view]').forEach((b) => b.removeAttribute('data-on'));
+  document.querySelectorAll('.btns button[data-kutya]').forEach((b) => b.toggleAttribute('data-on', +b.dataset.kutya === i));
+  kutyaKamera(1);
+}
+function kovetesVege() {
+  if (kovetett === null) return;
+  kutyak[kovetett].fej.visible = true;
+  kovetett = null;
+  controls.enabled = true;
+  camera.near = 0.5; camera.updateProjectionMatrix();
+  document.querySelectorAll('.btns button[data-kutya]').forEach((b) => b.removeAttribute('data-on'));
+}
+function kutyaKamera(lagy) {
+  const k = kutyak[kovetett], c = Math.cos(k.irany), sn = Math.sin(k.irany);
+  // szem: a fej helyén (0,45 m előre, 0,78 m magasan); cél: 4 m-rel előre, kicsit lejjebb
+  _kSzem.set(k.x + c * 0.45, k.z + 0.78 + (k.test.position.y + 0.5), -(k.y + sn * 0.45));
+  _kCel.set(k.x + c * 4.5, k.z + 0.45, -(k.y + sn * 4.5));
+  camera.position.lerp(_kSzem, lagy);
+  controls.target.lerp(_kCel, lagy);
+  camera.lookAt(controls.target);
+}
+document.querySelectorAll('.btns button[data-kutya]').forEach((b) =>
+  b.addEventListener('click', () => (kovetett === +b.dataset.kutya ? (kovetesVege(), goView('terasz'), tick()) : kovetesIndul(+b.dataset.kutya))));
+document.querySelectorAll('.btns button[data-view]').forEach((b) => b.addEventListener('click', kovetesVege));
+
 let kUtolso = performance.now();
 (function kutyaHurok(t) {
   const dt = Math.min(0.05, ((t ?? performance.now()) - kUtolso) / 1000); kUtolso = t ?? performance.now();
   kutyaLepes(dt);
+  if (kovetett !== null) kutyaKamera(Math.min(1, dt * 10));
   if (!rendering && !document.hidden) {
     if (needsShadow) { renderer.shadowMap.needsUpdate = true; needsShadow = false; }
     renderer.render(scene, camera);
@@ -1009,7 +1049,7 @@ let kUtolso = performance.now();
 })();
 
 window.__scene = { scene, camera, world, plantGroup, sun, renderer, manifest, PLANTS,
-                   kutyak: { lista: kutyak, lepes: kutyaLepes, mod: () => kMod, szaltozz } };
+                   kutyak: { lista: kutyak, lepes: kutyaLepes, mod: () => kMod, szaltozz, kovetesIndul, kovetesVege, kamera: () => kovetett !== null && kutyaKamera(1) } };
 </script>
 </body>
 </html>
