@@ -527,6 +527,25 @@
    "x": 52.608,
    "y": 18.25,
    "z": -4.06
+  },
+  {
+   "nev": "Szedermálna",
+   "model": "./model/malnaszeder-fal.glb",
+   "rot": 0,
+   "ablak": {
+    "lomb-": [
+     3.9,
+     11.6
+    ],
+    "termes-malnaszeder": [
+     6.6,
+     8.0
+    ]
+   },
+   "melyseg": 0.6,
+   "x": 33.078,
+   "y": 18.25,
+   "z": -1.606
   }
  ]
 }
