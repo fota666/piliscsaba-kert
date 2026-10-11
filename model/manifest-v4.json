@@ -591,5 +591,367 @@
    "y": 18.25,
    "z": 1.829
   }
+ ],
+ "tokek": [
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 3.969,
+   "y": 15.45,
+   "z": 1.616
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 4.733,
+   "y": 15.45,
+   "z": 1.545
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 5.497,
+   "y": 15.45,
+   "z": 1.474
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 3.969,
+   "y": 17.9,
+   "z": 1.616
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 4.733,
+   "y": 17.9,
+   "z": 1.545
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 5.497,
+   "y": 17.9,
+   "z": 1.474
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 7.025,
+   "y": 15.45,
+   "z": 1.332
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 7.789,
+   "y": 15.45,
+   "z": 1.261
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 8.553,
+   "y": 15.45,
+   "z": 1.19
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 7.025,
+   "y": 17.9,
+   "z": 1.332
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 7.789,
+   "y": 17.9,
+   "z": 1.261
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 8.553,
+   "y": 17.9,
+   "z": 1.19
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 13.136,
+   "y": 15.45,
+   "z": 0.764
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 13.9,
+   "y": 15.45,
+   "z": 0.693
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 14.664,
+   "y": 15.45,
+   "z": 0.622
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 13.136,
+   "y": 17.9,
+   "z": 0.764
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 13.9,
+   "y": 17.9,
+   "z": 0.693
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 14.664,
+   "y": 17.9,
+   "z": 0.622
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 16.192,
+   "y": 15.45,
+   "z": 0.48
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 16.956,
+   "y": 15.45,
+   "z": 0.409
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 17.719,
+   "y": 15.45,
+   "z": 0.323
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 16.192,
+   "y": 17.9,
+   "z": 0.48
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 16.956,
+   "y": 17.9,
+   "z": 0.409
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 17.719,
+   "y": 17.9,
+   "z": 0.323
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 19.247,
+   "y": 15.45,
+   "z": 0.132
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 20.011,
+   "y": 15.45,
+   "z": 0.036
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 20.775,
+   "y": 15.45,
+   "z": -0.06
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 19.247,
+   "y": 17.9,
+   "z": 0.132
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 20.011,
+   "y": 17.9,
+   "z": 0.036
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 20.775,
+   "y": 17.9,
+   "z": -0.06
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 22.303,
+   "y": 15.45,
+   "z": -0.252
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 23.067,
+   "y": 15.45,
+   "z": -0.348
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 23.831,
+   "y": 15.45,
+   "z": -0.444
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 22.303,
+   "y": 17.9,
+   "z": -0.252
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 23.067,
+   "y": 17.9,
+   "z": -0.348
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 23.831,
+   "y": 17.9,
+   "z": -0.444
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 25.358,
+   "y": 15.45,
+   "z": -0.636
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 26.122,
+   "y": 15.45,
+   "z": -0.732
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 26.886,
+   "y": 15.45,
+   "z": -0.828
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 25.358,
+   "y": 17.9,
+   "z": -0.636
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 26.122,
+   "y": 17.9,
+   "z": -0.732
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 26.886,
+   "y": 17.9,
+   "z": -0.828
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 35.007,
+   "y": 15.45,
+   "z": -1.848
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 35.858,
+   "y": 15.45,
+   "z": -1.955
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 36.709,
+   "y": 15.45,
+   "z": -2.062
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 35.007,
+   "y": 17.9,
+   "z": -1.848
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 35.858,
+   "y": 17.9,
+   "z": -1.955
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 36.709,
+   "y": 17.9,
+   "z": -2.062
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 38.412,
+   "y": 15.45,
+   "z": -2.276
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 39.263,
+   "y": 15.45,
+   "z": -2.383
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 40.114,
+   "y": 15.45,
+   "z": -2.49
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 38.412,
+   "y": 17.9,
+   "z": -2.276
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 39.263,
+   "y": 17.9,
+   "z": -2.383
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 40.114,
+   "y": 17.9,
+   "z": -2.49
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 41.817,
+   "y": 15.45,
+   "z": -2.704
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 42.668,
+   "y": 15.45,
+   "z": -2.811
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 43.52,
+   "y": 15.45,
+   "z": -2.918
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 41.817,
+   "y": 17.9,
+   "z": -2.704
+  },
+  {
+   "model": "./model/szolo-feher.glb",
+   "x": 42.668,
+   "y": 17.9,
+   "z": -2.811
+  },
+  {
+   "model": "./model/szolo-voros.glb",
+   "x": 43.52,
+   "y": 17.9,
+   "z": -2.918
+  }
  ]
 }

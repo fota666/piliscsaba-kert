@@ -505,6 +505,7 @@ function applySeason(month) {
     if (info.ablak && meshes[cls]) meshes[cls].visible = inWindow(month, info.ablak[0], info.ablak[1]);
   });
   objGroup.traverse((m) => { if (m.isMesh && m.userData.ablak) m.visible = inWindow(month, m.userData.ablak[0], m.userData.ablak[1]); });
+  tokGroup.children.forEach((m) => { if (m.userData.ablak) m.visible = inWindow(month, m.userData.ablak[0], m.userData.ablak[1]); });
   needsShadow = true;
 }
 
@@ -697,6 +698,41 @@ function objAblak(ablak, nev) {
       objGroup.add(kulso);
     } catch (e) { console.warn('objektum nem töltődött be:', o.model, e); }
   }));
+}
+
+/* ---------- szőlőtőkék: manifest.tokek, fajtánként és anyagonként egy InstancedMesh ----------
+   (egy tő ~350 mesh; 60 tőt egyenként rajzolni túl sok hívás lenne) */
+const tokGroup = new THREE.Group(); tokGroup.name = 'tokek'; world.add(tokGroup);
+const TOK_ABLAK = { 'lomb-': [4.6, 10.9], 'termes-': [8.3, 10.2] };      // vessző egész évben
+{
+  const csop = {};
+  (manifest.tokek || []).forEach((t) => (csop[t.model] = csop[t.model] || []).push(t));
+  const ldr = new GLTFLoader(), m4 = new THREE.Matrix4();
+  for (const [url, lista] of Object.entries(csop)) {
+    try {
+      const sc = (await ldr.loadAsync(url)).scene; sc.updateMatrixWorld(true);
+      const anyagonkent = new Map();
+      sc.traverse((o) => { if (!o.isMesh) return;
+        const g = o.geometry.index ? o.geometry.toNonIndexed() : o.geometry.clone(); g.applyMatrix4(o.matrixWorld);
+        if (!anyagonkent.has(o.material.name)) anyagonkent.set(o.material.name, { mat: o.material, geos: [] });
+        anyagonkent.get(o.material.name).geos.push(g); });
+      anyagonkent.forEach(({ mat, geos }, nev) => {
+        let n = 0; geos.forEach((g) => (n += g.attributes.position.count));
+        const pos = new Float32Array(n * 3), nor = new Float32Array(n * 3); let off = 0;
+        geos.forEach((g) => { pos.set(g.attributes.position.array, off * 3);
+          if (g.attributes.normal) nor.set(g.attributes.normal.array, off * 3); off += g.attributes.position.count; g.dispose(); });
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setAttribute('normal', new THREE.BufferAttribute(nor, 3));
+        geo.computeBoundingSphere();
+        const im = new THREE.InstancedMesh(geo, mat, lista.length);
+        lista.forEach((t, i) => { m4.makeRotationY(t.rot || 0).setPosition(t.x, t.z, -t.y); im.setMatrixAt(i, m4); });
+        im.instanceMatrix.needsUpdate = true; im.computeBoundingSphere();
+        im.castShadow = im.receiveShadow = true;
+        im.name = 'tokek-' + nev; im.userData.ablak = objAblak(TOK_ABLAK, nev);
+        tokGroup.add(im);
+      });
+    } catch (e) { console.warn('szőlőtőke nem töltődött be:', url, e); }
+  }
 }
 
 await preloadSpeciesModels();   // GLB-alapú fajták (ezüstfenyő) betöltése az első fa-építés előtt
