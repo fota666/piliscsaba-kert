@@ -126,7 +126,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { makeSpecies, SPECIES, preloadSpeciesModels } from './kert3d-trees.js';
+import { makeSpecies, SPECIES, preloadSpeciesModels, loadSeason } from './kert3d-trees.js';
 
 const LAT = 47.64 * Math.PI / 180;
 const LOT_AZIMUTH = 130.8 * Math.PI / 180;
@@ -738,7 +738,9 @@ const TOK_ABLAK = { 'lomb-': [4.6, 10.9], 'termes-': [8.3, 10.2] };      // vess
   }
 }
 
-await preloadSpeciesModels();   // GLB-alapú fajták (ezüstfenyő) betöltése az első fa-építés előtt
+const KERTI_FAJTAK = new Set(PLANTS.map((p) => p.species));
+await preloadSpeciesModels(KERTI_FAJTAK);   // csak a kertben álló fajták nyári modellje
+if (EVSZAK !== 'nyar') await loadSeason(EVSZAK, KERTI_FAJTAK);
 buildPlants(1);
 applySeason(+document.getElementById('month').value);
 
@@ -846,7 +848,8 @@ function refresh() {
   const uj = evszakOf(m);
   if (uj !== EVSZAK) {                    // évszakos modellt váltó fajták lágy átúsztatása
     EVSZAK = uj;
-    crossfadeSeason(uj, Math.max(+el.growth.value / 100, 0.08));
+    // az évszakos modellek csak most töltődnek le (először), utána úsztatunk át
+    loadSeason(uj, KERTI_FAJTAK).then(() => { if (EVSZAK === uj) crossfadeSeason(uj, Math.max(+el.growth.value / 100, 0.08)); });
   }
   applySeason(m);
   render();

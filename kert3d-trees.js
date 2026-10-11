@@ -197,29 +197,36 @@ function loadModel(url) {
 
 /** Előtölti az összes 'model' típusú SPECIES GLB-sablonját, és megméri a nyers (skálázás
  *  előtti) méretét. Hívd meg egyszer, await-tel, a makeSpecies() első használata előtt. */
-export async function preloadSpeciesModels() {
+/** Csak a megadott fajták NYÁRI modelljét tölti be (ha nincs lista: mindet). Az évszakos
+ *  változatokat nem — azokat a loadSeason() hozza, csak amikor a hónap tényleg nem nyári. */
+export async function preloadSpeciesModels(kulcsok) {
   const jobs = [];
-  for (const s of Object.values(SPECIES)) {
+  for (const [key, s] of Object.entries(SPECIES)) {
     if (s.type !== 'model' || s._template) continue;
+    if (kulcsok && !kulcsok.has(key)) continue;
     jobs.push(loadModel(s.model).then((tpl) => {
       s._template = tpl;
       s._box = new THREE.Box3().setFromObject(tpl);      // a NYÁRI változat a méret-referencia
       s._natural = s._box.getSize(new THREE.Vector3());
     }));
-    // Évszakos változatok. Elég a "sez" mezőben megadni a fájl-alapnevet: a tavasz/ősz/tél
-    // útvonala konvencióból jön (model/seasons/<alapnev>-tavasz|osz|tel.glb), a nyár a fő modell.
-    // Ugyanazzal a skálával jelennek meg, mint a nyári referencia, különben a csupasz
-    // téli ágváz (keskeny) fel lenne fújva a koronaátmérőre.
+    // Évszakos változatok útvonala konvencióból (model/seasons/<sez>-tavasz|osz|tel.glb), a nyár a fő modell.
     if (s.sez) {
       s.seasons = { tavasz: `./model/seasons/${s.sez}-tavasz.glb`, nyar: s.model,
                     osz: `./model/seasons/${s.sez}-osz.glb`, tel: `./model/seasons/${s.sez}-tel.glb` };
     }
-    if (s.seasons) {
-      s._seasonTpl = {};
-      for (const [nev, url] of Object.entries(s.seasons)) {
-        jobs.push(loadModel(url).then((tpl) => { s._seasonTpl[nev] = tpl; }));
-      }
-    }
+    if (s.seasons) s._seasonTpl = {};
+  }
+  await Promise.all(jobs);
+}
+
+/** Egy évszak modelljeinek betöltése a megadott fajtákhoz (csak egyszer, utána gyorsítótárból). */
+export async function loadSeason(evszak, kulcsok) {
+  const jobs = [];
+  for (const [key, s] of Object.entries(SPECIES)) {
+    if (!s.seasons || !s._seasonTpl || s._seasonTpl[evszak] || (kulcsok && !kulcsok.has(key))) continue;
+    const url = s.seasons[evszak];
+    if (!url) continue;
+    jobs.push(loadModel(url).then((tpl) => { s._seasonTpl[evszak] = tpl; }).catch(() => {}));
   }
   await Promise.all(jobs);
 }
