@@ -34,7 +34,7 @@
   #loading { left: 50%; top: 50%; transform: translate(-50%, -50%);
     font-size: 13px; letter-spacing: 0.06em; opacity: 0.7; }
 
-  .bar { left: 50%; bottom: 26px; transform: translateX(-50%);
+  .bar { left: 50%; bottom: 62px; transform: translateX(-50%); transition: opacity 180ms ease, transform 180ms ease;
     display: flex; flex-wrap: wrap; justify-content: center;
     align-items: center; gap: 16px 24px; max-width: calc(100vw - 40px);
     background: rgba(255,252,247,0.84); backdrop-filter: blur(10px);
@@ -53,6 +53,12 @@
     font: 500 12px/1 'DM Sans', system-ui, sans-serif; padding: 9px 12px; border-radius: 8px; cursor: pointer; }
   .btns button[data-on] { background: #6E8659; color: #FFFCF7; font-weight: 700; }
 
+  .bar.zart { opacity: 0; pointer-events: none; transform: translate(-50%, 14px); }
+  #bar-nyito { left: 50%; bottom: 18px; transform: translateX(-50%); border: 1px solid rgba(120,96,66,0.16);
+    background: rgba(255,252,247,0.9); backdrop-filter: blur(10px); color: #4A3C2C; cursor: pointer;
+    font: 600 12px/1 'DM Sans', system-ui, sans-serif; letter-spacing: 0.04em; padding: 10px 16px; border-radius: 999px; }
+  #bar-nyito:focus-visible, .btns button:focus-visible { outline: 2px solid #6E8659; outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
   #tip { position: fixed; z-index: 6; pointer-events: none; opacity: 0;
     transform: translate(-50%, -125%); transition: opacity 110ms ease;
     background: rgba(255,252,247,0.96); border: 1px solid rgba(120,96,66,0.2);
@@ -71,7 +77,8 @@
 
 <div class="hud" id="loading">Modell betöltése…</div>
 
-<div class="hud bar" id="bar" style="display: none">
+<button class="hud" id="bar-nyito" type="button" aria-expanded="false" aria-controls="bar" style="display: none">Beállítások ▲</button>
+<div class="hud bar zart" id="bar" style="display: none">
   <div class="field">
     <label>Hónap <i id="v-month">Július</i></label>
     <input id="month" type="range" min="1" max="12" step="1" value="7">
@@ -816,6 +823,15 @@ resize();
 
 document.getElementById('loading').style.display = 'none';
 document.getElementById('bar').style.display = 'flex';
+{ // a lenti menü alapból csukva, a gomb nyitja / zárja
+  const bar = document.getElementById('bar'), nyito = document.getElementById('bar-nyito');
+  nyito.style.display = 'block';
+  nyito.addEventListener('click', () => {
+    const nyitva = bar.classList.toggle('zart') === false;
+    nyito.textContent = nyitva ? 'Bezárás ▼' : 'Beállítások ▲';
+    nyito.setAttribute('aria-expanded', String(nyitva));
+  });
+}
 render();
 
 /* ---------- kutyák: egy barna és egy fekete. Sétálgatnak a gyepen, néha kergetik egymást. ---------- */
