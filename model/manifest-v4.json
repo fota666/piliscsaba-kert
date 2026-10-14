@@ -15,11 +15,11 @@
  },
  "plants": [
   {
-   "species": "mezalmacska",
+   "species": "acer-fireglow",
    "x": 0.7,
    "y": 12.84,
-   "h": 3.0,
-   "d": 2.0,
+   "h": 3.5,
+   "d": 3.0,
    "rot": 0,
    "base": 1.67
   },
@@ -31,6 +31,15 @@
    "d": 2.0,
    "rot": 0,
    "base": 0.67
+  },
+  {
+   "species": "mezalmacska",
+   "x": 1.1,
+   "y": 8.76,
+   "h": 3.0,
+   "d": 2.0,
+   "rot": 0,
+   "base": 1.32
   },
   {
    "species": "magnolia-kay-parris",
@@ -51,11 +60,11 @@
    "rot": 0.0
   },
   {
-   "species": "diszalma-royalty-fa",
+   "species": "acer-emperor",
    "x": 26.56,
    "y": 9.78,
    "base": -1.94,
-   "h": 4.5,
+   "h": 5.0,
    "d": 4.5,
    "rot": 0.0
   },
@@ -88,12 +97,21 @@
   },
   {
    "species": "fuge-ronde",
-   "x": 36.63,
-   "y": 2.25,
+   "x": 35.63,
+   "y": 1.95,
    "h": 2.8,
    "d": 3.0,
    "rot": 0,
-   "base": -2.3
+   "base": -2.28
+  },
+  {
+   "species": "acer-shishigashira",
+   "x": 39.08,
+   "y": 3.81,
+   "h": 3.0,
+   "d": 2.0,
+   "rot": 0,
+   "base": -2.84
   },
   {
    "species": "alma-luna",
@@ -159,7 +177,7 @@
    "base": -3.63
   },
   {
-   "species": "acer-buergerianum",
+   "species": "helyorzo-8",
    "x": 49.06,
    "y": 7.76,
    "base": -3.64,
@@ -213,12 +231,12 @@
    "rot": -1.5708
   },
   {
-   "species": "crimson-snow",
+   "species": "diszalma-royalty-7",
    "x": 54.94,
    "y": 2.54,
    "base": -5.11,
-   "h": 10.31,
-   "d": 6.57,
+   "h": 7.0,
+   "d": 6.0,
    "rot": 0.0
   }
  ],
