@@ -60,13 +60,13 @@
    "rot": 0.0
   },
   {
-   "species": "alma-luna",
+   "species": "szilva-toptaste",
    "x": 29.2,
    "y": 18.12,
-   "base": -1.12,
-   "h": 4.5,
-   "d": 4.5,
-   "rot": 0.0
+   "h": 4.0,
+   "d": 3.5,
+   "rot": 0,
+   "base": -1.12
   },
   {
    "species": "ezustfenyo-tort",
@@ -96,13 +96,13 @@
    "base": -2.3
   },
   {
-   "species": "szilva-toptaste",
-   "x": 39.27,
-   "y": 18.0,
-   "h": 4.0,
-   "d": 3.5,
-   "rot": 0,
-   "base": -2.38
+   "species": "alma-luna",
+   "x": 39.26,
+   "y": 18.12,
+   "base": -2.38,
+   "h": 4.5,
+   "d": 4.5,
+   "rot": 0.0
   },
   {
    "species": "szolo-kocka",
