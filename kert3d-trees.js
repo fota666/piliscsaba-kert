@@ -163,6 +163,7 @@ export const SPECIES = {
   // Termő almafák — saját GLB még nincs, a Malus-testvér mézalmácska szettjét viszik, nagyobb méretben.
   'alma-luna':             { type: 'model', model: './model/mezalmacska.glb',         h: 4.5, d: 4.5, torzs: 1.8, sez: 'mezalmacska' },           // Alma 'Luna' (rezisztens)
   'alma-bonita':           { type: 'model', model: './model/mezalmacska.glb',         h: 4.5, d: 4.5, torzs: 1.8, sez: 'mezalmacska' },           // Alma 'Bonita' (rezisztens)
+  'szilva-toptaste':       { type: 'model', model: './model/szilva.glb',              h: 4,   d: 3.5, sez: 'szilva' },                                // Szilva 'Toptaste' (rezisztens, a lugasban)
 
   /* — évszakos szett nélkül (a fenológiai tábla színezi őket) — */
   'berkenye':              { type: 'model', model: './model/berkenye.glb',            h: 3.5, d: 3   },  // Berkenye 'Granatnaja'
