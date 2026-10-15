@@ -165,6 +165,7 @@ export const SPECIES = {
   'alma-bonita':           { type: 'model', model: './model/mezalmacska.glb',         h: 4.5, d: 4.5, torzs: 1.8, sez: 'mezalmacska' },           // Alma 'Bonita' (rezisztens)
   // 2026-10-14 cserék; a japán juharok saját GLB-t kaptak (évszak-szett nélkül, a PHENO színezi őket)
   'diszalma-royalty-7':    { type: 'model', model: './model/diszalma-royalty-fa.glb', h: 7,   d: 6,   sez: 'diszalma-royalty-fa' },   // Díszalma 'Royalty' (a Crimson King helyén)
+  'diszcseresznye-kanzan': { type: 'model', model: './model/amanogawa.glb',           h: 8,   d: 8,   sez: 'amanogawa', viragColor: '#E58FB4' },   // Díszcseresznye 'Kanzan' (a cseresznye-sablon, telt mélyrózsaszín virággal)
   'helyorzo-8':            { type: 'model', model: './model/szilva.glb',              h: 8,   d: 7,   sez: 'szilva' },                // Helyőrző 8 m (a háromerű juhar helyén, fa még nincs kiválasztva)
   'acer-emperor':          { type: 'model', model: './model/acer-emperor-1.glb',      h: 4.5, d: 4   },          // Acer palmatum 'Emperor I' (bordó)
   'acer-fireglow':         { type: 'model', model: './model/acer-fireglow.glb',       h: 3.5, d: 3   },          // Acer palmatum 'Fireglow' (piros)
