@@ -1046,224 +1046,224 @@
    "sz": 1.09
   },
   {
-   "model": "./model/fagyal-soveny-3m.glb",
+   "model": "./model/fagyal-soveny2-3m.glb",
    "x": 57.7,
    "y": 0.372,
    "z": -5.453,
    "rot": 3.1431,
    "sx": 1.007,
-   "sy": 0.658,
-   "sz": 0.654
+   "sy": 0.619,
+   "sz": 0.558
   },
   {
-   "model": "./model/fagyal-soveny-3m.glb",
+   "model": "./model/fagyal-soveny2-3m.glb",
    "x": 54.7,
    "y": 0.384,
    "z": -5.203,
    "rot": 6.2951,
    "sx": 0.98,
-   "sy": 0.697,
-   "sz": 0.678
+   "sy": 0.656,
+   "sz": 0.578
   },
   {
-   "model": "./model/fagyal-soveny-2m.glb",
+   "model": "./model/fagyal-soveny2-2m.glb",
    "x": 52.2,
    "y": 0.355,
    "z": -4.927,
    "rot": 3.1236,
    "sx": 1.004,
-   "sy": 0.694,
-   "sz": 0.718
+   "sy": 0.646,
+   "sz": 0.685
   },
   {
-   "model": "./model/fagyal-soveny-4m.glb",
+   "model": "./model/fagyal-soveny2-4m.glb",
    "x": 49.2,
    "y": 0.343,
    "z": -3.723,
    "rot": 6.297,
    "sx": 0.99,
-   "sy": 0.531,
-   "sz": 0.549
+   "sy": 0.541,
+   "sz": 0.475
   },
   {
-   "model": "./model/fagyal-soveny-3m.glb",
+   "model": "./model/fagyal-soveny2-3m.glb",
    "x": 45.7,
    "y": 0.361,
    "z": -3.644,
    "rot": 6.3091,
    "sx": 0.991,
-   "sy": 0.661,
-   "sz": 0.728
+   "sy": 0.622,
+   "sz": 0.62
   },
   {
-   "model": "./model/fagyal-soveny-2m.glb",
+   "model": "./model/fagyal-soveny2-2m.glb",
    "x": 43.2,
    "y": 0.401,
    "z": -3.585,
    "rot": 6.2864,
    "sx": 1.011,
-   "sy": 0.663,
-   "sz": 0.721
+   "sy": 0.618,
+   "sz": 0.688
   },
   {
-   "model": "./model/fagyal-soveny-2m.glb",
+   "model": "./model/fagyal-soveny2-2m.glb",
    "x": 41.2,
    "y": 0.366,
    "z": -3.545,
    "rot": 6.2955,
    "sx": 1.021,
-   "sy": 0.762,
-   "sz": 0.609
+   "sy": 0.71,
+   "sz": 0.582
   },
   {
-   "model": "./model/fagyal-soveny-2m.glb",
+   "model": "./model/fagyal-soveny2-2m.glb",
    "x": 39.2,
    "y": 0.392,
    "z": -3.499,
    "rot": 3.1507,
    "sx": 1.037,
-   "sy": 0.704,
-   "sz": 0.632
+   "sy": 0.656,
+   "sz": 0.603
   },
   {
-   "model": "./model/fagyal-soveny-5m.glb",
+   "model": "./model/fagyal-soveny2-5m.glb",
    "x": 35.7,
    "y": 0.345,
    "z": -2.387,
    "rot": 3.1261,
    "sx": 0.989,
-   "sy": 0.666,
-   "sz": 0.729
+   "sy": 0.622,
+   "sz": 0.622
   },
   {
-   "model": "./model/fagyal-soveny-4m.glb",
+   "model": "./model/fagyal-soveny2-4m.glb",
    "x": 31.2,
    "y": 0.36,
    "z": -2.266,
    "rot": 6.2568,
    "sx": 1.038,
-   "sy": 0.523,
-   "sz": 0.567
+   "sy": 0.533,
+   "sz": 0.491
   },
   {
-   "model": "./model/fagyal-soveny-3m.glb",
+   "model": "./model/fagyal-soveny2-3m.glb",
    "x": 27.7,
    "y": 0.344,
    "z": -2.169,
    "rot": 3.1512,
    "sx": 1.011,
-   "sy": 0.586,
-   "sz": 0.643
+   "sy": 0.552,
+   "sz": 0.548
   },
   {
-   "model": "./model/fagyal-soveny-4m.glb",
+   "model": "./model/fagyal-soveny2-4m.glb",
    "x": 24.2,
    "y": 0.342,
    "z": -2.095,
    "rot": 6.2845,
    "sx": 1.035,
-   "sy": 0.519,
-   "sz": 0.652
+   "sy": 0.529,
+   "sz": 0.564
   },
   {
-   "model": "./model/fagyal-soveny-5m.glb",
+   "model": "./model/fagyal-soveny2-5m.glb",
    "x": 19.7,
    "y": 0.341,
    "z": -1.996,
    "rot": 3.122,
    "sx": 1.014,
-   "sy": 0.618,
-   "sz": 0.643
+   "sy": 0.578,
+   "sz": 0.549
   },
   {
-   "model": "./model/fagyal-soveny-2m.glb",
+   "model": "./model/fagyal-soveny2-2m.glb",
    "x": 16.2,
    "y": 0.365,
    "z": -1.877,
    "rot": 6.254,
    "sx": 0.988,
-   "sy": 0.709,
-   "sz": 0.696
+   "sy": 0.661,
+   "sz": 0.665
   },
   {
-   "model": "./model/fagyal-soveny-2m.glb",
+   "model": "./model/fagyal-soveny2-2m.glb",
    "x": 14.2,
    "y": 0.34,
    "z": -1.367,
    "rot": 6.2737,
    "sx": 1.005,
-   "sy": 0.749,
-   "sz": 0.61
+   "sy": 0.697,
+   "sz": 0.583
   },
   {
-   "model": "./model/fagyal-soveny-2m.glb",
+   "model": "./model/fagyal-soveny2-2m.glb",
    "x": 12.2,
    "y": 0.348,
    "z": -1.015,
    "rot": 6.2791,
    "sx": 1.038,
-   "sy": 0.761,
-   "sz": 0.621
+   "sy": 0.709,
+   "sz": 0.593
   },
   {
-   "model": "./model/fagyal-soveny-2m.glb",
+   "model": "./model/fagyal-soveny2-2m.glb",
    "x": 10.2,
    "y": 0.345,
    "z": -0.662,
    "rot": 6.259,
    "sx": 1.025,
-   "sy": 0.672,
-   "sz": 0.626
+   "sy": 0.626,
+   "sz": 0.597
   },
   {
-   "model": "./model/fagyal-soveny-2m.glb",
+   "model": "./model/fagyal-soveny2-2m.glb",
    "x": 8.2,
    "y": 0.382,
    "z": -0.473,
    "rot": 6.3119,
    "sx": 1.02,
-   "sy": 0.646,
-   "sz": 0.667
+   "sy": 0.602,
+   "sz": 0.637
   },
   {
-   "model": "./model/fagyal-soveny-3m.glb",
+   "model": "./model/fagyal-soveny2-3m.glb",
    "x": 51.211,
    "y": 2.25,
    "z": -3.728,
    "rot": 1.5598,
    "sx": 0.984,
-   "sy": 0.605,
-   "sz": 0.654
+   "sy": 0.569,
+   "sz": 0.557
   },
   {
-   "model": "./model/fagyal-soveny-2m.glb",
+   "model": "./model/fagyal-soveny2-2m.glb",
    "x": 51.243,
    "y": 4.75,
    "z": -3.728,
    "rot": 4.6997,
    "sx": 1.02,
-   "sy": 0.672,
-   "sz": 0.717
+   "sy": 0.626,
+   "sz": 0.685
   },
   {
-   "model": "./model/fagyal-soveny-3m.glb",
+   "model": "./model/fagyal-soveny2-3m.glb",
    "x": 51.253,
    "y": 7.25,
    "z": -3.728,
    "rot": 4.7087,
    "sx": 1.014,
-   "sy": 0.62,
-   "sz": 0.733
+   "sy": 0.584,
+   "sz": 0.625
   },
   {
-   "model": "./model/fagyal-soveny-2m.glb",
+   "model": "./model/fagyal-soveny2-2m.glb",
    "x": 51.216,
    "y": 8.975,
    "z": -4.651,
    "rot": 1.5624,
    "sx": 0.225,
-   "sy": 0.689,
-   "sz": 0.639
+   "sy": 0.641,
+   "sz": 0.61
   },
   {
    "model": "./model/lonc-nitida.glb",
