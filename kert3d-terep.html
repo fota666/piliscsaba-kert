@@ -738,7 +738,7 @@ const TOK_ABLAK = { 'lomb-': [4.6, 10.9], 'termes-': [8.3, 10.2] };      // vess
           im.setMatrixAt(i, m4); });
         im.instanceMatrix.needsUpdate = true; im.computeBoundingSphere();
         im.castShadow = im.receiveShadow = true;
-        im.name = 'tokek-' + nev; im.userData.ablak = objAblak(TOK_ABLAK, nev);
+        im.name = 'tokek-' + nev; im.userData.ablak = /szolo-/.test(url) ? objAblak(TOK_ABLAK, nev) : undefined;   // a fagyal és a lonc télizöld
         tokGroup.add(im);
       });
     } catch (e) { console.warn('szőlőtőke nem töltődött be:', url, e); }

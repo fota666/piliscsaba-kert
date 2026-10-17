@@ -476,11 +476,6 @@
    "tris": 48,
    "color": "#181818"
   },
-  "soveny__fagyal": {
-   "file": "model/v4-soveny__fagyal.bin",
-   "tris": 1220,
-   "color": "#A3B27C"
-  },
   "magasagyas__magasagyas-keret": {
    "file": "model/v4-magasagyas__magasagyas-keret.bin",
    "tris": 120,
@@ -1043,6 +1038,786 @@
    "sx": 1.067,
    "sy": 0.762,
    "sz": 1.09
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 7.45,
+   "y": 0.25,
+   "z": -0.473,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.582,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 8.35,
+   "y": 0.25,
+   "z": -0.178,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.582,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 9.25,
+   "y": 0.25,
+   "z": -0.336,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.593,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 10.15,
+   "y": 0.25,
+   "z": -0.495,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.607,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 11.05,
+   "y": 0.25,
+   "z": -0.653,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.607,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 11.95,
+   "y": 0.25,
+   "z": -0.812,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.577,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 12.85,
+   "y": 0.25,
+   "z": -0.971,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.604,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 13.75,
+   "y": 0.25,
+   "z": -1.129,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.593,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 14.65,
+   "y": 0.25,
+   "z": -1.288,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.594,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 15.55,
+   "y": 0.25,
+   "z": -1.446,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.587,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 16.45,
+   "y": 0.25,
+   "z": -1.605,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.596,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 17.35,
+   "y": 0.25,
+   "z": -1.883,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.587,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 18.25,
+   "y": 0.25,
+   "z": -1.905,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.582,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 19.15,
+   "y": 0.25,
+   "z": -1.927,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.602,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 20.05,
+   "y": 0.25,
+   "z": -1.949,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.608,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 20.95,
+   "y": 0.25,
+   "z": -1.971,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.621,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 21.85,
+   "y": 0.25,
+   "z": -1.993,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.609,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 22.75,
+   "y": 0.25,
+   "z": -2.015,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.595,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 23.65,
+   "y": 0.25,
+   "z": -2.037,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.588,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 24.55,
+   "y": 0.25,
+   "z": -2.059,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.583,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 25.45,
+   "y": 0.25,
+   "z": -2.081,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.577,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 26.35,
+   "y": 0.25,
+   "z": -2.103,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.589,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 27.25,
+   "y": 0.25,
+   "z": -2.125,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.599,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 28.15,
+   "y": 0.25,
+   "z": -2.144,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.589,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 29.05,
+   "y": 0.25,
+   "z": -2.169,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.591,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 29.95,
+   "y": 0.25,
+   "z": -2.191,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.621,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 30.85,
+   "y": 0.25,
+   "z": -2.213,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.604,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 31.75,
+   "y": 0.25,
+   "z": -2.235,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.616,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 32.65,
+   "y": 0.25,
+   "z": -2.257,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.603,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 33.55,
+   "y": 0.25,
+   "z": -2.279,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.607,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 34.45,
+   "y": 0.25,
+   "z": -2.301,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.622,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 35.35,
+   "y": 0.25,
+   "z": -2.323,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.601,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 36.25,
+   "y": 0.25,
+   "z": -2.345,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.589,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 37.15,
+   "y": 0.25,
+   "z": -2.367,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.606,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 38.05,
+   "y": 0.25,
+   "z": -2.389,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.612,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 38.95,
+   "y": 0.25,
+   "z": -2.81,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.591,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 39.85,
+   "y": 0.25,
+   "z": -3.398,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.608,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 40.75,
+   "y": 0.25,
+   "z": -3.518,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.577,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 41.65,
+   "y": 0.25,
+   "z": -3.536,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.623,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 42.55,
+   "y": 0.25,
+   "z": -3.554,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.599,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 43.45,
+   "y": 0.25,
+   "z": -3.572,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.623,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 44.35,
+   "y": 0.25,
+   "z": -3.59,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.609,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 45.25,
+   "y": 0.25,
+   "z": -3.608,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.617,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 46.15,
+   "y": 0.25,
+   "z": -3.626,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.621,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 47.05,
+   "y": 0.25,
+   "z": -3.644,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.619,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 47.95,
+   "y": 0.25,
+   "z": -3.662,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.595,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 48.85,
+   "y": 0.25,
+   "z": -3.68,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.623,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 49.75,
+   "y": 0.25,
+   "z": -3.698,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.622,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 50.65,
+   "y": 0.25,
+   "z": -3.716,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.587,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 51.55,
+   "y": 0.25,
+   "z": -3.734,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.616,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 52.45,
+   "y": 0.25,
+   "z": -4.866,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.592,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 53.35,
+   "y": 0.25,
+   "z": -4.95,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.586,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 54.25,
+   "y": 0.25,
+   "z": -5.035,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.593,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 55.15,
+   "y": 0.25,
+   "z": -5.119,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.607,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 56.05,
+   "y": 0.25,
+   "z": -5.203,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.602,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 56.95,
+   "y": 0.25,
+   "z": -5.287,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.599,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 57.85,
+   "y": 0.25,
+   "z": -5.372,
+   "rot": 0.0,
+   "sx": 0.775,
+   "sy": 0.614,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 58.75,
+   "y": 0.25,
+   "z": -5.456,
+   "rot": 3.1416,
+   "sx": 0.775,
+   "sy": 0.604,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 51.35,
+   "y": 0.887,
+   "z": -3.73,
+   "rot": 1.5708,
+   "sx": 0.775,
+   "sy": 0.585,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 51.35,
+   "y": 1.762,
+   "z": -3.73,
+   "rot": 4.7124,
+   "sx": 0.775,
+   "sy": 0.606,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 51.35,
+   "y": 2.638,
+   "z": -3.73,
+   "rot": 1.5708,
+   "sx": 0.775,
+   "sy": 0.583,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 51.35,
+   "y": 3.513,
+   "z": -3.73,
+   "rot": 4.7124,
+   "sx": 0.775,
+   "sy": 0.619,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 51.35,
+   "y": 4.388,
+   "z": -3.73,
+   "rot": 1.5708,
+   "sx": 0.775,
+   "sy": 0.622,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 51.35,
+   "y": 5.263,
+   "z": -3.73,
+   "rot": 4.7124,
+   "sx": 0.775,
+   "sy": 0.615,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 51.35,
+   "y": 6.138,
+   "z": -3.73,
+   "rot": 1.5708,
+   "sx": 0.775,
+   "sy": 0.616,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 51.35,
+   "y": 7.013,
+   "z": -3.73,
+   "rot": 4.7124,
+   "sx": 0.775,
+   "sy": 0.61,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 51.35,
+   "y": 7.888,
+   "z": -3.73,
+   "rot": 1.5708,
+   "sx": 0.775,
+   "sy": 0.614,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/fagyal-argenteum.glb",
+   "x": 51.35,
+   "y": 8.762,
+   "z": -3.73,
+   "rot": 4.7124,
+   "sx": 0.775,
+   "sy": 0.607,
+   "sz": 0.3
+  },
+  {
+   "model": "./model/lonc-pileata.glb",
+   "x": 38.6,
+   "y": 2.0,
+   "z": -2.611,
+   "rot": -0.799,
+   "sx": 0.871,
+   "sy": 0.996,
+   "sz": 0.871
+  },
+  {
+   "model": "./model/lonc-pileata.glb",
+   "x": 38.6,
+   "y": 2.9,
+   "z": -2.611,
+   "rot": 1.504,
+   "sx": 0.884,
+   "sy": 1.05,
+   "sz": 0.884
+  },
+  {
+   "model": "./model/lonc-pileata.glb",
+   "x": 38.6,
+   "y": 4.7,
+   "z": -2.611,
+   "rot": -1.776,
+   "sx": 0.855,
+   "sy": 1.02,
+   "sz": 0.855
+  },
+  {
+   "model": "./model/lonc-pileata.glb",
+   "x": 38.6,
+   "y": 5.6,
+   "z": -2.611,
+   "rot": 0.456,
+   "sx": 0.996,
+   "sy": 1.041,
+   "sz": 0.996
+  },
+  {
+   "model": "./model/lonc-pileata.glb",
+   "x": 39.5,
+   "y": 2.0,
+   "z": -3.199,
+   "rot": 2.909,
+   "sx": 0.945,
+   "sy": 0.953,
+   "sz": 0.945
+  },
+  {
+   "model": "./model/lonc-pileata.glb",
+   "x": 39.5,
+   "y": 2.9,
+   "z": -3.199,
+   "rot": -2.147,
+   "sx": 1.011,
+   "sy": 0.952,
+   "sz": 1.011
+  },
+  {
+   "model": "./model/lonc-pileata.glb",
+   "x": 39.5,
+   "y": 4.7,
+   "z": -3.211,
+   "rot": 1.461,
+   "sx": 0.871,
+   "sy": 0.917,
+   "sz": 0.871
+  },
+  {
+   "model": "./model/lonc-pileata.glb",
+   "x": 39.5,
+   "y": 5.6,
+   "z": -3.219,
+   "rot": -2.879,
+   "sx": 0.915,
+   "sy": 0.969,
+   "sz": 0.915
+  },
+  {
+   "model": "./model/lonc-pileata.glb",
+   "x": 38.55,
+   "y": 3.8,
+   "z": -2.579,
+   "rot": -2.121,
+   "sx": 1.047,
+   "sy": 0.909,
+   "sz": 1.047
+  },
+  {
+   "model": "./model/lonc-pileata.glb",
+   "x": 39.6,
+   "y": 3.8,
+   "z": -3.274,
+   "rot": -0.897,
+   "sx": 0.985,
+   "sy": 1.045,
+   "sz": 0.985
   }
  ]
 }
