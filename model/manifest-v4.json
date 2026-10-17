@@ -489,7 +489,7 @@
   "rezsu__bazalt": {
    "file": "model/v4-rezsu__bazalt.bin",
    "tris": 170,
-   "color": "#3A3A3C"
+   "color": "#767674"
   },
   "rezsu__rezsu-fu": {
    "file": "model/v4-rezsu__rezsu-fu.bin",
@@ -498,8 +498,8 @@
   },
   "kolepcso__bazalt": {
    "file": "model/v4-kolepcso__bazalt.bin",
-   "tris": 80,
-   "color": "#3A3A3C"
+   "tris": 40,
+   "color": "#767674"
   },
   "kolepcso__lepcso-zold": {
    "file": "model/v4-kolepcso__lepcso-zold.bin",
