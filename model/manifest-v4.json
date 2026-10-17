@@ -124,9 +124,9 @@
   },
   {
    "species": "szolo-kocka",
-   "x": 43.73,
+   "x": 42.24,
    "y": 3.66,
-   "base": -3.51,
+   "base": -3.46,
    "h": 3.42,
    "d": 5.37,
    "rot": 0.0
@@ -494,6 +494,21 @@
     4.2,
     10.6
    ]
+  },
+  "rezsu__bazalt": {
+   "file": "model/v4-rezsu__bazalt.bin",
+   "tris": 170,
+   "color": "#3A3A3C"
+  },
+  "rezsu__rezsu-fu": {
+   "file": "model/v4-rezsu__rezsu-fu.bin",
+   "tris": 216,
+   "color": "#899955"
+  },
+  "rezsu__lepoko": {
+   "file": "model/v4-rezsu__lepoko.bin",
+   "tris": 90,
+   "color": "#96928A"
   }
  },
  "objects": [
@@ -1720,104 +1735,154 @@
    "sz": 0.3
   },
   {
-   "model": "./model/lonc-pileata.glb",
-   "x": 38.6,
-   "y": 2.0,
-   "z": -2.611,
-   "rot": -0.799,
-   "sx": 0.871,
-   "sy": 0.996,
-   "sz": 0.871
+   "model": "./model/lonc-nitida.glb",
+   "x": 38.725,
+   "y": 4.971,
+   "z": -2.653,
+   "rot": 3.102,
+   "sx": 0.342,
+   "sy": 0.339,
+   "sz": 0.342
   },
   {
-   "model": "./model/lonc-pileata.glb",
-   "x": 38.6,
-   "y": 2.9,
-   "z": -2.611,
-   "rot": 1.504,
-   "sx": 0.884,
-   "sy": 1.05,
-   "sz": 0.884
+   "model": "./model/lonc-nitida.glb",
+   "x": 38.438,
+   "y": 5.456,
+   "z": -2.466,
+   "rot": 1.675,
+   "sx": 0.453,
+   "sy": 0.414,
+   "sz": 0.453
   },
   {
-   "model": "./model/lonc-pileata.glb",
-   "x": 38.6,
-   "y": 4.7,
-   "z": -2.611,
-   "rot": -1.776,
-   "sx": 0.855,
-   "sy": 1.02,
-   "sz": 0.855
+   "model": "./model/lonc-nitida.glb",
+   "x": 39.121,
+   "y": 2.748,
+   "z": -2.869,
+   "rot": 2.548,
+   "sx": 0.433,
+   "sy": 0.397,
+   "sz": 0.433
   },
   {
-   "model": "./model/lonc-pileata.glb",
-   "x": 38.6,
-   "y": 5.6,
-   "z": -2.611,
-   "rot": 0.456,
-   "sx": 0.996,
-   "sy": 1.041,
-   "sz": 0.996
+   "model": "./model/lonc-nitida.glb",
+   "x": 38.659,
+   "y": 2.301,
+   "z": -2.61,
+   "rot": -1.365,
+   "sx": 0.39,
+   "sy": 0.358,
+   "sz": 0.39
   },
   {
-   "model": "./model/lonc-pileata.glb",
-   "x": 39.5,
-   "y": 2.0,
-   "z": -3.199,
-   "rot": 2.909,
-   "sx": 0.945,
-   "sy": 0.953,
-   "sz": 0.945
+   "model": "./model/lonc-nitida.glb",
+   "x": 39.726,
+   "y": 4.673,
+   "z": -3.074,
+   "rot": -1.717,
+   "sx": 0.426,
+   "sy": 0.371,
+   "sz": 0.426
   },
   {
-   "model": "./model/lonc-pileata.glb",
-   "x": 39.5,
-   "y": 2.9,
-   "z": -3.199,
-   "rot": -2.147,
-   "sx": 1.011,
-   "sy": 0.952,
-   "sz": 1.011
+   "model": "./model/lonc-nitida.glb",
+   "x": 39.403,
+   "y": 5.069,
+   "z": -2.964,
+   "rot": -2.371,
+   "sx": 0.36,
+   "sy": 0.314,
+   "sz": 0.36
   },
   {
-   "model": "./model/lonc-pileata.glb",
-   "x": 39.5,
-   "y": 4.7,
-   "z": -3.211,
-   "rot": 1.461,
-   "sx": 0.871,
-   "sy": 0.917,
-   "sz": 0.871
+   "model": "./model/lonc-nitida.glb",
+   "x": 38.528,
+   "y": 3.67,
+   "z": -2.524,
+   "rot": 1.651,
+   "sx": 0.396,
+   "sy": 0.36,
+   "sz": 0.396
   },
   {
-   "model": "./model/lonc-pileata.glb",
-   "x": 39.5,
-   "y": 5.6,
-   "z": -3.219,
-   "rot": -2.879,
-   "sx": 0.915,
-   "sy": 0.969,
-   "sz": 0.915
+   "model": "./model/lonc-nitida.glb",
+   "x": 39.665,
+   "y": 2.213,
+   "z": -3.032,
+   "rot": -0.005,
+   "sx": 0.442,
+   "sy": 0.411,
+   "sz": 0.442
   },
   {
-   "model": "./model/lonc-pileata.glb",
-   "x": 38.55,
-   "y": 3.8,
-   "z": -2.579,
-   "rot": -2.121,
-   "sx": 1.047,
-   "sy": 0.909,
-   "sz": 1.047
+   "model": "./model/lonc-nitida.glb",
+   "x": 39.538,
+   "y": 5.516,
+   "z": -3.015,
+   "rot": -2.196,
+   "sx": 0.487,
+   "sy": 0.461,
+   "sz": 0.487
   },
   {
-   "model": "./model/lonc-pileata.glb",
-   "x": 39.6,
-   "y": 3.8,
-   "z": -3.274,
-   "rot": -0.897,
-   "sx": 0.985,
-   "sy": 1.045,
-   "sz": 0.985
+   "model": "./model/lonc-nitida.glb",
+   "x": 38.883,
+   "y": 5.571,
+   "z": -2.756,
+   "rot": -1.166,
+   "sx": 0.373,
+   "sy": 0.352,
+   "sz": 0.373
+  },
+  {
+   "model": "./model/lonc-nitida.glb",
+   "x": 39.177,
+   "y": 2.234,
+   "z": -2.886,
+   "rot": -2.959,
+   "sx": 0.498,
+   "sy": 0.446,
+   "sz": 0.498
+  },
+  {
+   "model": "./model/lonc-nitida.glb",
+   "x": 38.922,
+   "y": 4.384,
+   "z": -2.782,
+   "rot": -1.98,
+   "sx": 0.484,
+   "sy": 0.444,
+   "sz": 0.484
+  },
+  {
+   "model": "./model/lonc-nitida.glb",
+   "x": 39.625,
+   "y": 2.931,
+   "z": -3.024,
+   "rot": -2.293,
+   "sx": 0.362,
+   "sy": 0.346,
+   "sz": 0.362
+  },
+  {
+   "model": "./model/lonc-nitida.glb",
+   "x": 39.66,
+   "y": 3.748,
+   "z": -3.043,
+   "rot": 0.914,
+   "sx": 0.478,
+   "sy": 0.457,
+   "sz": 0.478
+  },
+  {
+   "model": "./model/lonc-nitida.glb",
+   "x": 38.523,
+   "y": 2.751,
+   "z": -2.521,
+   "rot": 2.231,
+   "sx": 0.372,
+   "sy": 0.335,
+   "sz": 0.372
   }
  ]
 }
