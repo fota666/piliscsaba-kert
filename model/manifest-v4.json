@@ -476,6 +476,11 @@
    "tris": 48,
    "color": "#181818"
   },
+  "soveny__fagyal": {
+   "file": "model/v4-soveny__fagyal.bin",
+   "tris": 1220,
+   "color": "#A3B27C"
+  },
   "magasagyas__magasagyas-keret": {
    "file": "model/v4-magasagyas__magasagyas-keret.bin",
    "tris": 120,
