@@ -169,6 +169,7 @@ export const SPECIES = {
   'helyorzo-8':            { type: 'model', model: './model/szilva.glb',              h: 8,   d: 7,   sez: 'szilva' },                // Helyőrző 8 m (a háromerű juhar helyén, fa még nincs kiválasztva)
   'acer-emperor':          { type: 'model', model: './model/acer-emperor-1.glb',      h: 4.5, d: 4   },          // Acer palmatum 'Emperor I' (bordó)
   'acer-fireglow':         { type: 'model', model: './model/acer-fireglow.glb',       h: 3.5, d: 3   },          // Acer palmatum 'Fireglow' (piros)
+  'cotinus-royal-purple':  { type: 'model', model: './model/acer-emperor-1.glb',      h: 3.5, d: 3   },   // Bíbor cserszömörce 'Royal Purple', törzses (saját GLB még nincs: a bordó juhar-modell)
   'cercis-avondale':       { type: 'model', model: './model/amanogawa.glb',           h: 3,   d: 2.5, sez: 'amanogawa', viragColor: '#B8337E' },   // Kínai júdásfa 'Avondale' (saját GLB még nincs: a cseresznye-sablon bíborrózsaszín virággal)
   'acer-shishigashira':    { type: 'model', model: './model/acer-shishigashira.glb',  h: 3,   d: 2   },  // Acer palmatum 'Shishigashira' (zöld, felálló)
   'szilva-toptaste':       { type: 'model', model: './model/szilva.glb',              h: 4,   d: 3.5, sez: 'szilva' },                                // Szilva 'Toptaste' (rezisztens, a lugasban)
